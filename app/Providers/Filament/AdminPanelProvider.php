@@ -38,8 +38,8 @@ class AdminPanelProvider extends PanelProvider
                 'success' => \Filament\Support\Colors\Color::hex('#00AFA6'), // Teal Hover
                 'warning' => \Filament\Support\Colors\Color::hex('#FF6A3D'), // Orange
             ])
-            ->spa() // Mengaktifkan efek transisi halaman yang super mulus
-            ->unsavedChangesAlerts() // Menampilkan notifikasi keren jika lupa save
+            ->spa() 
+            ->unsavedChangesAlerts() 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

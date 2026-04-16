@@ -149,10 +149,6 @@
                             </div>
                         </div>
                         
-                        <!-- Floating GIF 3 (Runner) -->
-                        <!-- <div class="absolute -top-10 right-10 z-20 animate-float" style="animation-delay: 2.5s;">
-                            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c3/512.gif" alt="Runner GIF" class="w-20 h-20 drop-shadow-2xl" />
-                        </div> -->
                     </div>
                 </div>
 
