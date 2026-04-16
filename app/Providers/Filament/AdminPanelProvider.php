@@ -26,11 +26,20 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('/')
             ->login()
+            ->brandName('RunSnap')
+            ->font('Montserrat')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => \Filament\Support\Colors\Color::hex('#00C2B8'), // Teal
+                'danger' => \Filament\Support\Colors\Color::Rose,
+                'gray' => \Filament\Support\Colors\Color::Slate,
+                'info' => \Filament\Support\Colors\Color::hex('#0B1B3A'),    // Navy
+                'success' => \Filament\Support\Colors\Color::hex('#00AFA6'), // Teal Hover
+                'warning' => \Filament\Support\Colors\Color::hex('#FF6A3D'), // Orange
             ])
+            ->spa() // Mengaktifkan efek transisi halaman yang super mulus
+            ->unsavedChangesAlerts() // Menampilkan notifikasi keren jika lupa save
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
