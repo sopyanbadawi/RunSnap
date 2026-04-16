@@ -14,7 +14,7 @@ services:
       - vendor:/app/vendor
     environment:
       SERVER_NAME: :80
-      DB_CONNECTION: mysql
+      DB_CONNECTION: ${DB_CONNECTION}
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_DATABASE: ${DB_DATABASE}
@@ -36,6 +36,19 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - mdata:/var/lib/mysql
+
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    ports:
+      - "54320:5432" # Akses dari luar via port 54320
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-laravel_pg}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
 
   bytebase:
     image: bytebase/bytebase:latest
@@ -62,5 +75,6 @@ services:
 
 volumes:
   mdata:
+  pgdata:
   bytebase_data:
   vendor:
