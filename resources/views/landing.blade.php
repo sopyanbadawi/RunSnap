@@ -98,7 +98,7 @@
                 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-5">
-                    <a href="/login" class="text-brand-navy font-bold hover:text-brand-teal transition-colors">Masuk</a>
+                    <a href="/runsnap/login" class="text-brand-navy font-bold hover:text-brand-teal transition-colors">Masuk</a>
                     <a href="/register" class="bg-brand-teal text-white px-7 py-2.5 rounded-full font-bold shadow-lg shadow-brand-teal/20 hover:bg-brand-tealHover hover:shadow-brand-teal/30 transition-all transform hover:-translate-y-0.5">Daftar</a>
                 </div>
                 

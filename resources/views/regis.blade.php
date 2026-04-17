@@ -117,9 +117,9 @@
                             </div>
                         </label>
                         <label class="cursor-pointer">
-                            <input type="radio" name="role" value="eo" class="peer sr-only">
+                            <input type="radio" name="role" value="fotografer" class="peer sr-only">
                             <div class="rounded-xl border-2 border-brand-border bg-white py-3 px-4 hover:bg-brand-light transition-all peer-checked:border-brand-orange peer-checked:bg-brand-orange/5 peer-checked:text-brand-orange text-center">
-                                <span class="block font-bold text-sm">📸 Fotografer/EO</span>
+                                <span class="block font-bold text-sm">📸 Fotografer</span>
                             </div>
                         </label>
                     </div>
