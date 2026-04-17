@@ -18,12 +18,6 @@ Route::get('/register', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 
-// Route::middleware(['auth'])->group(function () {
-    
-//     // Panggil langsung class-nya, lalu kirim parameternya
-   
-    
-// });
 
 Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,

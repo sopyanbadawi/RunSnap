@@ -145,7 +145,7 @@
                             <a href="#" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil & Data Diri</a>
                             <a href="#" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                             <div class="border-t border-brand-border my-1"></div>
-                            <form method="POST" action="/logout">
+                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                                 @csrf
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Logout</button>
                             </form>
