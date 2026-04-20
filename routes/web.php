@@ -4,19 +4,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\CheckRole;
 
-Route::get('/login', function () {
-    return redirect('/admin/login');
-});
 
 Route::get('/', function () {
     return view('landing');
-});
-
+    });
+    
 Route::get('/register', function () {
     return view('regis');
-});
+})->name('register');
+
 
 Route::post('/register', [AuthController::class, 'register']);
+
+Route::prefix('runsnap')->group(function () {
+    Route::get('/login', function () {
+        return view('login');
+    })->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
 
 Route::middleware([

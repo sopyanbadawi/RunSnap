@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('runsnap')
-            ->login()
+            //->login()
             ->brandName('RunSnap')
             ->font('Montserrat')
             ->colors([

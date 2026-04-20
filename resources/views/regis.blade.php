@@ -135,7 +135,7 @@
 
             <div class="mt-8 text-center text-sm text-brand-muted font-medium">
                 Sudah punya akun? 
-                <a href="/login" class="font-bold text-brand-teal hover:text-brand-navy transition-colors">Masuk di sini</a>
+                <a href="{{ route('login') }}" class="font-bold text-brand-teal hover:text-brand-navy">Masuk di sini</a>
             </div>
         </div>
 

@@ -19,6 +19,6 @@ class AuthController extends Controller
             'remember_token' => Str::random(10),
         ]);
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }
