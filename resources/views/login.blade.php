@@ -41,9 +41,9 @@
                 </button>
             </form>
 
-            <div class="mt-8 text-center text-sm text-brand-muted">
-                Belum punya akun? <a href="{{ route('register') }}" class="font-bold text-brand-teal hover:underline">Daftar di sini</a>
-            </div>
+            <!-- <div class="mt-8 text-center text-sm text-brand-muted">
+                Belum punya akun? <a href="" class="font-bold text-brand-teal hover:underline">Daftar di sini</a>
+            </div> -->
         </div>
 
         <!-- Right Side: Graphic/Branding (Hidden on small screens) -->

@@ -165,7 +165,7 @@
                         RunSnap adalah platform distribusi dan monetisasi foto event lari berbasis <span class="font-bold text-brand-teal">AI Face Recognition</span>. Hubungkan fotografer dan pelari secara instan tanpa perlu scrolling manual ribuan foto.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="/login" class="bg-brand-teal text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-teal/30 hover:bg-brand-tealHover hover:shadow-brand-teal/40 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 group">
+                        <a href="/runsnap/login" class="bg-brand-teal text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-teal/30 hover:bg-brand-tealHover hover:shadow-brand-teal/40 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 group">
                             Cari Fotomu Sekarang
                             <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
