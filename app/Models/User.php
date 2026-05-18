@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the photos uploaded by this user (if role is fotografer).
+     */
+    public function uploadedPhotos()
+    {
+        return $this->hasMany(Photo::class, 'fotografer_id');
+    }
 }
