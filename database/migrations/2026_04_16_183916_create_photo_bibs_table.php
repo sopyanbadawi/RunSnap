@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('photo_bibs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('photo_id')->constrained()->onDelete('cascade');
+            $table->json('bounding_box'); // Koordinat kotak bib [x, y, w, h]
             $table->string('bib_number')->index(); // Di-index agar query pencarian sangat cepat
             $table->timestamps();
         });

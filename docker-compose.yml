@@ -11,7 +11,6 @@ services:
       - "443:443/udp"
     volumes:
       - .:/app
-      - vendor:/app/vendor
     environment:
       SERVER_NAME: :80
       DB_CONNECTION: mysql
@@ -63,4 +62,3 @@ services:
 volumes:
   mdata:
   bytebase_data:
-  vendor:
