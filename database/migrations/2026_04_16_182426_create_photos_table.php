@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
+            $table->foreignId('fotografer_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('original_path');
             $table->string('watermark_path');
             $table->boolean('is_processed_ai')->default(false); // Flag apakah sudah diekstrak wajahnya oleh Python

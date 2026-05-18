@@ -145,140 +145,81 @@
                 </div>
             </header>
 
-            <!-- Dashboard Content -->
+            <!-- Dashboard Content -> Portfolio -->
             <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Overview</h1>
-                        <p class="text-brand-muted font-medium mt-1">Pantau performa dan pendapatan foto Anda hari ini.</p>
+                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
+                        <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan event.</p>
                     </div>
-                    <div class="flex gap-3 w-full md:w-auto">
-                        <button class="flex-1 md:flex-none bg-white border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            Cari Event
-                        </button>
-                        <button class="flex-1 md:flex-none bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                            Upload Foto
-                        </button>
-                    </div>
+                    <a href="{{ route('fotografer.upload') }}" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Upload Foto Baru
+                    </a>
                 </div>
 
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <!-- Stat 1 -->
-                    <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm relative overflow-hidden group">
-                        <div class="absolute right-0 top-0 w-24 h-24 bg-brand-teal/5 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-500"></div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-brand-teal/10 text-brand-teal rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                @forelse($photosByEvent as $eventId => $photos)
+                <div class="bg-white rounded-2xl shadow-sm border border-brand-border mb-8 overflow-hidden">
+                    <div class="p-6 border-b border-brand-border bg-brand-light/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl bg-gray-200 overflow-hidden flex-shrink-0">
+                                <img src="{{ asset('storage/' . ($photos->first()->event->banner_image ?? '')) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=200'" class="w-full h-full object-cover">
                             </div>
-                            <span class="text-brand-muted font-semibold">Total Pendapatan</span>
+                            <div>
+                                <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Event Tidak Diketahui' }}</h2>
+                                <p class="text-sm font-medium text-brand-muted mt-0.5 flex items-center gap-2">
+                                    <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> {{ \Carbon\Carbon::parse($photos->first()->event->tanggal ?? now())->translatedFormat('d F Y') }}</span>
+                                    <span class="text-brand-border">|</span>
+                                    <span class="text-brand-teal font-bold">{{ $photos->count() }} Foto Diunggah</span>
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-3xl font-black text-brand-navy">Rp {{ number_format($totalEarnings ?? 0, 0, ',', '.') }}</h3>
-                            <p class="text-sm font-medium text-green-500 flex items-center mt-2 group-hover:translate-x-1 transition-transform">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                Saldo aktif
-                            </p>
-                        </div>
+                        <button class="px-4 py-2 text-sm font-bold text-brand-navy bg-white border border-brand-border rounded-lg hover:border-brand-teal transition-colors">Lihat Detail Event</button>
                     </div>
 
-                    <!-- Stat 2 -->
-                    <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm relative overflow-hidden group">
-                        <div class="absolute right-0 top-0 w-24 h-24 bg-brand-orange/5 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-500"></div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-brand-orange/10 text-brand-orange rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <div class="p-6">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                            @foreach($photos->take(10) as $photo)
+                            <div class="aspect-square bg-gray-100 rounded-xl overflow-hidden relative group">
+                                <img src="{{ asset('storage/' . $photo->watermark_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                                    <button class="w-8 h-8 bg-white text-brand-navy rounded-full flex items-center justify-center hover:bg-brand-teal hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    </button>
+                                    <button class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                </div>
+                                @if($photo->is_processed_ai)
+                                <div class="absolute top-2 right-2 bg-brand-teal text-white text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    AI Ready
+                                </div>
+                                @endif
                             </div>
-                            <span class="text-brand-muted font-semibold">Foto Terjual</span>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-black text-brand-navy">{{ number_format($totalSales ?? 0, 0, ',', '.') }}</h3>
-                            <p class="text-sm font-medium text-brand-muted flex items-center mt-2 group-hover:translate-x-1 transition-transform">
-                                <span class="bg-brand-light px-2 py-0.5 rounded text-xs mr-2">{{ number_format($totalPhotos ?? 0, 0, ',', '.') }} Foto Diupload</span>
-                            </p>
-                        </div>
-                    </div>
+                            @endforeach
 
-                    <!-- Stat 3 -->
-                    <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm relative overflow-hidden group">
-                        <div class="absolute right-0 top-0 w-24 h-24 bg-brand-navy/5 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-500"></div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-brand-navy/10 text-brand-navy rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            @if($photos->count() > 10)
+                            <div class="aspect-square bg-brand-light rounded-xl flex flex-col items-center justify-center border-2 border-brand-border border-dashed hover:border-brand-teal hover:bg-brand-teal/5 transition-colors cursor-pointer group">
+                                <span class="text-xl font-black text-brand-navy group-hover:text-brand-teal transition-colors">+{{ $photos->count() - 10 }}</span>
+                                <span class="text-xs font-bold text-brand-muted mt-1 group-hover:text-brand-teal transition-colors">Lihat Semua</span>
                             </div>
-                            <span class="text-brand-muted font-semibold">Portofolio Event</span>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-black text-brand-navy">{{ \App\Models\Photo::where('fotografer_id', auth()->id())->distinct('event_id')->count('event_id') }}</h3>
-                            <a href="{{ route('fotografer.portfolio') }}" class="inline-block text-sm font-medium text-brand-teal mt-2 group-hover:translate-x-1 transition-transform hover:underline cursor-pointer">
-                                Lihat Koleksi &rarr;
-                            </a>
+                            @endif
                         </div>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Left Column: Recent Events to Upload -->
-                    <div class="lg:col-span-2">
-                        <div class="bg-white rounded-2xl border border-brand-border shadow-sm p-6 mb-8">
-                            <div class="flex justify-between items-center mb-6">
-                                <h2 class="text-xl font-bold text-brand-navy tracking-tight">Event Anda Selanjutnya</h2>
-                                <a href="#" class="text-sm font-bold text-brand-teal hover:underline">Kelola Event</a>
-                            </div>
-
-                            <!-- Empty State for Event -->
-                            <div class="text-center py-12 border-2 border-dashed border-brand-border rounded-xl">
-                                <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 text-brand-muted">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-                                </div>
-                                <h3 class="text-lg font-bold text-brand-navy">Belum Ada Event Aktif</h3>
-                                <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Cari event marathon/lari terdekat untuk meliput dan memfoto peserta lari.</p>
-                                <button class="mt-6 bg-brand-light border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-6 py-2 rounded-xl font-bold transition-all text-sm">Cari Event Lari</button>
-                            </div>
-                            
-                            <!-- Future Implementation (Sample Row): 
-                            <div class="border border-brand-border rounded-xl p-4 flex items-center justify-between hover:border-brand-teal transition-colors group cursor-pointer">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-14 h-14 bg-brand-light rounded-lg flex flex-col items-center justify-center border border-brand-border">
-                                        <span class="text-xs text-brand-orange font-bold uppercase">Mei</span>
-                                        <span class="text-lg font-black text-brand-navy">24</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-brand-navy group-hover:text-brand-teal transition-colors">Jakarta Marathon 2026</h4>
-                                        <p class="text-xs text-brand-muted mt-1 flex items-center">
-                                            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                            GBK, Jakarta Pusat
-                                        </p>
-                                    </div>
-                                </div>
-                                <button class="bg-brand-teal/10 text-brand-teal px-4 py-2 rounded-lg font-bold text-sm hover:bg-brand-teal hover:text-white transition-colors">Upload Foto</button>
-                            </div>
-                            -->
-                        </div>
+                @empty
+                <div class="text-center py-20 bg-white rounded-3xl shadow-sm border border-brand-border border-dashed">
+                    <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-5 text-brand-muted">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
-
-                    <!-- Right Column: Recent Sales -->
-                    <div class="lg:col-span-1">
-                        <div class="bg-white rounded-2xl border border-brand-border shadow-sm p-6 overflow-hidden relative">
-                            <div class="absolute inset-0 bg-gradient-to-b from-brand-light/50 to-transparent pointer-events-none"></div>
-                            
-                            <div class="flex justify-between items-center mb-6 relative z-10">
-                                <h2 class="text-xl font-bold text-brand-navy tracking-tight">Penjualan Terbaru</h2>
-                            </div>
-
-                            <!-- Empty State for Sales -->
-                            <div class="text-center py-10 relative z-10">
-                                <div class="inline-block p-4 rounded-full bg-brand-light text-brand-muted mb-3">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                </div>
-                                <h3 class="text-sm font-bold text-brand-navy">Belum ada penjualan</h3>
-                                <p class="text-xs text-brand-muted mt-1">Upload foto Anda ke event untuk mulai mendapatkan penghasilan.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-black text-brand-navy">Portofolio Masih Kosong</h3>
+                    <p class="text-brand-muted font-medium mt-2 max-w-md mx-auto mb-6">Anda belum pernah mengunggah foto satupun ke platform RunSnap. Mulai unggah foto event pertama Anda!</p>
+                    <a href="{{ route('fotografer.upload') }}" class="inline-flex bg-brand-teal text-white hover:bg-brand-tealHover px-6 py-3 rounded-xl font-bold transition-all shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] items-center justify-center gap-2">
+                        Upload Foto Sekarang
+                    </a>
                 </div>
+                @endforelse
             </div>
         </main>
     </div>

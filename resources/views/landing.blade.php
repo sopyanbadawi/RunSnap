@@ -303,7 +303,7 @@
             <p class="text-xl text-brand-light mb-10 font-medium" data-aos="fade-up" data-aos-delay="100">Bergabunglah sebagai Fotografer atau Pelari, dan rasakan kemudahan menemukan momen terbaik di setiap finish line.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="zoom-in" data-aos-delay="200">
                 <a href="/register" class="bg-brand-teal text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-tealHover transition-all transform hover:scale-105 shadow-xl shadow-brand-teal/20">Daftar Sekarang</a>
-                <a href="/login" class="bg-transparent text-white border-2 border-white/30 px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-brand-navy transition-all">Sudah Punya Akun?</a>
+                <a href="/runsnap/login" class="bg-transparent text-white border-2 border-white/30 px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-brand-navy transition-all">Sudah Punya Akun?</a>
             </div>
         </div>
     </section>
