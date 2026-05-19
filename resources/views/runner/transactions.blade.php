@@ -99,10 +99,10 @@
                             @auth
                             <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                                 @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Logout</button>
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                             </form>
                             @else
-                            <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Login</a>
+                            <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Masuk</a>
                             @endauth
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-brand-light border-b border-brand-border text-brand-muted text-xs uppercase tracking-wider font-bold">
-                                    <th class="p-5">Order ID</th>
+                                    <th class="p-5">ID Penjualan</th>
                                     <th class="p-5">Tanggal</th>
                                     <th class="p-5">Total Bayar</th>
                                     <th class="p-5">Status</th>
@@ -156,7 +156,7 @@
                                     </td>
                                     <td class="p-5 text-right">
                                         @if($trx->status === 'completed')
-                                        <button class="text-brand-teal font-bold text-sm hover:underline">Lihat Invoice</button>
+                                        <button class="text-brand-teal font-bold text-sm hover:underline">Lihat Keuntungan</button>
                                         @elseif($trx->status === 'pending')
                                         <button class="bg-brand-navy text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#152A50] transition-colors">Bayar Sekarang</button>
                                         @else

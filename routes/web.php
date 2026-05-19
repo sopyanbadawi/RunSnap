@@ -7,7 +7,7 @@ use App\Http\Controllers\RunnerController;
 use App\Http\Controllers\FotograferController;
 
 Route::get('/login', function () {
-    return redirect('/admin/login');
+    return redirect('/runsnap/login');
 });
 
 Route::get('/', function () {

@@ -99,10 +99,10 @@
                             @auth
                             <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                                 @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Logout</button>
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                             </form>
                             @else
-                            <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Login</a>
+                            <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Masuk</a>
                             @endauth
                         </div>
                     </div>
@@ -123,28 +123,28 @@
                         <div class="w-10 h-10 bg-brand-navy/10 text-brand-navy rounded-lg flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold text-brand-navy">Ubah Password</h3>
+                        <h3 class="text-lg font-bold text-brand-navy">Ubah Kata Sandi</h3>
                     </div>
                     
                     <form>
                         <div class="space-y-5">
                             <div>
-                                <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Password Saat Ini</label>
+                                <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Kata Sandi Saat Ini</label>
                                 <input type="password" placeholder="Masukkan password saat ini" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Password Baru</label>
+                                    <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Kata Sandi Baru</label>
                                     <input type="password" placeholder="Password baru" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Konfirmasi Password Baru</label>
+                                    <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Konfirmasi Kata Sandi Baru</label>
                                     <input type="password" placeholder="Ulangi password baru" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
                                 </div>
                             </div>
                         </div>
                         <div class="mt-6 flex justify-end">
-                            <button type="button" class="bg-brand-navy text-white px-6 py-2.5 rounded-xl font-bold hover:bg-[#152A50] transition-colors shadow-lg shadow-brand-navy/20">Perbarui Password</button>
+                            <button type="button" class="bg-brand-navy text-white px-6 py-2.5 rounded-xl font-bold hover:bg-[#152A50] transition-colors shadow-lg shadow-brand-navy/20">Perbarui Kata Sandi</button>
                         </div>
                     </form>
                 </div>
@@ -173,7 +173,7 @@
                         <label class="flex items-center justify-between p-4 border border-brand-border rounded-xl hover:bg-brand-light transition-colors cursor-pointer">
                             <div>
                                 <h4 class="font-bold text-brand-navy">Notifikasi WhatsApp</h4>
-                                <p class="text-xs text-brand-muted mt-0.5">Kirim invoice dan link unduhan langsung ke WhatsApp Anda.</p>
+                                <p class="text-xs text-brand-muted mt-0.5">Kirim tagihan dan link unduhan langsung ke WhatsApp Anda.</p>
                             </div>
                             <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
                                 <input type="checkbox" name="toggle" id="toggle2" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300" style="left: 0;"/>
@@ -189,7 +189,7 @@
                         <div class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold text-red-600">Danger Zone</h3>
+                        <h3 class="text-lg font-bold text-red-600">Zona Berbahaya</h3>
                     </div>
                     <p class="text-sm text-red-700/80 mb-6">Menghapus akun akan secara permanen menghapus semua data Anda, termasuk riwayat pembelian dan data wajah referensi. Tindakan ini tidak dapat dibatalkan.</p>
                     <button type="button" class="bg-red-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-500/20">Hapus Akun Permanen</button>

@@ -162,7 +162,7 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-navy to-brand-teal">dalam Hitungan Detik!</span>
                     </h1>
                     <p class="text-lg text-brand-muted mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-                        RunSnap adalah platform distribusi dan monetisasi foto event lari berbasis <span class="font-bold text-brand-teal">AI Face Recognition</span>. Hubungkan fotografer dan pelari secara instan tanpa perlu scrolling manual ribuan foto.
+                        RunSnap adalah platform distribusi dan monetisasi foto event lari berbasis <span class="font-bold text-brand-teal">AI Pengenalan Wajah</span>. Hubungkan fotografer dan pelari secara instan tanpa perlu scrolling manual ribuan foto.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <a href="/runsnap/login" class="bg-brand-teal text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-teal/30 hover:bg-brand-tealHover hover:shadow-brand-teal/40 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 group">
@@ -236,7 +236,7 @@
                         </li>
                         <li class="flex gap-3 text-brand-light font-medium">
                             <span class="text-brand-teal">✔</span>
-                            Transaksi otomatis QRIS/Virtual Account
+                            Transaksi otomatis QRIS/Akun Virtual
                         </li>
                     </ul>
                 </div>
@@ -249,7 +249,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <span class="text-brand-teal font-bold tracking-wider uppercase text-sm">Keunggulan Ekosistem</span>
-                <h2 class="text-3xl lg:text-4xl font-black text-brand-navy mt-2 mb-4">Fitur Core RunSnap</h2>
+                <h2 class="text-3xl lg:text-4xl font-black text-brand-navy mt-2 mb-4">Fitur Utama RunSnap</h2>
                 <div class="w-24 h-1.5 bg-brand-teal mx-auto rounded-full"></div>
             </div>
 
@@ -259,7 +259,7 @@
                     <div class="w-16 h-16 bg-brand-teal/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-teal group-hover:text-white text-brand-teal transition-all duration-300">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">AI Face Recognition</h3>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">AI Pengenalan Wajah</h3>
                     <p class="text-brand-muted text-sm leading-relaxed">Pelari cukup unggah satu foto selfie untuk menemukan semua foto mereka di event marathon secara otomatis.</p>
                 </div>
 
@@ -268,7 +268,7 @@
                     <div class="w-16 h-16 bg-brand-orange/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-orange group-hover:text-white text-brand-orange transition-all duration-300">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">Batch Upload</h3>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Unggah Berkelompok</h3>
                     <p class="text-brand-muted text-sm leading-relaxed">Memudahkan fotografer mengunggah ribuan foto sekaligus berdasarkan folder event atau kilometer tertentu tanpa macet.</p>
                 </div>
 
@@ -277,7 +277,7 @@
                     <div class="w-16 h-16 bg-brand-navy/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-navy group-hover:text-white text-brand-navy transition-all duration-300">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">Auto Payment & Watermark</h3>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Pembayaran Otomatis & Watermark</h3>
                     <p class="text-brand-muted text-sm leading-relaxed">Transaksi instan QRIS/VA. Foto asli tanpa watermark otomatis dikirim dan bisa diunduh pelari seketika setelah bayar.</p>
                 </div>
 
@@ -286,7 +286,7 @@
                     <div class="w-16 h-16 bg-brand-teal/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-teal group-hover:text-white text-brand-teal transition-all duration-300">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">Transparent Dashboard</h3>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Dasbor Transparan</h3>
                     <p class="text-brand-muted text-sm leading-relaxed">Statistik penjualan real-time, pencairan dana kilat bagi fotografer, dan histori pembelian rapi bagi pelari.</p>
                 </div>
             </div>
@@ -300,7 +300,7 @@
 
         <div class="max-w-4xl mx-auto px-4 relative z-10 text-center pt-16">
             <h2 class="text-4xl md:text-5xl font-black text-white mb-6" data-aos="fade-up">Mulai Perjalanan Epikmu</h2>
-            <p class="text-xl text-brand-light mb-10 font-medium" data-aos="fade-up" data-aos-delay="100">Bergabunglah sebagai Fotografer atau Pelari, dan rasakan kemudahan menemukan momen terbaik di setiap finish line.</p>
+            <p class="text-xl text-brand-light mb-10 font-medium" data-aos="fade-up" data-aos-delay="100">Bergabunglah sebagai Fotografer atau Pelari, dan rasakan kemudahan menemukan momen terbaik di setiap garis finis.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="zoom-in" data-aos-delay="200">
                 <a href="/register" class="bg-brand-teal text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-tealHover transition-all transform hover:scale-105 shadow-xl shadow-brand-teal/20">Daftar Sekarang</a>
                 <a href="/runsnap/login" class="bg-transparent text-white border-2 border-white/30 px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-brand-navy transition-all">Sudah Punya Akun?</a>
