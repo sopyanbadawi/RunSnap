@@ -82,7 +82,7 @@
 
                 <!-- Email -->
                 <div>
-                    <label for="email" class="block text-sm font-semibold text-brand-navy mb-1.5">Email Address</label>
+                    <label for="email" class="block text-sm font-semibold text-brand-navy mb-1.5">Alamat Email</label>
                     <input type="email" id="email" name="email" required
                         class="w-full px-4 py-3.5 rounded-xl border border-brand-border bg-brand-light focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-teal/50 focus:border-brand-teal transition-all text-brand-body text-sm placeholder-brand-muted" 
                         placeholder="nama@email.com">
@@ -91,7 +91,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <!-- Password -->
                     <div>
-                        <label for="password" class="block text-sm font-semibold text-brand-navy mb-1.5">Password</label>
+                        <label for="password" class="block text-sm font-semibold text-brand-navy mb-1.5">Kata Sandi</label>
                         <input type="password" id="password" name="password" required
                             class="w-full px-4 py-3.5 rounded-xl border border-brand-border bg-brand-light focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-teal/50 focus:border-brand-teal transition-all text-brand-body text-sm placeholder-brand-muted" 
                             placeholder="••••••••">
@@ -99,7 +99,7 @@
                     
                     <!-- Confirm Password -->
                     <div>
-                        <label for="password_confirmation" class="block text-sm font-semibold text-brand-navy mb-1.5">Konfirmasi Password</label>
+                        <label for="password_confirmation" class="block text-sm font-semibold text-brand-navy mb-1.5">Konfirmasi Kata Sandi</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" required
                             class="w-full px-4 py-3.5 rounded-xl border border-brand-border bg-brand-light focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-teal/50 focus:border-brand-teal transition-all text-brand-body text-sm placeholder-brand-muted" 
                             placeholder="••••••••">
@@ -167,7 +167,7 @@
                 <!-- Trust badge -->
                 <div class="mt-8 inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20">
                     <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.gif" alt="Fire" class="w-5 h-5">
-                    <span class="text-sm font-bold text-white tracking-wide uppercase">Powered by AI Recognition</span>
+                    <span class="text-sm font-bold text-white tracking-wide uppercase">Didukung Oleh AI Pengenalan Wajah</span>
                 </div>
             </div>
             

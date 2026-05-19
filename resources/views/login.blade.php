@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - RunSnap</title>
+    <title>Masuk - RunSnap</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -28,11 +28,11 @@
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
                 <div>
-                    <label class="block text-sm font-semibold text-brand-navy mb-1.5">Email Address</label>
+                    <label class="block text-sm font-semibold text-brand-navy mb-1.5">Alamat Email</label>
                     <input type="email" name="email" required class="w-full px-4 py-3.5 rounded-xl border border-brand-border bg-brand-light focus:bg-white outline-none focus:ring-2 focus:ring-brand-teal/50 transition-all">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-brand-navy mb-1.5">Password</label>
+                    <label class="block text-sm font-semibold text-brand-navy mb-1.5">Kata Sandi</label>
                     <input type="password" name="password" required class="w-full px-4 py-3.5 rounded-xl border border-brand-border bg-brand-light focus:bg-white outline-none focus:ring-2 focus:ring-brand-teal/50 transition-all">
                 </div>
                 
@@ -74,7 +74,7 @@
                 <!-- Trust badge -->
                 <div class="mt-8 inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20">
                     <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.gif" alt="Fire" class="w-5 h-5">
-                    <span class="text-sm font-bold text-white tracking-wide uppercase">Powered by AI Recognition</span>
+                    <span class="text-sm font-bold text-white tracking-wide uppercase">Didukung oleh AI Pengenalan Wajah </span>
                 </div>
             </div>
 

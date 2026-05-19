@@ -111,7 +111,7 @@
                 <div class="bg-gradient-to-tr from-brand-navy to-[#183163] p-5 rounded-2xl border border-[#23427E] relative overflow-hidden group shadow-lg">
                     <div class="absolute -right-6 -top-6 w-24 h-24 bg-brand-teal/20 rounded-full blur-2xl group-hover:bg-brand-teal/40 transition-all duration-500"></div>
                     <svg class="w-8 h-8 text-brand-teal mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h4 class="text-white text-sm font-bold mb-1">Face Recognition!</h4>
+                    <h4 class="text-white text-sm font-bold mb-1">Pengenalan Wajah!</h4>
                     <p class="text-brand-light/70 text-xs mb-4">Temukan fotomu instan hanya dengan 1 selfie.</p>
                     <button class="w-full bg-brand-teal text-white text-xs font-bold py-2.5 rounded-lg hover:bg-brand-tealHover transition-colors flex justify-center items-center gap-1 shadow-[0_4px_14px_0_rgba(0,194,184,0.39)]">
                         Mulai Cari Foto
@@ -167,10 +167,10 @@
                             @auth
                             <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                                 @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Logout</button>
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                             </form>
                             @else
-                            <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Login</a>
+                            <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Masuk</a>
                             @endauth
                         </div>
                     </div>
