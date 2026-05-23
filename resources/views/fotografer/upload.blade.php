@@ -101,7 +101,7 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col overflow-y-auto">
             <!-- Header -->
-            <header class="h-20 bg-white/80 backdrop-blur-md border-b border-brand-border flex items-center justify-between px-6 sticky top-0 z-10">
+            <header class="h-20 shrink-0 bg-white/80 backdrop-blur-md border-b border-brand-border flex items-center justify-between px-6 sticky top-0 z-10">
                 <div class="flex items-center">
                     <button @click="sidebarOpen = true" class="text-brand-navy hover:text-brand-teal lg:hidden mr-4 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
