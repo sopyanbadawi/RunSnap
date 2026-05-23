@@ -112,11 +112,48 @@
                 <!-- Right Header Items -->
                 <div class="flex items-center space-x-4">
                     <!-- Notification -->
-                    <button class="relative p-2 text-brand-muted hover:text-brand-teal transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                        <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white"></span>
-                    </button>
-
+                    <div class="relative group pb-4 -mb-4 mr-2">
+                        <button class="relative p-2 text-brand-muted hover:text-brand-teal transition-colors focus:outline-none cursor-pointer">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white"></span>
+                        </button>
+                    
+                        <div class="absolute right-0 top-full mt-1 w-80 bg-white rounded-xl shadow-lg border border-brand-border z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100 overflow-hidden">
+                            <div class="p-4 border-b border-brand-border flex justify-between items-center bg-brand-light">
+                                <h3 class="font-bold text-brand-navy text-sm">Notifikasi</h3>
+                                <button class="text-xs text-brand-teal font-bold hover:underline">Tandai dibaca</button>
+                            </div>
+                            
+                            <div class="max-h-80 overflow-y-auto">
+                                <a href="{{ route('fotografer.earnings') }}" class="block p-4 border-b border-brand-border hover:bg-brand-light transition-colors bg-white">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-brand-teal/10 text-brand-teal flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        </div>
+                                        <div class="text-left">
+                                            <p class="text-sm text-brand-navy font-bold">Foto Berhasil Terjual! 🎉</p>
+                                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">Foto unggahanmu di salah satu event telah dibeli oleh pelari.</p>
+                                            <p class="text-[10px] text-brand-teal mt-2 font-bold">Baru saja</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="block p-4 hover:bg-brand-light transition-colors bg-gray-50 opacity-70">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-brand-navy/10 text-brand-navy flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        </div>
+                                        <div class="text-left">
+                                            <p class="text-sm text-brand-navy font-bold">Akun Telah Aktif</p>
+                                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">Selamat datang di RunSnap! Mulai unggah karyamu sekarang.</p>
+                                            <p class="text-[10px] text-brand-muted mt-2 font-bold">2 hari yang lalu</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="#" class="block w-full text-center p-3 text-xs font-bold text-brand-navy bg-brand-light hover:text-brand-teal transition-colors border-t border-brand-border">Lihat Semua Notifikasi</a>
+                        </div>
+                    </div>
+                    
                     <!-- Profile Dropdown -->
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
