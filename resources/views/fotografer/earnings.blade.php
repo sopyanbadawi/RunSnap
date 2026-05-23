@@ -59,22 +59,26 @@
 
                 <!-- Nav Menu -->
                 <nav class="mt-6 px-4 space-y-2">
-                    <a href="{{ route('fotografer.dashboard') }}" class="flex items-center px-4 py-3 rounded-xl bg-brand-teal text-white shadow-lg shadow-brand-teal/20 transition-all font-semibold">
+                    <a href="{{ route('fotografer.dashboard') }}" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                         Dashboard
                     </a>
-                    
-                    <a href="{{ route('fotografer.upload') }}" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-white/5 hover:text-white transition-all font-semibold">
+
+                    <a href="{{ route('fotografer.upload') }}" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         Upload Foto
                     </a>
-
-                    <a href="{{ route('fotografer.portfolio') }}" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-white/5 hover:text-white transition-all font-semibold">
+                
+                    <a href="{{ route('fotografer.portfolio') }}" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.portfolio') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         Portofolio
                     </a>
-
-                    <a href="{{ route('fotografer.earnings') }}" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-white/5 hover:text-white transition-all font-semibold">
+                
+                    <a href="{{ route('fotografer.earnings') }}" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.earnings') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         Pendapatan
                     </a>
@@ -104,11 +108,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <!-- Search Bar -->
-                    <div class="hidden sm:flex items-center bg-brand-light px-4 py-2.5 rounded-full border border-brand-border focus-within:border-brand-teal focus-within:ring-2 focus-within:ring-brand-teal/20 transition-all w-80">
-                        <svg class="w-5 h-5 text-brand-muted mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" placeholder="Cari event, nomor bib..." class="bg-transparent border-none focus:outline-none w-full text-sm font-medium text-brand-body placeholder-brand-muted">
-                    </div>
                 </div>
 
                 <!-- Right Header Items -->
@@ -120,27 +119,27 @@
                     </button>
 
                     <!-- Profile Dropdown -->
-                    <div class="relative" @click.away="profileDropdown = false">
-                        <button @click="profileDropdown = !profileDropdown" class="flex items-center space-x-3 focus:outline-none bg-brand-light p-1.5 pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors">
+                    <div class="relative group pb-4 -mb-4">
+                        <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold text-sm">
                                 {{ substr(auth()->user()->name ?? 'F O', 0, 1) }}
                             </div>
                             <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Fotografer' }}</span>
-                            <svg class="w-4 h-4 text-brand-muted hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
 
-                        <!-- Dropdown Menu -->
-                        <div x-show="profileDropdown" x-transition.enter="transition ease-out duration-100" x-transition.enter-start="transform opacity-0 scale-95" x-transition.enter-end="transform opacity-100 scale-100" x-transition.leave="transition ease-in duration-75" x-transition.leave-start="transform opacity-100 scale-100" x-transition.leave-end="transform opacity-0 scale-95" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50">
-                            <a href="#" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
-                            <div class="border-t border-brand-border my-1"></div>
-                            @auth
-                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
-                            </form>
-                            @endauth
-                        </div>
+                            <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                        <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
+                        <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
+                        <div class="border-t border-brand-border my-1"></div>
+                        @auth
+                        <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
+                        </form>
+                        @endauth
                     </div>
                 </div>
             </header>

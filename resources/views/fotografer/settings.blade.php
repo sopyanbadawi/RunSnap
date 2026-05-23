@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Fotografer - RunSnap</title>
+    <title>Pengaturan Akun - RunSnap</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -36,20 +34,16 @@
         }
     </script>
     
-    <!-- Alpine.js for interactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-brand-light text-brand-body font-sans antialiased" x-data="{ sidebarOpen: false, profileDropdown: false }">
+<body class="bg-brand-light text-brand-body font-sans antialiased" x-data="{ sidebarOpen: false }">
 
     <div class="flex h-screen overflow-hidden">
         
-        <!-- Mobile sidebar backdrop -->
         <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-20 bg-gray-900 bg-opacity-50 lg:hidden" @click="sidebarOpen = false"></div>
 
-        <!-- Sidebar -->
-        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-brand-navy transition duration-300 transform lg:relative lg:translate-x-0 overflow-y-auto flex flex-col justify-between">
+        <aside class="fixed inset-y-0 left-0 z-30 w-64 bg-brand-navy lg:relative flex flex-col justify-between">
             <div>
-                <!-- Brand -->
                 <div class="flex items-center justify-center h-20 border-b border-[#152A50]">
                     <a href="/" class="text-2xl font-black text-white tracking-tighter flex items-center gap-1 group">
                         <svg class="w-7 h-7 text-brand-teal transform group-hover:-rotate-12 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -85,7 +79,6 @@
                 </nav>
             </div>
             
-            <!-- Bottom Sidebar (Help / Settings) -->
             <div class="px-4 pb-6 mt-10">
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
@@ -110,93 +103,93 @@
                     </button>
                 </div>
 
-                <!-- Right Header Items -->
                 <div class="flex items-center space-x-4">
-                    <!-- Notification -->
                     <button class="relative p-2 text-brand-muted hover:text-brand-teal transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white"></span>
                     </button>
 
-                    <!-- Profile Dropdown -->
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold text-sm">
                                 {{ substr(auth()->user()->name ?? 'F O', 0, 1) }}
                             </div>
                             <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Fotografer' }}</span>
-
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                    
-                    <!-- Dropdown Menu -->
-                    <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                        <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
-                        <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
-                        <div class="border-t border-brand-border my-1"></div>
-                        @auth
-                        <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                            @csrf
-                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
-                        </form>
-                        @endauth
+
+                        <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                            <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
+                            <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
+                            <div class="border-t border-brand-border my-1"></div>
+                            @auth
+                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
+                            </form>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Dashboard Content -> Upload -->
-            <div class="p-6 sm:p-10 w-full max-w-5xl mx-auto">
-                <div class="mb-8">
-                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Upload Foto Event</h1>
-                    <p class="text-brand-muted font-medium mt-1">Unggah hasil jepretan Anda ke event yang tersedia untuk mulai menjual.</p>
+            <div class="p-6 sm:p-10 w-full max-w-4xl mx-auto flex-1">
+                <div class="mb-10">
+                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Pengaturan Akun</h1>
+                    <p class="text-brand-muted font-medium mt-1">Kelola keamanan password dan preferensi akun Anda.</p>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-brand-border p-6 sm:p-8">
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 sm:p-8 mb-8">
+                    <div class="flex items-center gap-3 mb-6 border-b border-brand-border pb-4">
+                        <div class="w-10 h-10 bg-brand-navy/10 text-brand-navy rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-navy">Ubah Kata Sandi</h3>
+                    </div>
+                    
+                    <form action="{{ route('fotografer.password.update') }}" method="POST">
                         @csrf
-                        
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Event</label>
-                            <select name="event_id" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all cursor-pointer font-medium" required>
-                                <option value="" disabled selected>-- Pilih Event Lari --</option>
-                                @foreach($events as $event)
-                                    <option value="{{ $event->id }}">{{ $event->name }} - {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</option>
-                                @endforeach
-                            </select>
-                            <p class="text-xs text-brand-muted mt-2">Pastikan Anda memilih event yang tepat agar pelari bisa menemukan fotonya.</p>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-bold text-brand-navy mb-2">Kata Sandi Saat Ini</label>
+                                <input type="password" name="current_password" placeholder="Masukkan password saat ini" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Kata Sandi Baru</label>
+                                    <input type="password" name="new_password" placeholder="Password baru minimal 8 karakter" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Konfirmasi Kata Sandi Baru</label>
+                                    <input type="password" name="new_password_confirmation" placeholder="Ulangi password baru" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Harga Per Foto (Rp)</label>
-                            <input type="number" name="price" value="25000" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-bold" required min="10000" step="5000">
-                        </div>
-
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Foto (Drag & Drop)</label>
-                            <div class="flex items-center justify-center w-full">
-                                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-brand-border border-dashed rounded-2xl cursor-pointer bg-brand-light/50 hover:bg-brand-light transition-colors group">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
-                                            <svg class="w-8 h-8 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                        </div>
-                                        <p class="mb-2 text-sm text-brand-navy font-bold"><span class="text-brand-teal">Klik untuk memilih file</span> atau drag and drop kesini</p>
-                                        <p class="text-xs text-brand-muted">PNG, JPG or JPEG (MAX. 10MB per foto)</p>
-                                        <p class="text-xs text-brand-orange font-bold mt-2 bg-brand-orange/10 px-3 py-1 rounded-full">Sistem akan memproses AI & Watermark otomatis!</p>
-                                    </div>
-                                    <input id="dropzone-file" type="file" name="photos[]" multiple class="hidden" accept="image/png, image/jpeg, image/jpg" required />
-                                </label>
-                            </div> 
-                        </div>
-
-                        <div class="flex justify-end pt-4 border-t border-brand-border">
-                            <button type="button" class="px-6 py-3 mr-3 text-sm font-bold text-brand-muted bg-brand-light rounded-xl hover:bg-gray-200 transition-colors">Batal</button>
-                            <button type="submit" class="px-8 py-3 text-sm font-bold text-white bg-brand-teal rounded-xl hover:bg-brand-tealHover shadow-lg shadow-brand-teal/30 transition-all flex items-center">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                Mulai Upload
-                            </button>
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" class="bg-brand-navy text-white px-6 py-2.5 rounded-xl font-bold hover:bg-brand-teal transition-colors shadow-md">Perbarui Kata Sandi</button>
                         </div>
                     </form>
                 </div>
+
+                <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 sm:p-8">
+                    <div class="flex items-center gap-3 mb-6 border-b border-brand-border pb-4">
+                        <div class="w-10 h-10 bg-brand-teal/10 text-brand-teal rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-navy">Preferensi Notifikasi Penjualan</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between p-4 border border-brand-border rounded-xl hover:bg-brand-light transition-colors cursor-pointer">
+                            <div>
+                                <h4 class="font-bold text-brand-navy">Pemberitahuan Foto Terjual</h4>
+                                <p class="text-xs text-brand-muted mt-0.5">Dapatkan laporan email langsung instan setiap kali foto unggahan Anda berhasil dibeli oleh pelari.</p>
+                            </div>
+                            <input type="checkbox" checked class="w-5 h-5 accent-brand-teal">
+                        </label>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>

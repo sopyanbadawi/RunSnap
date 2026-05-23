@@ -45,7 +45,12 @@ Route::middleware([
     Route::middleware(['auth'])->prefix('fotografer')->name('fotografer.')->group(function () {
         Route::get('/dashboard', [FotograferController::class, 'dashboard'])->name('dashboard');
         Route::get('/upload', [FotograferController::class, 'upload'])->name('upload');
+        Route::post('/upload', [FotograferController::class, 'storeUpload'])->name('storeUpload');
         Route::get('/portfolio', [FotograferController::class, 'portfolio'])->name('portfolio');
         Route::get('/earnings', [FotograferController::class, 'earnings'])->name('earnings');
+        Route::get('/profile', [FotograferController::class, 'profile'])->name('profile');
+        Route::post('/profile/update', [FotograferController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/settings', [FotograferController::class, 'settings'])->name('settings');
+        Route::post('/settings/password', [FotograferController::class, 'updatePassword'])->name('password.update');
     });
 });

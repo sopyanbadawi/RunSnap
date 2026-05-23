@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Photo;
 use App\Models\PurchasedPhoto;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FotograferController extends Controller
 {
@@ -67,5 +68,61 @@ class FotograferController extends Controller
         $totalEarnings = $purchases->count() * 25000; // Logika dummy sementara
 
         return view('fotografer.earnings', compact('purchases', 'totalEarnings'));
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        // Menghitung total foto yang diunggah untuk dipajang di halaman profil
+        $totalPhotos = Photo::where('fotografer_id', $user->id)->count();
+        return view('fotografer.profile', compact('user', 'totalPhotos'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        // 1. Validasi inputan (pastikan email unik kecuali milik user ini sendiri)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
+        ]);
+
+        // 2. Ambil data user langsung dari database menggunakan ID
+        $user = \App\Models\User::find(Auth::id());
+        
+        // 3. Timpa dengan data baru
+        $user->name = $request->name;
+        $user->email = $request->email;
+        
+        // 4. Simpan paksa ke database
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function settings()
+    {
+        $user = Auth::user();
+        return view('fotografer.settings', compact('user'));
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = \App\Models\User::find(Auth::id());
+
+        // Cek apakah password lama yang dimasukkan benar
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Kata sandi saat ini tidak cocok.']);
+        }
+
+        // Simpan password baru
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Kata sandi berhasil diperbarui!');
     }
 }

@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Fotografer - RunSnap</title>
+    <title>Profil Saya - RunSnap</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -36,20 +34,16 @@
         }
     </script>
     
-    <!-- Alpine.js for interactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-brand-light text-brand-body font-sans antialiased" x-data="{ sidebarOpen: false, profileDropdown: false }">
+<body class="bg-brand-light text-brand-body font-sans antialiased" x-data="{ sidebarOpen: false }">
 
     <div class="flex h-screen overflow-hidden">
         
-        <!-- Mobile sidebar backdrop -->
         <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-20 bg-gray-900 bg-opacity-50 lg:hidden" @click="sidebarOpen = false"></div>
 
-        <!-- Sidebar -->
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-brand-navy transition duration-300 transform lg:relative lg:translate-x-0 overflow-y-auto flex flex-col justify-between">
             <div>
-                <!-- Brand -->
                 <div class="flex items-center justify-center h-20 border-b border-[#152A50]">
                     <a href="/" class="text-2xl font-black text-white tracking-tighter flex items-center gap-1 group">
                         <svg class="w-7 h-7 text-brand-teal transform group-hover:-rotate-12 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -85,7 +79,6 @@
                 </nav>
             </div>
             
-            <!-- Bottom Sidebar (Help / Settings) -->
             <div class="px-4 pb-6 mt-10">
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
@@ -110,115 +103,91 @@
                     </button>
                 </div>
 
-                <!-- Right Header Items -->
                 <div class="flex items-center space-x-4">
-                    <!-- Notification -->
                     <button class="relative p-2 text-brand-muted hover:text-brand-teal transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                         <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white"></span>
                     </button>
 
-                    <!-- Profile Dropdown -->
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold text-sm">
                                 {{ substr(auth()->user()->name ?? 'F O', 0, 1) }}
                             </div>
                             <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Fotografer' }}</span>
-
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                    
-                    <!-- Dropdown Menu -->
-                    <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                        <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
-                        <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
-                        <div class="border-t border-brand-border my-1"></div>
-                        @auth
-                        <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                            @csrf
-                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
-                        </form>
-                        @endauth
+
+                        <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                            <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
+                            <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
+                            <div class="border-t border-brand-border my-1"></div>
+                            @auth
+                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
+                            </form>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Dashboard Content -> Portfolio -->
-            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                    <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
-                        <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan event.</p>
-                    </div>
-                    <a href="{{ route('fotografer.upload') }}" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Upload Foto Baru
-                    </a>
+            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto flex-1">
+                <div class="mb-10">
+                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Profil & Data Diri</h1>
+                    <p class="text-brand-muted font-medium mt-1">Kelola informasi publik profil akun Fotografer Anda.</p>
                 </div>
 
-                @forelse($photosByEvent as $eventId => $photos)
-                <div class="bg-white rounded-2xl shadow-sm border border-brand-border mb-8 overflow-hidden">
-                    <div class="p-6 border-b border-brand-border bg-brand-light/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 rounded-xl bg-gray-200 overflow-hidden flex-shrink-0">
-                                <img src="{{ asset('storage/' . ($photos->first()->event->banner_image ?? '')) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=200'" class="w-full h-full object-cover">
+                @if(session('success'))
+                    <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl font-bold text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl font-bold text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 text-center h-full flex flex-col items-center justify-center py-12">
+                            <div class="w-24 h-24 bg-brand-teal/10 text-brand-teal rounded-full flex items-center justify-center mb-4 text-3xl font-black shadow-sm">
+                                {{ $totalPhotos ?? 0 }}
                             </div>
-                            <div>
-                                <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Event Tidak Diketahui' }}</h2>
-                                <p class="text-sm font-medium text-brand-muted mt-0.5 flex items-center gap-2">
-                                    <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> {{ \Carbon\Carbon::parse($photos->first()->event->tanggal ?? now())->translatedFormat('d F Y') }}</span>
-                                    <span class="text-brand-border">|</span>
-                                    <span class="text-brand-teal font-bold">{{ $photos->count() }} Foto Diunggah</span>
-                                </p>
-                            </div>
+                            <h3 class="font-bold text-brand-navy text-lg">Total Foto Diunggah</h3>
+                            <p class="text-xs text-brand-muted mt-2 max-w-xs mx-auto">Koleksi foto hasil jepretan Anda yang siap diproses oleh AI dan dipasarkan di platform RunSnap.</p>
                         </div>
-                        <button class="px-4 py-2 text-sm font-bold text-brand-navy bg-white border border-brand-border rounded-lg hover:border-brand-teal transition-colors">Lihat Detail Event</button>
                     </div>
 
-                    <div class="p-6">
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                            @foreach($photos->take(10) as $photo)
-                            <div class="aspect-square bg-gray-100 rounded-xl overflow-hidden relative group">
-                                <img src="{{ asset('storage/' . $photo->watermark_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                                    <button class="w-8 h-8 bg-white text-brand-navy rounded-full flex items-center justify-center hover:bg-brand-teal hover:text-white transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                    </button>
-                                    <button class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                    </button>
+                    <div class="lg:col-span-2">
+                        <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 sm:p-8">
+                            <h3 class="text-lg font-bold text-brand-navy mb-6 border-b border-brand-border pb-4">Informasi Profil</h3>
+                            
+                            <form action="{{ route('fotografer.profile.update') }}" method="POST">
+                                @csrf
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Nama Lengkap</label>
+                                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy font-semibold focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Email Akun</label>
+                                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy font-semibold focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all" required>
+                                    </div>
                                 </div>
-                                @if($photo->is_processed_ai)
-                                <div class="absolute top-2 right-2 bg-brand-teal text-white text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
-                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    AI Ready
-                                </div>
-                                @endif
-                            </div>
-                            @endforeach
 
-                            @if($photos->count() > 10)
-                            <div class="aspect-square bg-brand-light rounded-xl flex flex-col items-center justify-center border-2 border-brand-border border-dashed hover:border-brand-teal hover:bg-brand-teal/5 transition-colors cursor-pointer group">
-                                <span class="text-xl font-black text-brand-navy group-hover:text-brand-teal transition-colors">+{{ $photos->count() - 10 }}</span>
-                                <span class="text-xs font-bold text-brand-muted mt-1 group-hover:text-brand-teal transition-colors">Lihat Semua</span>
-                            </div>
-                            @endif
+                                <div class="flex justify-end gap-3">
+                                    <button type="submit" class="bg-brand-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-[#152A50] transition-colors shadow-lg shadow-brand-navy/20">Simpan Perubahan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                @empty
-                <div class="text-center py-20 bg-white rounded-3xl shadow-sm border border-brand-border border-dashed">
-                    <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-5 text-brand-muted">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-black text-brand-navy">Portofolio Masih Kosong</h3>
-                    <p class="text-brand-muted font-medium mt-2 max-w-md mx-auto mb-6">Anda belum pernah mengunggah foto satupun ke platform RunSnap. Mulai unggah foto event pertama Anda!</p>
-                    <a href="{{ route('fotografer.upload') }}" class="inline-flex bg-brand-teal text-white hover:bg-brand-tealHover px-6 py-3 rounded-xl font-bold transition-all shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] items-center justify-center gap-2">
-                        Upload Foto Sekarang
-                    </a>
-                </div>
-                @endforelse
             </div>
         </main>
     </div>
