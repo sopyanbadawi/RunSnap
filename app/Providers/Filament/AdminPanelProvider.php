@@ -20,6 +20,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Middleware\CheckRole;
 use App\Filament\Widgets\OverviewStats;
+use App\Filament\Widgets\TransactionChart;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -52,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 //FilamentInfoWidget::class,
                 OverviewStats::class,
                 AccountWidget::class,
+                TransactionChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
