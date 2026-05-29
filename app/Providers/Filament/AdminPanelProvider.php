@@ -55,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
                 TransactionChart::class,
             ])
+            
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

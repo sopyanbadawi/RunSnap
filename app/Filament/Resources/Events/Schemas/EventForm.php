@@ -20,8 +20,9 @@ class EventForm
                 DatePicker::make('tanggal')
                     ->required(),
                 TextInput::make('lokasi'),
-                TextInput::make('eo_id')
+                TextInput::make('user_id')
                     ->required()
+                    ->label('ID Pembuat')
                     ->numeric(),
                 FileUpload::make('banner_image')
                     ->disk('public')
