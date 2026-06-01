@@ -9,12 +9,14 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
+use App\Models\Transaction;
 
 class TransactionsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->query(Transaction::with('user')) // Eager load relasi user untuk menghindari N+1
             ->columns([
                 TextColumn::make('id')
                     ->label('TX ID')

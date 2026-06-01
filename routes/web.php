@@ -52,5 +52,6 @@ Route::middleware([
         Route::post('/profile/update', [FotograferController::class, 'updateProfile'])->name('profile.update');
         Route::get('/settings', [FotograferController::class, 'settings'])->name('settings');
         Route::post('/settings/password', [FotograferController::class, 'updatePassword'])->name('password.update');
+        Route::delete('/photos/{id}', [FotograferController::class, 'destroyPhoto'])->name('photos.delete');
     });
 });

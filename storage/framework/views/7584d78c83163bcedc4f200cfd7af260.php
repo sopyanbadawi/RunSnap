@@ -59,26 +59,26 @@
 
                 <!-- Nav Menu -->
                 <nav class="mt-6 px-4 space-y-2">
-                    <a href="{{ route('fotografer.dashboard') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.dashboard')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                         Dashboard
                     </a>
 
-                    <a href="{{ route('fotografer.upload') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.upload')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         Upload Foto
                     </a>
                 
-                    <a href="{{ route('fotografer.portfolio') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.portfolio') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.portfolio')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.portfolio') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         Portofolio
                     </a>
                 
-                    <a href="{{ route('fotografer.earnings') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.earnings') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.earnings')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.earnings') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         Pendapatan
                     </a>
@@ -126,7 +126,7 @@
                             </div>
                             
                             <div class="max-h-80 overflow-y-auto">
-                                <a href="{{ route('fotografer.earnings') }}" class="block p-4 border-b border-brand-border hover:bg-brand-light transition-colors bg-white">
+                                <a href="<?php echo e(route('fotografer.earnings')); ?>" class="block p-4 border-b border-brand-border hover:bg-brand-light transition-colors bg-white">
                                     <div class="flex items-start gap-3">
                                         <div class="w-8 h-8 rounded-full bg-brand-teal/10 text-brand-teal flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -159,24 +159,25 @@
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold text-sm">
-                                {{ substr(auth()->user()->name ?? 'F O', 0, 1) }}
+                                <?php echo e(substr(auth()->user()->name ?? 'F O', 0, 1)); ?>
+
                             </div>
-                            <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Fotografer' }}</span>
+                            <span class="text-sm font-bold text-brand-navy hidden sm:block"><?php echo e(auth()->user()->name ?? 'Fotografer'); ?></span>
 
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                     
                     <!-- Dropdown Menu -->
                     <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                        <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
-                        <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
+                        <a href="<?php echo e(route('fotografer.profile')); ?>" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
+                        <a href="<?php echo e(route('fotografer.settings')); ?>" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                         <div class="border-t border-brand-border my-1"></div>
-                        @auth
-                        <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                            @csrf
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+                        <form method="POST" action="<?php echo e(route('filament.admin.auth.logout')); ?>">
+                            <?php echo csrf_field(); ?>
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                         </form>
-                        @endauth
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                 </div>
             </header>
@@ -188,25 +189,25 @@
                         <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
                         <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan event.</p>
                     </div>
-                    <a href="{{ route('fotografer.upload') }}" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
+                    <a href="<?php echo e(route('fotografer.upload')); ?>" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         Upload Foto Baru
                     </a>
                 </div>
 
-                @forelse($photosByEvent as $eventId => $photos)
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $photosByEvent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $eventId => $photos): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                 <div class="bg-white rounded-2xl shadow-sm border border-brand-border mb-8 overflow-hidden">
                     <div class="p-6 border-b border-brand-border bg-brand-light/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-16 h-16 rounded-xl bg-gray-200 overflow-hidden flex-shrink-0">
-                                <img src="{{ asset('storage/' . ($photos->first()->event->banner_image ?? '')) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=200'" class="w-full h-full object-cover">
+                                <img src="<?php echo e(asset('storage/' . ($photos->first()->event->banner_image ?? ''))); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=200'" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Event Tidak Diketahui' }}</h2>
+                                <h2 class="text-xl font-black text-brand-navy"><?php echo e($photos->first()->event->name ?? 'Event Tidak Diketahui'); ?></h2>
                                 <p class="text-sm font-medium text-brand-muted mt-0.5 flex items-center gap-2">
-                                    <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> {{ \Carbon\Carbon::parse($photos->first()->event->tanggal ?? now())->translatedFormat('d F Y') }}</span>
+                                    <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> <?php echo e(\Carbon\Carbon::parse($photos->first()->event->tanggal ?? now())->translatedFormat('d F Y')); ?></span>
                                     <span class="text-brand-border">|</span>
-                                    <span class="text-brand-teal font-bold">{{ $photos->count() }} Foto Diunggah</span>
+                                    <span class="text-brand-teal font-bold"><?php echo e($photos->count()); ?> Foto Diunggah</span>
                                 </p>
                             </div>
                         </div>
@@ -215,19 +216,19 @@
 
                     <div class="p-6">
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                            @foreach($photos->take(10) as $photo)
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $photos->take(10); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                             <div class="aspect-square bg-gray-100 rounded-xl overflow-hidden relative group">
-                                <!--<img src="{{ asset('storage/' . $photo->watermark_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">-->
-                                <img src="{{ asset('storage/' . ($photo->is_processed_ai ? $photo->watermark_path : $photo->original_path)) }}" 
+                                <!--<img src="<?php echo e(asset('storage/' . $photo->watermark_path)); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">-->
+                                <img src="<?php echo e(asset('storage/' . ($photo->is_processed_ai ? $photo->watermark_path : $photo->original_path))); ?>" 
                                     onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" 
                                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
                                     <button class="w-8 h-8 bg-white text-brand-navy rounded-full flex items-center justify-center hover:bg-brand-teal hover:text-white transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                     </button>
-                                    <form method="POST" action="{{ route('fotografer.photos.delete', $photo->id) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
-                                        @csrf
-                                        @method('DELETE')
+                                    <form method="POST" action="<?php echo e(route('fotografer.photos.delete', $photo->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors" title="Hapus Foto">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -236,63 +237,63 @@
                                         
                                     </form>
                                 </div>
-                                @if($photo->is_processed_ai)
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($photo->is_processed_ai): ?>
                                 <div class="absolute top-2 right-2 bg-brand-teal text-white text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
                                     <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     AI Ready
                                 </div>
-                                @endif
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             </div>
-                            @endforeach
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
 
-                            @if($photos->count() > 10)
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($photos->count() > 10): ?>
                             <div class="aspect-square bg-brand-light rounded-xl flex flex-col items-center justify-center border-2 border-brand-border border-dashed hover:border-brand-teal hover:bg-brand-teal/5 transition-colors cursor-pointer group">
-                                <span class="text-xl font-black text-brand-navy group-hover:text-brand-teal transition-colors">+{{ $photos->count() - 10 }}</span>
+                                <span class="text-xl font-black text-brand-navy group-hover:text-brand-teal transition-colors">+<?php echo e($photos->count() - 10); ?></span>
                                 <span class="text-xs font-bold text-brand-muted mt-1 group-hover:text-brand-teal transition-colors">Lihat Semua</span>
                             </div>
-                            @endif
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                     </div>
                 </div>
-                @empty
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                 <div class="text-center py-20 bg-white rounded-3xl shadow-sm border border-brand-border border-dashed">
                     <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-5 text-brand-muted">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
                     <h3 class="text-xl font-black text-brand-navy">Portofolio Masih Kosong</h3>
                     <p class="text-brand-muted font-medium mt-2 max-w-md mx-auto mb-6">Anda belum pernah mengunggah foto satupun ke platform RunSnap. Mulai unggah foto event pertama Anda!</p>
-                    <a href="{{ route('fotografer.upload') }}" class="inline-flex bg-brand-teal text-white hover:bg-brand-tealHover px-6 py-3 rounded-xl font-bold transition-all shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] items-center justify-center gap-2">
+                    <a href="<?php echo e(route('fotografer.upload')); ?>" class="inline-flex bg-brand-teal text-white hover:bg-brand-tealHover px-6 py-3 rounded-xl font-bold transition-all shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] items-center justify-center gap-2">
                         Upload Foto Sekarang
                     </a>
                 </div>
-                @endforelse
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                        @if(session('success'))
+                                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(session('success')): ?>
                                         <script>    
                                             Swal.fire({
                                                 icon: 'success',
                                                 title: 'Berhasil',
-                                                text: '{{ session('success') }}',
+                                                text: '<?php echo e(session('success')); ?>',
                                                 timer: 2000,
                                                 showConfirmButton: false
                                             });
                                         </script>
-                                        @endif
+                                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
-                                        @if(session('error'))
+                                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(session('error')): ?>
                                         <script>
                                             Swal.fire({
                                                 icon: 'error',
                                                 title: 'Gagal',
-                                                text: '{{ session('error') }}',
+                                                text: '<?php echo e(session('error')); ?>',
                                                 timer: 2000,
                                                 showConfirmButton: false
                                             });
                                         </script>
-                                        @endif
+                                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
 </body>
-</html>
+</html><?php /**PATH C:\Users\HP\RunSnap\resources\views/fotografer/portfolio.blade.php ENDPATH**/ ?>

@@ -9,12 +9,14 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Models\Event;
 
 class EventsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->query(Event::with('eo')) // Eager load relasi EO untuk menghindari N+1
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama Acara')

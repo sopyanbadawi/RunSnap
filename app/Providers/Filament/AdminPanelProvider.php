@@ -33,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('RunSnap')
             ->font('Montserrat')
+            ->spa()
             ->colors([
                 'primary' => \Filament\Support\Colors\Color::hex('#00C2B8'), // Teal
                 'danger' => \Filament\Support\Colors\Color::Rose,

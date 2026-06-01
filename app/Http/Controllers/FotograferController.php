@@ -8,6 +8,8 @@ use App\Models\Photo;
 use App\Models\PurchasedPhoto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str; // Ditambahkan untuk generate nama file acak
+use Illuminate\Support\Facades\Storage;
 
 class FotograferController extends Controller
 {
@@ -15,15 +17,12 @@ class FotograferController extends Controller
     {
         $user = Auth::user();
         
-        // Data dummy sementara atau data aktual
-        // Mengambil foto yang diupload fotografer ini
         $myPhotos = Photo::where('fotografer_id', $user->id)->get();
         $totalPhotos = $myPhotos->count();
         
-        // Mengambil penjualan dari foto-foto milik fotografer ini
         $myPhotoIds = $myPhotos->pluck('id');
         $totalSales = PurchasedPhoto::whereIn('photo_id', $myPhotoIds)->count();
-        $totalEarnings = $totalSales * 25000; // Contoh harga flat atau bisa ambil dari tabel
+        $totalEarnings = $totalSales * 25000; 
 
         $recentUploads = Photo::where('fotografer_id', $user->id)
                             ->with('event')
@@ -36,15 +35,90 @@ class FotograferController extends Controller
 
     public function upload()
     {
-        // Ambil daftar event aktif untuk opsi upload
         $events = Event::where('is_published', 'true')->orderBy('tanggal', 'desc')->get();
         return view('fotografer.upload', compact('events'));
+    }
+
+    /**
+     * METHOD BARU: Menangani kiriman upload multi-foto dari fotografer
+     */
+    public function storeUpload(Request $request)
+    {
+
+        if ($request->hasFile('photos')) {
+            
+        // OTOMATISASI: Laravel akan cek dan buat folder ini di dalam storage/app/public/ jika belum ada
+        if (!Storage::disk('public')->exists('photos/original')) {
+            Storage::disk('public')->makeDirectory('photos/original');
+        }
+        if (!Storage::disk('public')->exists('photos/watermark')) {
+            Storage::disk('public')->makeDirectory('photos/watermark');
+        }
+    }
+        // 1. Validasi Input Form
+        $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'price'    => 'required|numeric|min:10000',
+            'photos'   => 'required',
+            'photos.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Batasi max 10MB per foto
+        ]);
+
+        $user = Auth::user();
+
+        // 2. Periksa apakah ada file yang dikirim
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $file) {
+                
+                // Membuat nama file acak yang aman dan unik
+                $filename = Str::random(25) . '.' . $file->getClientOriginalExtension();
+                
+                // PENGUMPULAN FILE FISIK: Simpan foto asli di folder 'storage/app/private/photos/original/'
+                $originalPath = $file->storeAs('photos/original', $filename, 'public');
+
+                // Menyiapkan jalur path untuk foto ber-watermark (nanti di-generate via script AI/Watermark)
+                $watermarkPath = 'photos/watermark/' . $filename;
+
+                // PENGUMPULAN DATA: Masukkan baris data baru ke tabel 'photos' sesuai ERD RunSnap
+                Photo::create([
+                    'event_id'        => $request->event_id,
+                    'fotografer_id'   => $user->id,
+                    'original_path'   => $originalPath,
+                    'watermark_path'  => $watermarkPath,
+                    'is_processed_ai' => false, // Di-set false terlebih dahulu sebelum diproses Python AI
+                    'price'           => $request->price,
+                ]);
+            }
+
+            // Kembalikan ke halaman dashboard dengan pesan sukses
+            return redirect()->route('fotografer.dashboard')->with('success', 'Foto-foto berhasil diunggah! Antrean AI sedang berjalan untuk mendeteksi wajah dan nomor BIB.');
+        }
+
+        return redirect()->back()->with('error', 'Gagal membaca file foto yang diunggah.');
+    }
+
+    public function destroyPhoto($id)
+    {
+        $photo = Photo::findOrFail($id);
+
+        // Pastikan hanya fotografer yang memiliki foto yang bisa menghapusnya
+        if ($photo->fotografer_id !== Auth::id()) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menghapus foto ini.');
+        }
+
+        // Hapus file fisik dari storage
+        Storage::disk('public')->delete($photo->original_path);
+        Storage::disk('public')->delete($photo->watermark_path);
+
+        // Hapus data dari database
+        $photo->delete();
+
+        return redirect()->back()->with('success', 'Foto berhasil dihapus.');
     }
 
     public function portfolio()
     {
         $user = Auth::user();
-        // Grupkan foto berdasarkan event
+        //$photosByEvent = Photo::where('fotografer_id', $user->id)
         $photosByEvent = Photo::where('fotografer_id', $user->id)
                             ->with('event')
                             ->orderBy('created_at', 'desc')
@@ -59,13 +133,12 @@ class FotograferController extends Controller
         $user = Auth::user();
         $myPhotoIds = Photo::where('fotografer_id', $user->id)->pluck('id');
         
-        // Ambil riwayat pembelian foto milik fotografer ini
         $purchases = PurchasedPhoto::whereIn('photo_id', $myPhotoIds)
                         ->with(['photo.event', 'user'])
                         ->orderBy('created_at', 'desc')
                         ->paginate(15);
                         
-        $totalEarnings = $purchases->count() * 25000; // Logika dummy sementara
+        $totalEarnings = $purchases->count() * 25000; 
 
         return view('fotografer.earnings', compact('purchases', 'totalEarnings'));
     }
@@ -73,27 +146,20 @@ class FotograferController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        // Menghitung total foto yang diunggah untuk dipajang di halaman profil
         $totalPhotos = Photo::where('fotografer_id', $user->id)->count();
         return view('fotografer.profile', compact('user', 'totalPhotos'));
     }
 
     public function updateProfile(Request $request)
     {
-        // 1. Validasi inputan (pastikan email unik kecuali milik user ini sendiri)
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
         ]);
 
-        // 2. Ambil data user langsung dari database menggunakan ID
         $user = \App\Models\User::find(Auth::id());
-        
-        // 3. Timpa dengan data baru
         $user->name = $request->name;
         $user->email = $request->email;
-        
-        // 4. Simpan paksa ke database
         $user->save();
 
         return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
@@ -114,12 +180,10 @@ class FotograferController extends Controller
 
         $user = \App\Models\User::find(Auth::id());
 
-        // Cek apakah password lama yang dimasukkan benar
         if (!Hash::check($request->current_password, $user->password)) {
             return redirect()->back()->withErrors(['current_password' => 'Kata sandi saat ini tidak cocok.']);
         }
 
-        // Simpan password baru
         $user->password = Hash::make($request->new_password);
         $user->save();
 
