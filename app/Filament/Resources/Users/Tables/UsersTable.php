@@ -11,6 +11,8 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Actions\Action;
+
 class UsersTable
 {
     public static function table(Table $table): Table
@@ -82,7 +84,7 @@ class UsersTable
                  ViewAction::make(),
                  EditAction::make(),
 
-                 \Filament\Tables\Actions\Action::make('verify')
+                 Action::make('verify')
                      ->label('Setujui Verifikasi')
                      ->icon('heroicon-o-check')
                      ->color('success')
@@ -90,7 +92,7 @@ class UsersTable
                      ->requiresConfirmation()
                      ->action(fn ($record) => $record->update(['verification_status' => 'verified'])),
                      
-                 \Filament\Tables\Actions\Action::make('reject')
+                 Action::make('reject')
                      ->label('Tolak Verifikasi')
                      ->icon('heroicon-o-x-mark')
                      ->color('danger')

@@ -32,7 +32,12 @@ class UserInfolist
 
             \Filament\Infolists\Components\ImageEntry::make('ktp_image')
                 ->label('Foto KTP')
-                ->disk('public')
+                ->state(function ($record) {
+                    if (!$record || !$record->ktp_image) {
+                        return null;
+                    }
+                    return asset('storage/' . $record->ktp_image);
+                })
                 ->visibility('public')
                 ->visible(fn ($record) => $record->role === 'fotografer' && $record->ktp_image),
             

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('banner_image');
             $table->timestamps();
             $table->enum('is_published', ['true', 'false'])->default('false');
+            $table->softDeletes();
         });
     }
 
