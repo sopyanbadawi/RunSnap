@@ -233,7 +233,7 @@
                         <div>
                             <h3 class="text-3xl font-black text-brand-navy">{{ number_format($totalSales ?? 0, 0, ',', '.') }}</h3>
                             <p class="text-sm font-medium text-brand-muted flex items-center mt-2 group-hover:translate-x-1 transition-transform">
-                                <span class="bg-brand-light px-2 py-0.5 rounded text-xs mr-2">{{ number_format($totalPhotos ?? 0, 0, ',', '.') }} Foto Diupload</span>
+                                <span class="bg-brand-light px-2 py-0.5 rounded text-xs mr-2">{{ number_format($totalPhotos ?? 0, 0, ',', '.') }} Foto Diunggah</span>
                             </p>
                         </div>
                     </div>
@@ -311,7 +311,7 @@
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                 </div>
                                 <h3 class="text-sm font-bold text-brand-navy">Belum ada penjualan</h3>
-                                <p class="text-xs text-brand-muted mt-1">Upload foto Anda ke acara untuk mulai mendapatkan penghasilan.</p>
+                                <p class="text-xs text-brand-muted mt-1">Unggah foto Anda ke acara untuk mulai mendapatkan penghasilan.</p>
                             </div>
                         </div>
                     </div>
