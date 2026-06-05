@@ -86,12 +86,12 @@
                 <nav class="mt-6 px-4 space-y-2">
                     <a href="/runner/dashboard" class="flex items-center px-4 py-3 rounded-xl bg-brand-light text-brand-teal font-bold transition-all border border-brand-border shadow-sm">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                        Beranda Pelari
+                        Halaman Pelari
                     </a>
                     
                     <a href="/runner/events" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        Cari Event
+                        Cari Acara
                     </a>
 
                     <a href="/runner/gallery" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
@@ -194,10 +194,10 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
                                 Terbaru di RunSnap
                             </span>
-                            <h3 class="text-2xl font-black text-brand-navy mt-1 tracking-tight">Event Sedang Tren</h3>
+                            <h3 class="text-2xl font-black text-brand-navy mt-1 tracking-tight">Acara Sedang Tren</h3>
                         </div>
                         <a href="/runner/events" class="text-sm font-bold text-brand-teal hover:text-white bg-brand-teal/10 hover:bg-brand-teal px-5 py-2.5 rounded-xl flex items-center transition-all duration-300 hover:shadow-lg hover:shadow-brand-teal/30 group">
-                            Lihat Semua Event <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            Lihat Semua Acara <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                     </div>
                     
@@ -234,8 +234,8 @@
                             <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mb-4">
                                 <svg class="w-8 h-8 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
-                            <p class="text-brand-navy font-bold text-lg">Belum ada event saat ini.</p>
-                            <p class="text-brand-muted mt-1 text-sm text-center max-w-sm">Event lari terbaru akan segera hadir di sini. Silakan periksa kembali nanti.</p>
+                            <p class="text-brand-navy font-bold text-lg">Belum ada Acara saat ini.</p>
+                            <p class="text-brand-muted mt-1 text-sm text-center max-w-sm">Acara lari terbaru akan segera hadir di sini. Silakan periksa kembali nanti.</p>
                         </div>
                         @endforelse
                     </div>
@@ -253,7 +253,7 @@
                             <img src="{{ asset('storage/' . $purchase->photo->original_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-auto object-cover" alt="Run Preview">
                             <div class="absolute inset-0 bg-brand-navy/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
                                 <div class="flex justify-between items-start">
-                                    <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded">{{ $purchase->photo->event->name ?? 'Event Lari' }}</span>
+                                    <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded">{{ $purchase->photo->event->name ?? 'Acara Lari' }}</span>
                                     <div class="bg-green-500 text-white text-xs font-black px-2.5 py-1.5 rounded shadow">Lunas</div>
                                 </div>
                                 <div>

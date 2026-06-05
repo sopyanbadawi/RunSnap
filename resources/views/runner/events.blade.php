@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cari Event - RunSnap</title>
+    <title>Cari Acara - RunSnap</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
                     </a>
                     <a href="/runner/events" class="flex items-center px-4 py-3 rounded-xl bg-brand-light text-brand-teal font-bold transition-all border border-brand-border shadow-sm">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        Cari Event
+                        Cari Acara
                     </a>
                     <a href="/runner/gallery" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -118,8 +118,8 @@
                 
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
                     <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Cari Event Lari</h1>
-                        <p class="text-brand-muted font-medium mt-1">Jelajahi ratusan event marathon dan fun run untuk menemukan fotomu.</p>
+                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Cari Acara Lari</h1>
+                        <p class="text-brand-muted font-medium mt-1">Jelajahi ratusan acara marathon dan fun run untuk menemukan fotomu.</p>
                     </div>
                     
                     <div class="flex flex-wrap gap-3 w-full md:w-auto">
@@ -168,7 +168,7 @@
                     </a>
                     @empty
                     <div class="col-span-full text-center py-10 bg-white border border-brand-border rounded-2xl shadow-sm">
-                        <p class="text-brand-muted font-medium">Belum ada event lari yang sesuai filter.</p>
+                        <p class="text-brand-muted font-medium">Belum ada acara lari yang sesuai filter.</p>
                     </div>
                     @endforelse
                 </div>

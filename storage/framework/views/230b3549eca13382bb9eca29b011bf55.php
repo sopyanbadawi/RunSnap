@@ -100,9 +100,10 @@
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-teal/20 text-brand-teal rounded-full flex items-center justify-center font-bold text-sm">
-                                {{ substr(auth()->user()->name ?? 'R U', 0, 1) }}
+                                <?php echo e(substr(auth()->user()->name ?? 'R U', 0, 1)); ?>
+
                             </div>
-                            <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Pelari Runner' }}</span>
+                            <span class="text-sm font-bold text-brand-navy hidden sm:block"><?php echo e(auth()->user()->name ?? 'Pelari Runner'); ?></span>
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
@@ -110,14 +111,14 @@
                             <a href="/runner/profile" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil & Data Diri</a>
                             <a href="/runner/settings" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                             <div class="border-t border-brand-border my-1"></div>
-                            @auth
-                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                                @csrf
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+                            <form method="POST" action="<?php echo e(route('filament.admin.auth.logout')); ?>">
+                                <?php echo csrf_field(); ?>
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Logout</button>
                             </form>
-                            @else
+                            <?php else: ?>
                             <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Login</a>
-                            @endauth
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -128,25 +129,25 @@
                 
                 <div class="mb-8">
                     <h1 class="text-3xl font-black text-brand-navy tracking-tight">Keranjang Anda</h1>
-                    <p class="text-brand-muted font-medium mt-1">Anda memiliki {{ $photos->count() }} foto berkualitas tinggi di keranjang.</p>
+                    <p class="text-brand-muted font-medium mt-1">Anda memiliki <?php echo e($photos->count()); ?> foto berkualitas tinggi di keranjang.</p>
                 </div>
 
                 <div class="flex flex-col lg:flex-row gap-8">
                     <!-- Left: Item List -->
                     <div class="flex-1 space-y-4">
                         
-                        @forelse($photos as $photo)
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $photos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                         <!-- Cart Item -->
                         <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row gap-5 items-center sm:items-start group transition-all hover:border-brand-teal">
                             <div class="relative w-full sm:w-40 h-28 bg-gray-200 rounded-xl overflow-hidden flex-shrink-0">
-                                <img src="{{ asset('storage/' . $photo->watermark_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=300'" class="w-full h-full object-cover filter blur-[1px]" alt="Thumbnail">
+                                <img src="<?php echo e(asset('storage/' . $photo->watermark_path)); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=300'" class="w-full h-full object-cover filter blur-[1px]" alt="Thumbnail">
                                 <div class="absolute inset-0 bg-brand-navy/30"></div>
                                 <div class="watermark-cart">RUNSNAP</div>
                             </div>
                             <div class="flex-1 w-full">
                                 <div class="flex justify-between items-start">
                                     <div>
-                                        <h3 class="font-bold text-brand-navy text-lg leading-tight">{{ $photo->event->name ?? 'Event Lari' }}</h3>
+                                        <h3 class="font-bold text-brand-navy text-lg leading-tight"><?php echo e($photo->event->name ?? 'Event Lari'); ?></h3>
                                         <p class="text-xs font-bold text-brand-teal mt-1 flex items-center">
                                             <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
                                             Fotografer: BudiSnap
@@ -161,16 +162,16 @@
                                         <span class="bg-brand-light text-brand-muted text-[10px] font-bold px-2 py-1 rounded">Resolusi Asli</span>
                                         <span class="bg-brand-light text-brand-muted text-[10px] font-bold px-2 py-1 rounded">Tanpa Watermark</span>
                                     </div>
-                                    <p class="font-black text-brand-navy text-lg">Rp {{ number_format($photo->price, 0, ',', '.') }}</p>
+                                    <p class="font-black text-brand-navy text-lg">Rp <?php echo e(number_format($photo->price, 0, ',', '.')); ?></p>
                                 </div>
                             </div>
                         </div>
-                        @empty
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                         <div class="text-center py-10 bg-white border border-brand-border rounded-2xl shadow-sm">
                             <p class="text-brand-muted font-medium">Keranjang belanja Anda masih kosong.</p>
                             <a href="/runner/events" class="inline-block mt-3 text-brand-teal font-bold hover:underline">Cari Foto Event</a>
                         </div>
-                        @endforelse
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
                     </div>
 
@@ -181,12 +182,12 @@
                             
                             <div class="space-y-4 mb-6">
                                 <div class="flex justify-between text-sm font-medium text-brand-body">
-                                    <span>Subtotal ({{ $photos->count() }} Item)</span>
-                                    <span class="font-bold text-brand-navy">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+                                    <span>Subtotal (<?php echo e($photos->count()); ?> Item)</span>
+                                    <span class="font-bold text-brand-navy">Rp <?php echo e(number_format($subtotal, 0, ',', '.')); ?></span>
                                 </div>
                                 <div class="flex justify-between text-sm font-medium text-brand-body">
                                     <span class="flex items-center gap-1">Biaya Layanan <svg class="w-3.5 h-3.5 text-brand-muted cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
-                                    <span class="font-bold text-brand-navy">Rp {{ number_format($serviceFee, 0, ',', '.') }}</span>
+                                    <span class="font-bold text-brand-navy">Rp <?php echo e(number_format($serviceFee, 0, ',', '.')); ?></span>
                                 </div>
                             </div>
                             
@@ -201,7 +202,7 @@
                             <div class="border-t border-brand-border pt-4 mb-6">
                                 <div class="flex justify-between items-center">
                                     <span class="font-bold text-brand-navy">Total Pembayaran</span>
-                                    <span class="font-black text-brand-teal text-2xl">Rp {{ number_format($total, 0, ',', '.') }}</span>
+                                    <span class="font-black text-brand-teal text-2xl">Rp <?php echo e(number_format($total, 0, ',', '.')); ?></span>
                                 </div>
                             </div>
 
@@ -224,3 +225,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\Users\HP\RunSnap\resources\views/runner/cart.blade.php ENDPATH**/ ?>
