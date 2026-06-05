@@ -18,7 +18,12 @@ class CheckRole
     {
         if (Auth::check()) {
             $user = Auth::user();
-
+            
+            if (!$user->hasVerifiedEmail()) {
+                Auth::logout();
+                return redirect()->route('login')
+                    ->with('error', 'Harap verifikasi email kamu terlebih dahulu sebelum login!');
+            }
 
             if ($user->role === 'admin') {
                     return $next($request);

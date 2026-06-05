@@ -5,27 +5,45 @@ use App\Http\Controllers\AuthController;
 use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\RunnerController;
 use App\Http\Controllers\FotograferController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 Route::get('/login', function () {
     return redirect('/runsnap/login');
-});
+})->name('login');
 
 Route::get('/', function () {
     return view('landing');
 });
 
-Route::get('/register', function () {
-    return view('regis');
+
+
+Route::prefix('register')->group(function () {
+    Route::get('/', function () {
+        return view('register.regis');
+    });
+
+    Route::post('/', [AuthController::class, 'register']);
+
+    Route::get('/email/verify', function () {
+        return view('register.verify-email');
+    })->middleware('auth')->name('verification.notice');
+
+    // Link verifikasi (dikirim via email)
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        // Setelah verifikasi sukses, arahkan ke halaman login
+        return redirect()->route('login')
+            ->with('success', 'Selamat datang! Email kamu sudah terverifikasi.');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    // Resend link verifikasi
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', 'Link verifikasi baru sudah dikirim ke email kamu!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 });
-
-Route::post('/register', [AuthController::class, 'register']);
-
-// Route::prefix('runsnap')->group(function () {
-//     Route::get('/login', function () {
-//         return view('login');
-//     })->name('login');
-//     Route::post('/login', [AuthController::class, 'login']);
-// });
 
 
 Route::middleware([

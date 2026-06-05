@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -20,6 +20,11 @@ class AuthController extends Controller
             'remember_token' => Str::random(10),
         ]);
 
-        return redirect('/runsnap/login');
+        Auth::login($user);
+
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->route('verification.notice')
+            ->with('success', 'Akun berhasil dibuat! Silakan cek email kamu untuk verifikasi.');
     }
 }
