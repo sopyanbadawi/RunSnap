@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pelari - RunSnap</title>
+    <title>Halaman Pelari - RunSnap</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -139,24 +139,25 @@
                 <!-- Right Header Items -->
                 <div class="flex items-center space-x-3 sm:space-x-5">
                     
-                    @php $cartCount = count(session('cart', [])); @endphp
+                    <?php $cartCount = count(session('cart', [])); ?>
                     <!-- Cart/Purchases -->
                     <a href="/runner/cart" class="relative p-2 text-brand-muted hover:text-brand-teal transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        @if($cartCount > 0)
-                        <span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-brand-orange text-white text-[10px] font-bold rounded-full border-2 border-white shadow-sm">{{ $cartCount }}</span>
-                        @else
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($cartCount > 0): ?>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-brand-orange text-white text-[10px] font-bold rounded-full border-2 border-white shadow-sm"><?php echo e($cartCount); ?></span>
+                        <?php else: ?>
                         <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white shadow-sm"></span>
-                        @endif
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </a>
 
                     <!-- Profile Dropdown CSS Based -->
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-teal/20 text-brand-teal rounded-full flex items-center justify-center font-bold text-sm">
-                                {{ substr(auth()->user()->name ?? 'R U', 0, 1) }}
+                                <?php echo e(substr(auth()->user()->name ?? 'R U', 0, 1)); ?>
+
                             </div>
-                            <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Pelari Runner' }}</span>
+                            <span class="text-sm font-bold text-brand-navy hidden sm:block"><?php echo e(auth()->user()->name ?? 'Pelari Runner'); ?></span>
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
@@ -164,14 +165,14 @@
                             <a href="/runner/profile" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil & Data Diri</a>
                             <a href="/runner/settings" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                             <div class="border-t border-brand-border my-1"></div>
-                            @auth
-                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                                @csrf
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+                            <form method="POST" action="<?php echo e(route('filament.admin.auth.logout')); ?>">
+                                <?php echo csrf_field(); ?>
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                             </form>
-                            @else
+                            <?php else: ?>
                             <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Masuk</a>
-                            @endauth
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -180,7 +181,7 @@
             <!-- Dashboard Content -->
             <div class="p-4 sm:p-6 lg:p-10 w-full max-w-7xl mx-auto flex-1 relative z-10">
                 <div class="mb-10 text-center md:text-left">
-                    <h1 class="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">Halo, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-[#008f88]">{{ explode(' ', auth()->user()->name ?? 'Pelari')[0] }}</span>! 🏃‍♂️</h1>
+                    <h1 class="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">Halo, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-[#008f88]"><?php echo e(explode(' ', auth()->user()->name ?? 'Pelari')[0]); ?></span>! 🏃‍♂️</h1>
                     <p class="text-brand-muted font-medium mt-2 text-lg">Siap menemukan momen terbaik di race terakhirmu?</p>
                 </div>
 
@@ -202,42 +203,43 @@
                     </div>
                     
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @forelse($trendingEvents as $event)
-                        <a href="{{ route('runner.events.show', $event->id) }}" class="group bg-white border border-brand-border rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full">
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $trendingEvents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                        <a href="<?php echo e(route('runner.events.show', $event->id)); ?>" class="group bg-white border border-brand-border rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full">
                             <div class="h-44 bg-gray-200 relative overflow-hidden">
-                                <img src="{{ asset('storage/' . $event->banner_image) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" alt="Event Banner">
+                                <img src="<?php echo e(asset('storage/' . $event->banner_image)); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" alt="Event Banner">
                                 <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/20 to-transparent"></div>
                                 <div class="absolute top-3 right-3 bg-brand-navy/90 backdrop-blur-sm text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-sm">
                                     Paling Dicari
                                 </div>
                                 <div class="absolute bottom-4 left-4 text-white">
-                                    <h4 class="font-black text-lg mb-0.5 leading-tight group-hover:text-brand-teal transition-colors">{{ $event->name }}</h4>
+                                    <h4 class="font-black text-lg mb-0.5 leading-tight group-hover:text-brand-teal transition-colors"><?php echo e($event->name); ?></h4>
                                     <p class="text-xs text-gray-300 flex items-center">
                                         <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                        {{ $event->lokasi ?? 'Lokasi Belum Ditentukan' }}
+                                        <?php echo e($event->lokasi ?? 'Lokasi Belum Ditentukan'); ?>
+
                                     </p>
                                 </div>
                             </div>
                             <div class="p-5 bg-white flex justify-between items-center mt-auto border-t border-brand-border/50">
                                 <div>
                                     <p class="text-[10px] text-brand-muted font-bold mb-0.5">TANGGAL</p>
-                                    <p class="text-sm font-bold text-brand-navy">{{ \Carbon\Carbon::parse($event->tanggal)->translatedFormat('d M Y') }}</p>
+                                    <p class="text-sm font-bold text-brand-navy"><?php echo e(\Carbon\Carbon::parse($event->tanggal)->translatedFormat('d M Y')); ?></p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[10px] text-brand-muted font-bold mb-0.5">FOTO TERSEDIA</p>
-                                    <p class="text-sm font-black text-brand-teal bg-brand-teal/10 px-2 py-0.5 rounded inline-block">{{ number_format($event->photos->count() ?? 0, 0, ',', '.') }}</p>
+                                    <p class="text-sm font-black text-brand-teal bg-brand-teal/10 px-2 py-0.5 rounded inline-block"><?php echo e(number_format($event->photos->count() ?? 0, 0, ',', '.')); ?></p>
                                 </div>
                             </div>
                         </a>
-                        @empty
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                         <div class="col-span-full flex flex-col items-center justify-center py-16 bg-white border-2 border-brand-border border-dashed rounded-3xl shadow-sm">
                             <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mb-4">
                                 <svg class="w-8 h-8 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
-                            <p class="text-brand-navy font-bold text-lg">Belum ada Acara saat ini.</p>
+                            <p class="text-brand-navy font-bold text-lg">Belum ada acara saat ini.</p>
                             <p class="text-brand-muted mt-1 text-sm text-center max-w-sm">Acara lari terbaru akan segera hadir di sini. Silakan periksa kembali nanti.</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                 </div>
 
@@ -247,21 +249,21 @@
                     
                     <!-- Masonry-style Grid Container -->
                     <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                        @forelse($recentPhotos as $purchase)
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $recentPhotos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $purchase): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                         <!-- Photo Item -->
                         <div class="break-inside-avoid group relative rounded-2xl overflow-hidden cursor-pointer bg-gray-100 border border-brand-border shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                            <img src="{{ asset('storage/' . $purchase->photo->original_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-auto object-cover" alt="Run Preview">
+                            <img src="<?php echo e(asset('storage/' . $purchase->photo->original_path)); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-auto object-cover" alt="Run Preview">
                             <div class="absolute inset-0 bg-brand-navy/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
                                 <div class="flex justify-between items-start">
-                                    <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded">{{ $purchase->photo->event->name ?? 'Acara Lari' }}</span>
+                                    <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded"><?php echo e($purchase->photo->event->name ?? 'Event Lari'); ?></span>
                                     <div class="bg-green-500 text-white text-xs font-black px-2.5 py-1.5 rounded shadow">Lunas</div>
                                 </div>
                                 <div>
-                                    <a href="{{ asset('storage/' . $purchase->photo->original_path) }}" download class="block w-full text-center mt-3 bg-white text-brand-navy font-bold py-2 rounded-lg text-sm hover:bg-brand-teal hover:text-white transition-colors">Unduh Resolusi Asli</a>
+                                    <a href="<?php echo e(asset('storage/' . $purchase->photo->original_path)); ?>" download class="block w-full text-center mt-3 bg-white text-brand-navy font-bold py-2 rounded-lg text-sm hover:bg-brand-teal hover:text-white transition-colors">Unduh Resolusi Asli</a>
                                 </div>
                             </div>
                         </div>
-                        @empty
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                         <div class="w-full break-inside-avoid col-span-full">
                             <div class="text-center py-12 bg-white border border-brand-border rounded-2xl shadow-sm">
                                 <svg class="w-12 h-12 text-brand-muted mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -269,7 +271,7 @@
                                 <p class="text-brand-muted text-sm mt-1">Gunakan fitur pencarian untuk menemukan foto lari Anda.</p>
                             </div>
                         </div>
-                        @endforelse
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                     
                     <div class="text-center mt-8">
@@ -283,3 +285,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\Users\HP\RunSnap\resources\views/runner/dashboard.blade.php ENDPATH**/ ?>
