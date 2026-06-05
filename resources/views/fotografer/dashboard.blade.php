@@ -271,7 +271,7 @@
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
                                 </div>
                                 <h3 class="text-lg font-bold text-brand-navy">Belum Ada Acara Aktif</h3>
-                                <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Cari acara marathon/lari terdekat untuk meliput dan memfoto peserta lari.</p>
+                                <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Cari acara maraton/lari terdekat untuk meliput dan memfoto peserta lari.</p>
                                 <button class="mt-6 bg-brand-light border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-6 py-2 rounded-xl font-bold transition-all text-sm">Cari Acara Lari</button>
                             </div>
                             

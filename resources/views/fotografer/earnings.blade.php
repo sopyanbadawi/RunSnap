@@ -186,7 +186,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>
                         <h1 class="text-3xl font-black text-brand-navy tracking-tight">Riwayat Pendapatan</h1>
-                        <p class="text-brand-muted font-medium mt-1">Lacak setiap transaksi penjualan foto Anda secara real-time.</p>
+                        <p class="text-brand-muted font-medium mt-1">Lacak setiap transaksi penjualan foto Anda secara langsung.</p>
                     </div>
                     <div class="bg-white px-5 py-3 rounded-2xl border border-brand-border shadow-sm flex items-center gap-4">
                         <div class="w-10 h-10 bg-brand-teal/10 text-brand-teal rounded-full flex items-center justify-center">
