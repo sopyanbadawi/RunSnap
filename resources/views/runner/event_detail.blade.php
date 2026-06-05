@@ -116,17 +116,7 @@
             <!-- Dashboard Content -->
             <div class="p-4 sm:p-6 lg:p-10 w-full max-w-7xl mx-auto flex-1 relative z-10">
                 
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-                    <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Cari Acara Lari</h1>
-                        <p class="text-brand-muted font-medium mt-1">Jelajahi ratusan acara marathon dan fun run untuk menemukan fotomu.</p>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-3 w-full md:w-auto">
-                        <select class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal">
-                            <option>Semua Lokasi</option>
-                            <option>Jakarta</option>
-                            <option>Bali</option>
+
                 <!-- Breadcrumbs -->
                 <nav class="flex mb-6 text-sm font-bold text-brand-muted" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
