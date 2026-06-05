@@ -35,29 +35,20 @@ class FotograferController extends Controller
 
     public function upload()
     {
-        $events = Event::where('is_published', 'true')->orderBy('tanggal', 'desc')->get();
-        return view('fotografer.upload', compact('events'));
+        return view('fotografer.upload');
     }
 
     /**
-     * METHOD BARU: Menangani kiriman upload multi-foto dari fotografer
+     * METHOD BARU: Menangani kiriman upload multi-foto dan pembuatan event dari fotografer
      */
     public function storeUpload(Request $request)
     {
-
-        if ($request->hasFile('photos')) {
-            
-        // OTOMATISASI: Laravel akan cek dan buat folder ini di dalam storage/app/public/ jika belum ada
-        if (!Storage::disk('public')->exists('photos/original')) {
-            Storage::disk('public')->makeDirectory('photos/original');
-        }
-        if (!Storage::disk('public')->exists('photos/watermark')) {
-            Storage::disk('public')->makeDirectory('photos/watermark');
-        }
-    }
-        // 1. Validasi Input Form
+        // 1. Validasi Input Form (Event + Foto)
         $request->validate([
-            'event_id' => 'required|exists:events,id',
+            'name' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'lokasi' => 'nullable|string|max:255',
+            'banner_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Max 5MB
             'price'    => 'required|numeric|min:10000',
             'photos'   => 'required',
             'photos.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Batasi max 10MB per foto
@@ -65,22 +56,50 @@ class FotograferController extends Controller
 
         $user = Auth::user();
 
-        // 2. Periksa apakah ada file yang dikirim
+        // 2. Simpan Banner Event
+        $bannerPath = null;
+        if ($request->hasFile('banner_image')) {
+            $bannerPath = $request->file('banner_image')->store('events', 'public');
+        }
+
+        // 3. Buat Event Baru (Verifikasi Admin)
+        $event = Event::create([
+            'name' => $request->name,
+            'tanggal' => $request->tanggal,
+            'lokasi' => $request->lokasi,
+            'user_id' => $user->id,
+            'banner_image' => $bannerPath,
+            'is_published' => 'false',
+        ]);
+
+        $eventId = $event->id;
+
+        // 4. Buat folder untuk foto di dalam storage/app/public/ jika belum ada
+        if ($request->hasFile('photos')) {
+            if (!Storage::disk('public')->exists("photos/event-{$eventId}/original")) {
+                Storage::disk('public')->makeDirectory("photos/event-{$eventId}/original");
+            }
+            if (!Storage::disk('public')->exists("photos/event-{$eventId}/watermark")) {
+                Storage::disk('public')->makeDirectory("photos/event-{$eventId}/watermark");
+            }
+        }
+
+        // 5. Periksa apakah ada file yang dikirim
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $file) {
                 
                 // Membuat nama file acak yang aman dan unik
                 $filename = Str::random(25) . '.' . $file->getClientOriginalExtension();
                 
-                // PENGUMPULAN FILE FISIK: Simpan foto asli di folder 'storage/app/private/photos/original/'
-                $originalPath = $file->storeAs('photos/original', $filename, 'public');
+                // PENGUMPULAN FILE FISIK: Simpan foto asli di folder terorganisir per event
+                $originalPath = $file->storeAs("photos/event-{$eventId}/original", $filename, 'public');
 
                 // Menyiapkan jalur path untuk foto ber-watermark (nanti di-generate via script AI/Watermark)
-                $watermarkPath = 'photos/watermark/' . $filename;
+                $watermarkPath = "photos/event-{$eventId}/watermark/" . $filename;
 
                 // PENGUMPULAN DATA: Masukkan baris data baru ke tabel 'photos' sesuai ERD RunSnap
                 Photo::create([
-                    'event_id'        => $request->event_id,
+                    'event_id'        => $eventId,
                     'fotografer_id'   => $user->id,
                     'original_path'   => $originalPath,
                     'watermark_path'  => $watermarkPath,
@@ -90,7 +109,7 @@ class FotograferController extends Controller
             }
 
             // Kembalikan ke halaman dashboard dengan pesan sukses
-            return redirect()->route('fotografer.dashboard')->with('success', 'Foto-foto berhasil diunggah! Antrean AI sedang berjalan untuk mendeteksi wajah dan nomor BIB.');
+            return redirect()->route('fotografer.dashboard')->with('success', 'Event "' . $event->name . '" dan foto-foto berhasil diunggah! Antrean AI sedang berjalan untuk mendeteksi wajah dan nomor BIB. Hubungi admin untuk verifikasi agar event dipublikasikan.');
         }
 
         return redirect()->back()->with('error', 'Gagal membaca file foto yang diunggah.');

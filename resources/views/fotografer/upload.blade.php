@@ -188,82 +188,142 @@
                     <p class="text-brand-muted font-medium mt-1">Unggah hasil jepretan Anda ke acara yang tersedia untuk mulai menjual.</p>
                 </div>
 
+                @if(session('success'))
+                    <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl font-bold text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl font-bold text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
                 <div class="bg-white rounded-2xl shadow-sm border border-brand-border p-6 sm:p-8">
-                    <form action="{{ route('fotografer.upload') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('fotografer.storeUpload') }}" method="POST" enctype="multipart/form-data"
                         x-data="{ 
                             files: [], 
                             isDragging: false,
+                            bannerName: '',
+                            bannerPreview: '',
                             handleFiles(fileList) {
                                 this.files = Array.from(fileList);
+                            },
+                            handleBanner(event) {
+                                const file = event.target.files[0];
+                                if (file) {
+                                    this.bannerName = file.name;
+                                    this.bannerPreview = URL.createObjectURL(file);
+                                }
                             }
                         }">
                         @csrf
                         
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Acara</label>
-                            <select name="event_id" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all cursor-pointer font-medium" required>
-                                <option value="" disabled selected>-- Pilih Acara Lari --</option>
-                                @foreach($events as $event)
-                                    <option value="{{ $event->id }}">{{ $event->name }} - {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</option>
-                                @endforeach
-                            </select>
-                            <p class="text-xs text-brand-muted mt-2">Pastikan Anda memilih acara yang tepat agar pelari bisa menemukan fotonya.</p>
+                        <!-- Bagian 1: Detail Event Baru -->
+                        <div class="mb-8 border-b border-brand-border pb-6">
+                            <h3 class="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2">
+                                <span class="w-7 h-7 bg-brand-teal/10 text-brand-teal rounded-lg flex items-center justify-center text-sm">1</span>
+                                Detail Event Baru
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Nama Event <span class="text-brand-orange">*</span></label>
+                                    <input type="text" name="name" placeholder="Contoh: Jakarta Marathon 2026" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-medium" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Tanggal Pelaksanaan <span class="text-brand-orange">*</span></label>
+                                    <input type="date" name="tanggal" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-medium" required>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Lokasi Event</label>
+                                    <input type="text" name="lokasi" placeholder="Contoh: GBK, Jakarta Pusat" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-medium">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Gambar Banner Event <span class="text-brand-orange">*</span></label>
+                                    <label for="banner-image-file" class="flex flex-col items-center justify-center w-full h-[50px] border border-brand-border rounded-xl cursor-pointer hover:bg-brand-light bg-brand-light/50 transition-colors relative overflow-hidden px-4">
+                                        <!-- Preview Background -->
+                                        <template x-if="bannerPreview">
+                                            <div class="absolute inset-0 z-0 bg-cover bg-center opacity-10" :style="'background-image: url(' + bannerPreview + ')'"></div>
+                                        </template>
+                                        <div class="flex items-center justify-between w-full relative z-10">
+                                            <span class="text-xs font-semibold text-brand-muted truncate max-w-[200px]" x-text="bannerName ? bannerName : 'Pilih banner (maks. 5MB)'"></span>
+                                            <span class="text-xs font-bold text-brand-teal">Pilih File</span>
+                                        </div>
+                                        <input id="banner-image-file" type="file" name="banner_image" class="hidden" accept="image/png, image/jpeg, image/jpg" @change="handleBanner($event)" required />
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- Bagian 2: Unggah Foto & Harga -->
                         <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Harga Per Foto (Rp)</label>
-                            <input type="number" name="price" value="25000" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-bold" required min="10000" step="5000">
-                        </div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2">
+                                <span class="w-7 h-7 bg-brand-teal/10 text-brand-teal rounded-lg flex items-center justify-center text-sm">2</span>
+                                Unggah Foto & Harga
+                            </h3>
 
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Foto (Tarik & Lepas)</label>
-                            <div class="flex items-center justify-center w-full">
-                                <label for="dropzone-file" 
-                                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-2xl cursor-pointer transition-colors group relative"
-                                    :class="isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-brand-border bg-brand-light/50 hover:bg-brand-light'"
-                                    @dragover.prevent="isDragging = true"
-                                    @dragleave.prevent="isDragging = false"
-                                    @drop.prevent="isDragging = false; handleFiles($event.dataTransfer.files); $refs.fileInput.files = $event.dataTransfer.files">
-                                    
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
-                                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
-                                            <svg class="w-8 h-8 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            <div class="mb-6">
+                                <label class="block text-sm font-bold text-brand-navy mb-2">Harga Per Foto (Rp) <span class="text-brand-orange">*</span></label>
+                                <input type="number" name="price" value="25000" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-bold" required min="10000" step="5000">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Foto (Tarik & Lepas) <span class="text-brand-orange">*</span></label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="dropzone-file" 
+                                        class="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed rounded-2xl cursor-pointer transition-colors group relative"
+                                        :class="isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-brand-border bg-brand-light/50 hover:bg-brand-light'"
+                                        @dragover.prevent="isDragging = true"
+                                        @dragleave.prevent="isDragging = false"
+                                        @drop.prevent="isDragging = false; handleFiles($event.dataTransfer.files); $refs.fileInput.files = $event.dataTransfer.files">
+                                        
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                                                <svg class="w-6 h-6 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                            </div>
+                                            
+                                            <template x-if="files.length === 0">
+                                                <div>
+                                                    <p class="mb-1 text-sm text-brand-navy font-bold"><span class="text-brand-teal">Klik untuk memilih file foto</span> atau tarik & lepas ke sini</p>
+                                                    <p class="text-xs text-brand-muted">PNG, JPG or JPEG (MAKS. 10MB per foto, bisa pilih banyak)</p>
+                                                </div>
+                                            </template>
+                                            
+                                            <template x-if="files.length > 0">
+                                                <div>
+                                                    <p class="mb-1 text-sm text-brand-navy font-bold text-brand-teal">
+                                                        <span x-text="files.length"></span> File Terpilih
+                                                    </p>
+                                                    <div class="text-xs text-brand-muted max-w-md truncate bg-white/80 p-2 rounded-lg border border-brand-border mt-1 max-h-20 overflow-y-auto">
+                                                        <template x-for="file in files">
+                                                            <div x-text="file.name" class="truncate py-0.5"></div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                            <p class="text-xs text-brand-orange font-bold mt-3 bg-brand-orange/10 px-3 py-1 rounded-full">Sistem akan memproses AI & Watermark otomatis setelah admin menyetujui!</p>
                                         </div>
                                         
-                                        <template x-if="files.length === 0">
-                                            <div>
-                                                <p class="mb-2 text-sm text-brand-navy font-bold"><span class="text-brand-teal">Klik untuk memilih file</span> atau tarik & lepas ke sini</p>
-                                                <p class="text-xs text-brand-muted">PNG, JPG or JPEG (MAKS. 10MB per foto)</p>
-                                            </div>
-                                        </template>
-                                        
-                                        <template x-if="files.length > 0">
-                                            <div>
-                                                <p class="mb-1 text-sm text-brand-navy font-bold text-brand-teal">
-                                                    <span x-text="files.length"></span> File Terpilih
-                                                </p>
-                                                <div class="text-xs text-brand-muted max-w-md truncate bg-white/80 p-2 rounded-lg border border-brand-border mt-1 max-h-20 overflow-y-auto">
-                                                    <template x-for="file in files">
-                                                        <div x-text="file.name" class="truncate py-0.5"></div>
-                                                    </template>
-                                                </div>
-                                            </div>
-                                        </template>
-
-                                        <p class="text-xs text-brand-orange font-bold mt-3 bg-brand-orange/10 px-3 py-1 rounded-full">Sistem akan memproses AI & Watermark otomatis!</p>
-                                    </div>
-                                    
-                                    <input id="dropzone-file" 
-                                        x-ref="fileInput"
-                                        type="file" 
-                                        name="photos[]" 
-                                        multiple 
-                                        class="hidden" 
-                                        accept="image/png, image/jpeg, image/jpg" 
-                                        @change="handleFiles($event.target.files)"
-                                        required />
-                                </label>
-                            </div> 
+                                        <input id="dropzone-file" 
+                                            x-ref="fileInput"
+                                            type="file" 
+                                            name="photos[]" 
+                                            multiple 
+                                            class="hidden" 
+                                            accept="image/png, image/jpeg, image/jpg" 
+                                            @change="handleFiles($event.target.files)"
+                                            required />
+                                    </label>
+                                </div> 
+                            </div>
                         </div>
 
                         <div class="flex justify-end pt-4 border-t border-brand-border">
