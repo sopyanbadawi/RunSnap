@@ -20,6 +20,9 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->enum('role', ['runner', 'fotografer', 'admin'])->default('runner');
+            $table->string('ktp_image')->nullable();
+            $table->enum('verification_status', ['unverified', 'pending', 'verified', 'rejected'])->default('unverified');
+            $table->text('rejection_reason')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

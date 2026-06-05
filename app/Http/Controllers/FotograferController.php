@@ -38,6 +38,40 @@ class FotograferController extends Controller
         return view('fotografer.upload');
     }
 
+    public function showVerification()
+    {
+        $user = Auth::user();
+        if ($user->verification_status === 'verified') {
+            return redirect()->route('fotografer.dashboard');
+        }
+
+        return view('fotografer.verify', compact('user'));
+    }
+
+    public function submitVerification(Request $request)
+    {
+        $request->validate([
+            'ktp_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Max 5MB
+        ]);
+
+        $user = \App\Models\User::find(Auth::id());
+
+        // Hapus KTP lama jika ada
+        if ($user->ktp_image) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->ktp_image);
+        }
+
+        $path = $request->file('ktp_image')->store('ktp', 'public');
+
+        $user->update([
+            'ktp_image' => $path,
+            'verification_status' => 'pending',
+            'rejection_reason' => null,
+        ]);
+
+        return redirect()->back()->with('success', 'Foto KTP berhasil diunggah! Pengajuan verifikasi Anda sedang diproses oleh admin.');
+    }
+
     /**
      * METHOD BARU: Menangani kiriman upload multi-foto dan pembuatan event dari fotografer
      */

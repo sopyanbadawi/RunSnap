@@ -42,6 +42,18 @@ class UsersTable
                         'runner' => 'success',
                         default => 'gray',
                     }),
+
+                TextColumn::make('verification_status')
+                    ->label('Status Verifikasi')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'verified' => 'success',
+                        'pending' => 'warning',
+                        'rejected' => 'danger',
+                        'unverified' => 'gray',
+                        default => 'gray',
+                    })
+                    ->sortable(),
                     
                 TextColumn::make('created_at')
                     ->label('Terdaftar Pada')
@@ -57,10 +69,42 @@ class UsersTable
                         'fotografer' => 'Fotografer',
                         'admin' => 'Admin',
                     ]),
+                SelectFilter::make('verification_status')
+                    ->label('Status Verifikasi')
+                    ->options([
+                        'unverified' => 'Belum Verifikasi',
+                        'pending' => 'Menunggu Verifikasi',
+                        'verified' => 'Terverifikasi',
+                        'rejected' => 'Ditolak',
+                    ]),
             ])
              ->actions([ 
                  ViewAction::make(),
                  EditAction::make(),
+
+                 \Filament\Tables\Actions\Action::make('verify')
+                     ->label('Setujui Verifikasi')
+                     ->icon('heroicon-o-check')
+                     ->color('success')
+                     ->visible(fn ($record) => $record->role === 'fotografer' && $record->verification_status === 'pending')
+                     ->requiresConfirmation()
+                     ->action(fn ($record) => $record->update(['verification_status' => 'verified'])),
+                     
+                 \Filament\Tables\Actions\Action::make('reject')
+                     ->label('Tolak Verifikasi')
+                     ->icon('heroicon-o-x-mark')
+                     ->color('danger')
+                     ->visible(fn ($record) => $record->role === 'fotografer' && $record->verification_status === 'pending')
+                     ->form([
+                         \Filament\Forms\Components\Textarea::make('rejection_reason')
+                             ->label('Alasan Penolakan')
+                             ->required(),
+                     ])
+                     ->action(fn ($record, array $data) => $record->update([
+                         'verification_status' => 'rejected',
+                         'rejection_reason' => $data['rejection_reason'],
+                     ])),
+
                  DeleteAction::make(),
              ])
              ->bulkActions([

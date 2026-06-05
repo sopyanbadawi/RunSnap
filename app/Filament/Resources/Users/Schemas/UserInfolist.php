@@ -29,6 +29,28 @@ class UserInfolist
             TextEntry::make('created_at')
                 ->label('Terdaftar Pada')
                 ->dateTime('d M Y H:i'),
+
+            \Filament\Infolists\Components\ImageEntry::make('ktp_image')
+                ->label('Foto KTP')
+                ->disk('public')
+                ->visibility('public')
+                ->visible(fn ($record) => $record->role === 'fotografer' && $record->ktp_image),
+            
+            TextEntry::make('verification_status')
+                ->label('Status Verifikasi')
+                ->badge()
+                ->color(fn (string $state): string => match ($state) {
+                    'verified' => 'success',
+                    'pending' => 'warning',
+                    'rejected' => 'danger',
+                    'unverified' => 'gray',
+                    default => 'gray',
+                })
+                ->visible(fn ($record) => $record->role === 'fotografer'),
+
+            TextEntry::make('rejection_reason')
+                ->label('Alasan Penolakan')
+                ->visible(fn ($record) => $record->role === 'fotografer' && $record->verification_status === 'rejected'),
                 
             // Hapus tanda miring ganda (//) di bawah ini jika Anda jadi menggunakan fitur Blokir:
             // IconEntry::make('is_blocked')
