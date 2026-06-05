@@ -62,13 +62,13 @@
                     <a href="{{ route('fotografer.dashboard') }}" 
                         class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Dashboard
+                        Halaman Fotografer
                     </a>
 
                     <a href="{{ route('fotografer.upload') }}" 
                         class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        Upload Foto
+                        Unggah Foto
                     </a>
                 
                     <a href="{{ route('fotografer.portfolio') }}" 
@@ -89,7 +89,7 @@
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
                     <h4 class="text-white text-sm font-bold mb-1">Tips Fotografer!</h4>
-                    <p class="text-brand-muted text-xs mb-3">Upload foto max 1 jam setelah event untuk penjualan maksimal.</p>
+                    <p class="text-brand-muted text-xs mb-3">Unggah foto maks 1 jam setelah acara untuk penjualan maksimal.</p>
                     <a href="#" class="text-brand-teal text-xs font-bold hover:underline relative z-10 flex items-center">
                         Baca Panduan <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
@@ -190,7 +190,7 @@
                     <div class="flex gap-3 w-full md:w-auto">
                         <button class="flex-1 md:flex-none bg-white border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-sm flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            Cari Event
+                            Cari Acara
                         </button>
                         <a href="{{ route('fotografer.upload') }}" class="flex-1 md:flex-none bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2 decoration-none">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -233,7 +233,7 @@
                         <div>
                             <h3 class="text-3xl font-black text-brand-navy">{{ number_format($totalSales ?? 0, 0, ',', '.') }}</h3>
                             <p class="text-sm font-medium text-brand-muted flex items-center mt-2 group-hover:translate-x-1 transition-transform">
-                                <span class="bg-brand-light px-2 py-0.5 rounded text-xs mr-2">{{ number_format($totalPhotos ?? 0, 0, ',', '.') }} Foto Diupload</span>
+                                <span class="bg-brand-light px-2 py-0.5 rounded text-xs mr-2">{{ number_format($totalPhotos ?? 0, 0, ',', '.') }} Foto Diunggah</span>
                             </p>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                             <div class="w-12 h-12 bg-brand-navy/10 text-brand-navy rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
-                            <span class="text-brand-muted font-semibold">Portofolio Event</span>
+                            <span class="text-brand-muted font-semibold">Portofolio Acara</span>
                         </div>
                         <div>
                             <h3 class="text-3xl font-black text-brand-navy">{{ \App\Models\Photo::where('fotografer_id', auth()->id())->distinct('event_id')->count('event_id') }}</h3>
@@ -261,8 +261,8 @@
                     <div class="lg:col-span-2">
                         <div class="bg-white rounded-2xl border border-brand-border shadow-sm p-6 mb-8">
                             <div class="flex justify-between items-center mb-6">
-                                <h2 class="text-xl font-bold text-brand-navy tracking-tight">Event Anda Selanjutnya</h2>
-                                <a href="#" class="text-sm font-bold text-brand-teal hover:underline">Kelola Event</a>
+                                <h2 class="text-xl font-bold text-brand-navy tracking-tight">Acara Anda Selanjutnya</h2>
+                                <a href="#" class="text-sm font-bold text-brand-teal hover:underline">Kelola Acara</a>
                             </div>
 
                             <!-- Empty State for Event -->
@@ -270,9 +270,9 @@
                                 <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 text-brand-muted">
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
                                 </div>
-                                <h3 class="text-lg font-bold text-brand-navy">Belum Ada Event Aktif</h3>
-                                <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Cari event marathon/lari terdekat untuk meliput dan memfoto peserta lari.</p>
-                                <button class="mt-6 bg-brand-light border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-6 py-2 rounded-xl font-bold transition-all text-sm">Cari Event Lari</button>
+                                <h3 class="text-lg font-bold text-brand-navy">Belum Ada Acara Aktif</h3>
+                                <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Cari acara maraton/lari terdekat untuk meliput dan memfoto peserta lari.</p>
+                                <button class="mt-6 bg-brand-light border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-6 py-2 rounded-xl font-bold transition-all text-sm">Cari Acara Lari</button>
                             </div>
                             
                             <!-- Future Implementation (Sample Row): 
@@ -311,7 +311,7 @@
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                 </div>
                                 <h3 class="text-sm font-bold text-brand-navy">Belum ada penjualan</h3>
-                                <p class="text-xs text-brand-muted mt-1">Upload foto Anda ke event untuk mulai mendapatkan penghasilan.</p>
+                                <p class="text-xs text-brand-muted mt-1">Unggah foto Anda ke acara untuk mulai mendapatkan penghasilan.</p>
                             </div>
                         </div>
                     </div>

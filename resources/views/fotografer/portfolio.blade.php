@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Fotografer - RunSnap</title>
+    <title>Halaman Fotografer - RunSnap</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,13 +62,13 @@
                     <a href="{{ route('fotografer.dashboard') }}" 
                         class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Dashboard
+                        Halaman Fotografer
                     </a>
 
                     <a href="{{ route('fotografer.upload') }}" 
                         class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        Upload Foto
+                        Unggah Foto
                     </a>
                 
                     <a href="{{ route('fotografer.portfolio') }}" 
@@ -90,7 +90,7 @@
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
                     <h4 class="text-white text-sm font-bold mb-1">Tips Fotografer!</h4>
-                    <p class="text-brand-muted text-xs mb-3">Upload foto max 1 jam setelah event untuk penjualan maksimal.</p>
+                    <p class="text-brand-muted text-xs mb-3">Unggah foto maks 1 jam setelah acara untuk penjualan maksimal.</p>
                     <a href="#" class="text-brand-teal text-xs font-bold hover:underline relative z-10 flex items-center">
                         Baca Panduan <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="text-left">
                                             <p class="text-sm text-brand-navy font-bold">Foto Berhasil Terjual! 🎉</p>
-                                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">Foto unggahanmu di salah satu event telah dibeli oleh pelari.</p>
+                                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">Foto unggahanmu di salah satu acara telah dibeli oleh pelari.</p>
                                             <p class="text-[10px] text-brand-teal mt-2 font-bold">Baru saja</p>
                                         </div>
                                     </div>
@@ -186,11 +186,11 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>
                         <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
-                        <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan event.</p>
+                        <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan acara.</p>
                     </div>
                     <a href="{{ route('fotografer.upload') }}" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Upload Foto Baru
+                        Unggah Foto Baru
                     </a>
                 </div>
 
@@ -210,7 +210,7 @@
                                 </p>
                             </div>
                         </div>
-                        <button class="px-4 py-2 text-sm font-bold text-brand-navy bg-white border border-brand-border rounded-lg hover:border-brand-teal transition-colors">Lihat Detail Event</button>
+                        <button class="px-4 py-2 text-sm font-bold text-brand-navy bg-white border border-brand-border rounded-lg hover:border-brand-teal transition-colors">Lihat Detail acara</button>
                     </div>
 
                     <div class="p-6">
@@ -239,7 +239,7 @@
                                 @if($photo->is_processed_ai)
                                 <div class="absolute top-2 right-2 bg-brand-teal text-white text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
                                     <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    AI Ready
+                                    AI Siap
                                 </div>
                                 @endif
                             </div>
@@ -260,9 +260,9 @@
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
                     <h3 class="text-xl font-black text-brand-navy">Portofolio Masih Kosong</h3>
-                    <p class="text-brand-muted font-medium mt-2 max-w-md mx-auto mb-6">Anda belum pernah mengunggah foto satupun ke platform RunSnap. Mulai unggah foto event pertama Anda!</p>
+                    <p class="text-brand-muted font-medium mt-2 max-w-md mx-auto mb-6">Anda belum pernah mengunggah foto satupun ke platform RunSnap. Mulai unggah foto acara pertama Anda!</p>
                     <a href="{{ route('fotografer.upload') }}" class="inline-flex bg-brand-teal text-white hover:bg-brand-tealHover px-6 py-3 rounded-xl font-bold transition-all shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] items-center justify-center gap-2">
-                        Upload Foto Sekarang
+                        Unggah Foto Sekarang
                     </a>
                 </div>
                 @endforelse

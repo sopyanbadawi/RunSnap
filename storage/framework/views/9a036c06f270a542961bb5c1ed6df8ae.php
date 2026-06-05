@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil & Data Diri - RunSnap</title>
+    <title>Cari Acara - RunSnap</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,7 @@
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                         Beranda Pelari
                     </a>
-                    <a href="/runner/events" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
+                    <a href="/runner/events" class="flex items-center px-4 py-3 rounded-xl bg-brand-light text-brand-teal font-bold transition-all border border-brand-border shadow-sm">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         Cari Acara
                     </a>
@@ -71,7 +71,11 @@
                     <button @click="sidebarOpen = true" class="text-brand-navy hover:text-brand-teal lg:hidden mr-4">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
-                    <h2 class="text-lg font-black text-brand-navy hidden sm:block">Akun Saya</h2>
+                    <!-- Header Search -->
+                    <div class="hidden md:flex items-center bg-brand-light border border-brand-border rounded-full px-4 py-2 w-96 focus-within:border-brand-teal focus-within:ring-2 focus-within:ring-brand-teal/20 transition-all">
+                        <svg class="w-4 h-4 text-brand-muted mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" class="bg-transparent border-none focus:outline-none w-full text-sm font-medium text-brand-navy" placeholder="Cari nama event lari...">
+                    </div>
                 </div>
 
                 <div class="flex items-center space-x-3 sm:space-x-5">
@@ -86,9 +90,10 @@
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-teal/20 text-brand-teal rounded-full flex items-center justify-center font-bold text-sm">
-                                {{ substr(auth()->user()->name ?? 'R U', 0, 1) }}
+                                <?php echo e(substr(auth()->user()->name ?? 'R U', 0, 1)); ?>
+
                             </div>
-                            <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Pelari Runner' }}</span>
+                            <span class="text-sm font-bold text-brand-navy hidden sm:block"><?php echo e(auth()->user()->name ?? 'Pelari Runner'); ?></span>
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
@@ -96,90 +101,83 @@
                             <a href="/runner/profile" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil & Data Diri</a>
                             <a href="/runner/settings" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                             <div class="border-t border-brand-border my-1"></div>
-                            @auth
-                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                                @csrf
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+                            <form method="POST" action="<?php echo e(route('filament.admin.auth.logout')); ?>">
+                                <?php echo csrf_field(); ?>
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                             </form>
-                            @else
+                            <?php else: ?>
                             <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Masuk</a>
-                            @endauth
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Content -->
+            <!-- Dashboard Content -->
             <div class="p-4 sm:p-6 lg:p-10 w-full max-w-7xl mx-auto flex-1 relative z-10">
                 
-                <div class="mb-8">
-                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Profil & Data Diri</h1>
-                    <p class="text-brand-muted font-medium mt-1">Kelola informasi pribadi dan data pengenalan wajah Anda.</p>
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+                    <div>
+                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Cari Acara Lari</h1>
+                        <p class="text-brand-muted font-medium mt-1">Jelajahi ratusan acara marathon dan fun run untuk menemukan fotomu.</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 w-full md:w-auto">
+                        <select class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal">
+                            <option>Semua Lokasi</option>
+                            <option>Jakarta</option>
+                            <option>Bali</option>
+                            <option>Jawa Barat</option>
+                        </select>
+                        <select class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal">
+                            <option>Kapan Saja</option>
+                            <option>Bulan Ini</option>
+                            <option>Selesai</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    
-                    <!-- Left: Face Recognition Data -->
-                    <div class="lg:col-span-1">
-                        <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 text-center h-full flex flex-col items-center justify-center">
-                            <div class="w-24 h-24 bg-brand-teal/10 rounded-full flex items-center justify-center mb-4 relative">
-                                <svg class="w-12 h-12 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-2 border-white rounded-full flex items-center justify-center">
-                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                </span>
+                <!-- Event Grid -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                    <a href="<?php echo e(route('runner.events.show', $event->id)); ?>" class="group bg-white border border-brand-border rounded-2xl overflow-hidden shadow-sm hover:border-brand-teal hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                        <div class="h-40 bg-gray-200 relative overflow-hidden">
+                            <img src="<?php echo e(asset('storage/' . $event->banner_image)); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" alt="Event Banner">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/20 to-transparent"></div>
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-navy text-[10px] font-black px-2.5 py-1 rounded-md shadow-sm">
+                                <span class="text-brand-teal mr-1">●</span>Selesai
                             </div>
-                            <h3 class="font-bold text-brand-navy text-lg">Data Wajah Tersimpan</h3>
-                            <p class="text-xs text-brand-muted mt-2 mb-6">AI RunSnap menggunakan data ini untuk menemukan foto Anda secara otomatis dari ribuan foto acara.</p>
-                            
-                            <button class="w-full bg-brand-light text-brand-teal font-bold py-2.5 rounded-xl hover:bg-brand-teal/20 transition-colors border border-brand-teal/30">
-                                Perbarui Foto Selfie
-                            </button>
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h4 class="font-black text-base mb-0.5 leading-tight group-hover:text-brand-teal transition-colors"><?php echo e($event->name); ?></h4>
+                                <p class="text-xs text-gray-300 flex items-center">
+                                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                    <?php echo e($event->lokasi ?? 'Lokasi Belum Ditentukan'); ?>
+
+                                </p>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Right: Personal Information Form -->
-                    <div class="lg:col-span-2">
-                        <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 sm:p-8">
-                            <h3 class="text-lg font-bold text-brand-navy mb-6 border-b border-brand-border pb-4">Informasi Pribadi</h3>
-                            
-                            <form>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Nama Lengkap</label>
-                                        <input type="text" value="Pelari Runner" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Email</label>
-                                        <input type="email" value="runner@example.com" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Nomor WhatsApp</label>
-                                        <input type="tel" value="081234567890" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Jenis Kelamin</label>
-                                        <select class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy appearance-none">
-                                            <option value="l" selected>Laki-laki</option>
-                                            <option value="p">Perempuan</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="mb-8">
-                                    <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Alamat Domisili</label>
-                                    <textarea rows="3" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">Jl. Sudirman No. 123, Jakarta Pusat</textarea>
-                                </div>
-
-                                <div class="flex justify-end gap-3">
-                                    <button type="button" class="px-6 py-3 rounded-xl font-bold text-brand-muted hover:bg-brand-light transition-colors">Batal</button>
-                                    <button type="submit" class="bg-brand-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-[#152A50] transition-colors shadow-lg shadow-brand-navy/20">Simpan Perubahan</button>
-                                </div>
-                            </form>
+                        <div class="p-4 bg-white flex justify-between items-center mt-auto border-t border-brand-border/50">
+                            <div>
+                                <p class="text-[10px] text-brand-muted font-bold mb-0.5">TANGGAL</p>
+                                <p class="text-sm font-bold text-brand-navy"><?php echo e(\Carbon\Carbon::parse($event->tanggal)->translatedFormat('d M Y')); ?></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[10px] text-brand-muted font-bold mb-0.5">FOTO</p>
+                                <p class="text-sm font-black text-brand-teal"><?php echo e($event->photos->count() ?? 0); ?></p>
+                            </div>
                         </div>
+                    </a>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                    <div class="col-span-full text-center py-10 bg-white border border-brand-border rounded-2xl shadow-sm">
+                        <p class="text-brand-muted font-medium">Belum ada acara lari yang sesuai filter.</p>
                     </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-10 flex justify-center">
+                    <?php echo e($events->links()); ?>
 
                 </div>
 
@@ -189,3 +187,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\Users\HP\RunSnap\resources\views/runner/events.blade.php ENDPATH**/ ?>

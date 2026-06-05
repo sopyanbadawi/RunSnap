@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Fotografer - RunSnap</title>
+    <title>Dashboard Fotografer - RunSnap</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,26 +59,26 @@
 
                 <!-- Nav Menu -->
                 <nav class="mt-6 px-4 space-y-2">
-                    <a href="{{ route('fotografer.dashboard') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.dashboard')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Halaman Fotografer
+                        Dashboard
                     </a>
 
-                    <a href="{{ route('fotografer.upload') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.upload')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.upload') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        Unggah Foto
+                        Upload Foto
                     </a>
                 
-                    <a href="{{ route('fotografer.portfolio') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.portfolio') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.portfolio')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.portfolio') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         Portofolio
                     </a>
                 
-                    <a href="{{ route('fotografer.earnings') }}" 
-                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.earnings') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
+                    <a href="<?php echo e(route('fotografer.earnings')); ?>" 
+                        class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold <?php echo e(request()->routeIs('fotografer.earnings') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white'); ?>">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         Pendapatan
                     </a>
@@ -90,7 +90,7 @@
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
                     <h4 class="text-white text-sm font-bold mb-1">Tips Fotografer!</h4>
-                    <p class="text-brand-muted text-xs mb-3">Unggah foto maks 1 jam setelah acara untuk penjualan maksimal.</p>
+                    <p class="text-brand-muted text-xs mb-3">Upload foto max 1 jam setelah event untuk penjualan maksimal.</p>
                     <a href="#" class="text-brand-teal text-xs font-bold hover:underline relative z-10 flex items-center">
                         Baca Panduan <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
@@ -101,7 +101,7 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col overflow-y-auto">
             <!-- Header -->
-            <header class="h-20 shrink-0 bg-white/80 backdrop-blur-md border-b border-brand-border flex items-center justify-between px-6 sticky top-0 z-10">
+            <header class="h-20 bg-white/80 backdrop-blur-md border-b border-brand-border flex items-center justify-between px-6 sticky top-0 z-10">
                 <div class="flex items-center">
                     <button @click="sidebarOpen = true" class="text-brand-navy hover:text-brand-teal lg:hidden mr-4 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -126,7 +126,7 @@
                             </div>
                             
                             <div class="max-h-80 overflow-y-auto">
-                                <a href="{{ route('fotografer.earnings') }}" class="block p-4 border-b border-brand-border hover:bg-brand-light transition-colors bg-white">
+                                <a href="<?php echo e(route('fotografer.earnings')); ?>" class="block p-4 border-b border-brand-border hover:bg-brand-light transition-colors bg-white">
                                     <div class="flex items-start gap-3">
                                         <div class="w-8 h-8 rounded-full bg-brand-teal/10 text-brand-teal flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -159,125 +159,118 @@
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold text-sm">
-                                {{ substr(auth()->user()->name ?? 'F O', 0, 1) }}
+                                <?php echo e(substr(auth()->user()->name ?? 'F O', 0, 1)); ?>
+
                             </div>
-                            <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Fotografer' }}</span>
+                            <span class="text-sm font-bold text-brand-navy hidden sm:block"><?php echo e(auth()->user()->name ?? 'Fotografer'); ?></span>
 
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                     
                     <!-- Dropdown Menu -->
                     <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-brand-border py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                        <a href="{{ route('fotografer.profile') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
-                        <a href="{{ route('fotografer.settings') }}" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
+                        <a href="<?php echo e(route('fotografer.profile')); ?>" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil Saya</a>
+                        <a href="<?php echo e(route('fotografer.settings')); ?>" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                         <div class="border-t border-brand-border my-1"></div>
-                        @auth
-                        <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                            @csrf
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+                        <form method="POST" action="<?php echo e(route('filament.admin.auth.logout')); ?>">
+                            <?php echo csrf_field(); ?>
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                         </form>
-                        @endauth
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
                 </div>
             </header>
 
-            <!-- Dashboard Content -> Upload -->
-            <div class="p-6 sm:p-10 w-full max-w-5xl mx-auto">
-                <div class="mb-8">
-                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Unggah Foto Acara</h1>
-                    <p class="text-brand-muted font-medium mt-1">Unggah hasil jepretan Anda ke acara yang tersedia untuk mulai menjual.</p>
+            <!-- Dashboard Content -> Earnings -->
+            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                    <div>
+                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Riwayat Pendapatan</h1>
+                        <p class="text-brand-muted font-medium mt-1">Lacak setiap transaksi penjualan foto Anda secara real-time.</p>
+                    </div>
+                    <div class="bg-white px-5 py-3 rounded-2xl border border-brand-border shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-brand-teal/10 text-brand-teal rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-brand-muted font-bold uppercase tracking-wider">Total Pendapatan</p>
+                            <p class="text-xl font-black text-brand-navy">Rp <?php echo e(number_format($totalEarnings ?? 0, 0, ',', '.')); ?></p>
+                        </div>
+                        <button class="ml-4 bg-brand-navy text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-brand-teal transition-colors">Tarik Dana</button>
+                    </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-brand-border p-6 sm:p-8">
-                    <form action="{{ route('fotografer.upload') }}" method="POST" enctype="multipart/form-data"
-                        x-data="{ 
-                            files: [], 
-                            isDragging: false,
-                            handleFiles(fileList) {
-                                this.files = Array.from(fileList);
-                            }
-                        }">
-                        @csrf
-                        
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Acara</label>
-                            <select name="event_id" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all cursor-pointer font-medium" required>
-                                <option value="" disabled selected>-- Pilih Acara Lari --</option>
-                                @foreach($events as $event)
-                                    <option value="{{ $event->id }}">{{ $event->name }} - {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</option>
-                                @endforeach
-                            </select>
-                            <p class="text-xs text-brand-muted mt-2">Pastikan Anda memilih acara yang tepat agar pelari bisa menemukan fotonya.</p>
-                        </div>
-
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Harga Per Foto (Rp)</label>
-                            <input type="number" name="price" value="25000" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-bold" required min="10000" step="5000">
-                        </div>
-
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Foto (Tarik & Lepas)</label>
-                            <div class="flex items-center justify-center w-full">
-                                <label for="dropzone-file" 
-                                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-2xl cursor-pointer transition-colors group relative"
-                                    :class="isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-brand-border bg-brand-light/50 hover:bg-brand-light'"
-                                    @dragover.prevent="isDragging = true"
-                                    @dragleave.prevent="isDragging = false"
-                                    @drop.prevent="isDragging = false; handleFiles($event.dataTransfer.files); $refs.fileInput.files = $event.dataTransfer.files">
-                                    
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
-                                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
-                                            <svg class="w-8 h-8 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                <div class="bg-white rounded-2xl shadow-sm border border-brand-border overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-brand-light/50 border-b border-brand-border">
+                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Foto Terjual</th>
+                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Event</th>
+                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Pembeli</th>
+                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Tanggal</th>
+                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider text-right">Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-brand-border">
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $purchases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $purchase): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                                <tr class="hover:bg-brand-light/30 transition-colors">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                                                <img src="<?php echo e(asset('storage/' . ($purchase->photo->watermark_path ?? ''))); ?>" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=100'" class="w-full h-full object-cover">
+                                            </div>
+                                            <div>
+                                                <p class="font-bold text-brand-navy text-sm">#<?php echo e($purchase->photo_id ?? '---'); ?></p>
+                                                <p class="text-xs text-brand-teal font-semibold mt-0.5">Sukses</p>
+                                            </div>
                                         </div>
-                                        
-                                        <template x-if="files.length === 0">
-                                            <div>
-                                                <p class="mb-2 text-sm text-brand-navy font-bold"><span class="text-brand-teal">Klik untuk memilih file</span> atau tarik & lepas ke sini</p>
-                                                <p class="text-xs text-brand-muted">PNG, JPG or JPEG (MAKS. 10MB per foto)</p>
-                                            </div>
-                                        </template>
-                                        
-                                        <template x-if="files.length > 0">
-                                            <div>
-                                                <p class="mb-1 text-sm text-brand-navy font-bold text-brand-teal">
-                                                    <span x-text="files.length"></span> File Terpilih
-                                                </p>
-                                                <div class="text-xs text-brand-muted max-w-md truncate bg-white/80 p-2 rounded-lg border border-brand-border mt-1 max-h-20 overflow-y-auto">
-                                                    <template x-for="file in files">
-                                                        <div x-text="file.name" class="truncate py-0.5"></div>
-                                                    </template>
-                                                </div>
-                                            </div>
-                                        </template>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <p class="font-semibold text-brand-body text-sm"><?php echo e($purchase->photo->event->name ?? 'Unknown Event'); ?></p>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center text-[10px] font-bold">
+                                                <?php echo e(substr($purchase->user->name ?? 'P', 0, 1)); ?>
 
-                                        <p class="text-xs text-brand-orange font-bold mt-3 bg-brand-orange/10 px-3 py-1 rounded-full">Sistem akan memproses AI & Watermark otomatis!</p>
-                                    </div>
-                                    
-                                    <input id="dropzone-file" 
-                                        x-ref="fileInput"
-                                        type="file" 
-                                        name="photos[]" 
-                                        multiple 
-                                        class="hidden" 
-                                        accept="image/png, image/jpeg, image/jpg" 
-                                        @change="handleFiles($event.target.files)"
-                                        required />
-                                </label>
-                            </div> 
-                        </div>
+                                            </div>
+                                            <p class="font-semibold text-brand-body text-sm"><?php echo e($purchase->user->name ?? 'Pelari'); ?></p>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <p class="font-semibold text-brand-body text-sm"><?php echo e(\Carbon\Carbon::parse($purchase->created_at)->format('d M Y, H:i')); ?></p>
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <p class="font-black text-brand-navy text-base">+ Rp <?php echo e(number_format($purchase->photo->price ?? 25000, 0, ',', '.')); ?></p>
+                                    </td>
+                                </tr>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                                <tr>
+                                    <td colspan="5" class="py-12 px-6 text-center">
+                                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 text-brand-muted">
+                                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                        </div>
+                                        <h3 class="text-lg font-bold text-brand-navy">Belum Ada Transaksi</h3>
+                                        <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Foto Anda belum ada yang terjual. Terus unggah foto berkualitas di setiap event lari!</p>
+                                    </td>
+                                </tr>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($purchases->hasPages()): ?>
+                    <div class="p-4 border-t border-brand-border">
+                        <?php echo e($purchases->links()); ?>
 
-                        <div class="flex justify-end pt-4 border-t border-brand-border">
-                            <button type="button" @click="files = []; $refs.fileInput.value = ''" class="px-6 py-3 mr-3 text-sm font-bold text-brand-muted bg-brand-light rounded-xl hover:bg-gray-200 transition-colors">Batal</button>
-                            <button type="submit" class="px-8 py-3 text-sm font-bold text-white bg-brand-teal rounded-xl hover:bg-brand-tealHover shadow-lg shadow-brand-teal/30 transition-all flex items-center">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                Mulai Unggah
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                 </div>
             </div>
         </main>
     </div>
 
 </body>
-</html>
+</html><?php /**PATH C:\Users\HP\RunSnap\resources\views/fotografer/earnings.blade.php ENDPATH**/ ?>

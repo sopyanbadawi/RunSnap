@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil & Data Diri - RunSnap</title>
+    <title>Riwayat Pembelian - RunSnap</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,13 +49,13 @@
                     </a>
                     <a href="/runner/events" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        Cari Acara
+                        Cari Event
                     </a>
                     <a href="/runner/gallery" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         Galeri Foto Saya
                     </a>
-                    <a href="/runner/transactions" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
+                    <a href="/runner/transactions" class="flex items-center px-4 py-3 rounded-xl bg-brand-light text-brand-teal font-bold transition-all border border-brand-border shadow-sm">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                         Riwayat Pembelian
                     </a>
@@ -71,7 +71,7 @@
                     <button @click="sidebarOpen = true" class="text-brand-navy hover:text-brand-teal lg:hidden mr-4">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
-                    <h2 class="text-lg font-black text-brand-navy hidden sm:block">Akun Saya</h2>
+                    <h2 class="text-lg font-black text-brand-navy hidden sm:block">Transaksi</h2>
                 </div>
 
                 <div class="flex items-center space-x-3 sm:space-x-5">
@@ -86,9 +86,10 @@
                     <div class="relative group pb-4 -mb-4">
                         <button class="flex items-center space-x-2 sm:space-x-3 focus:outline-none bg-brand-light p-1.5 pr-3 sm:pr-4 rounded-full border border-brand-border hover:border-brand-teal transition-colors shadow-sm cursor-pointer">
                             <div class="w-8 h-8 bg-brand-teal/20 text-brand-teal rounded-full flex items-center justify-center font-bold text-sm">
-                                {{ substr(auth()->user()->name ?? 'R U', 0, 1) }}
+                                <?php echo e(substr(auth()->user()->name ?? 'R U', 0, 1)); ?>
+
                             </div>
-                            <span class="text-sm font-bold text-brand-navy hidden sm:block">{{ auth()->user()->name ?? 'Pelari Runner' }}</span>
+                            <span class="text-sm font-bold text-brand-navy hidden sm:block"><?php echo e(auth()->user()->name ?? 'Pelari Runner'); ?></span>
                             <svg class="w-4 h-4 text-brand-muted hidden sm:block transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
 
@@ -96,91 +97,88 @@
                             <a href="/runner/profile" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Profil & Data Diri</a>
                             <a href="/runner/settings" class="block px-4 py-2 text-sm text-brand-body hover:bg-brand-light hover:text-brand-teal font-medium">Pengaturan Akun</a>
                             <div class="border-t border-brand-border my-1"></div>
-                            @auth
-                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                                @csrf
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+                            <form method="POST" action="<?php echo e(route('filament.admin.auth.logout')); ?>">
+                                <?php echo csrf_field(); ?>
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold">Keluar</button>
                             </form>
-                            @else
+                            <?php else: ?>
                             <a href="/login" class="block px-4 py-2 text-sm text-brand-navy hover:bg-brand-light font-bold">Masuk</a>
-                            @endauth
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Content -->
+            <!-- Dashboard Content -->
             <div class="p-4 sm:p-6 lg:p-10 w-full max-w-7xl mx-auto flex-1 relative z-10">
                 
                 <div class="mb-8">
-                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Profil & Data Diri</h1>
-                    <p class="text-brand-muted font-medium mt-1">Kelola informasi pribadi dan data pengenalan wajah Anda.</p>
+                    <h1 class="text-3xl font-black text-brand-navy tracking-tight">Riwayat Pembelian</h1>
+                    <p class="text-brand-muted font-medium mt-1">Daftar transaksi dan invoice pembelian foto Anda.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Transactions Table Card -->
+                <div class="bg-white border border-brand-border rounded-2xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-brand-light border-b border-brand-border text-brand-muted text-xs uppercase tracking-wider font-bold">
+                                    <th class="p-5">ID Penjualan</th>
+                                    <th class="p-5">Tanggal</th>
+                                    <th class="p-5">Total Bayar</th>
+                                    <th class="p-5">Status</th>
+                                    <th class="p-5 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-brand-border">
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__empty_1 = true; $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $trx): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                                <tr class="hover:bg-brand-light/50 transition-colors group">
+                                    <td class="p-5">
+                                        <div class="font-bold text-brand-navy"><?php echo e($trx->external_id ?? 'INV-XXXX'); ?></div>
+                                        <div class="text-xs text-brand-muted mt-0.5"><?php echo e($trx->purchasedPhotos->count() ?? 0); ?> Item (Foto Lari)</div>
+                                    </td>
+                                    <td class="p-5 font-medium text-brand-body"><?php echo e(\Carbon\Carbon::parse($trx->created_at)->translatedFormat('d M Y')); ?></td>
+                                    <td class="p-5 font-black text-brand-navy">Rp <?php echo e(number_format($trx->total_price ?? 0, 0, ',', '.')); ?></td>
+                                    <td class="p-5">
+                                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($trx->status === 'completed'): ?>
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-green-100 text-green-700">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></span> Berhasil
+                                        </span>
+                                        <?php elseif($trx->status === 'pending'): ?>
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-yellow-100 text-yellow-700">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5"></span> Menunggu Pembayaran
+                                        </span>
+                                        <?php else: ?>
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-red-100 text-red-700">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></span> Kedaluwarsa/Gagal
+                                        </span>
+                                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                    </td>
+                                    <td class="p-5 text-right">
+                                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($trx->status === 'completed'): ?>
+                                        <button class="text-brand-teal font-bold text-sm hover:underline">Lihat Keuntungan</button>
+                                        <?php elseif($trx->status === 'pending'): ?>
+                                        <button class="bg-brand-navy text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#152A50] transition-colors">Bayar Sekarang</button>
+                                        <?php else: ?>
+                                        <button class="text-brand-muted font-bold text-sm hover:text-brand-navy transition-colors">Hapus</button>
+                                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                                <tr>
+                                    <td colspan="5" class="p-10 text-center text-brand-muted font-medium">Belum ada transaksi.</td>
+                                </tr>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                     
-                    <!-- Left: Face Recognition Data -->
-                    <div class="lg:col-span-1">
-                        <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 text-center h-full flex flex-col items-center justify-center">
-                            <div class="w-24 h-24 bg-brand-teal/10 rounded-full flex items-center justify-center mb-4 relative">
-                                <svg class="w-12 h-12 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-2 border-white rounded-full flex items-center justify-center">
-                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                </span>
-                            </div>
-                            <h3 class="font-bold text-brand-navy text-lg">Data Wajah Tersimpan</h3>
-                            <p class="text-xs text-brand-muted mt-2 mb-6">AI RunSnap menggunakan data ini untuk menemukan foto Anda secara otomatis dari ribuan foto acara.</p>
-                            
-                            <button class="w-full bg-brand-light text-brand-teal font-bold py-2.5 rounded-xl hover:bg-brand-teal/20 transition-colors border border-brand-teal/30">
-                                Perbarui Foto Selfie
-                            </button>
-                        </div>
+                    <!-- Pagination -->
+                    <div class="p-4 border-t border-brand-border bg-white flex items-center justify-between">
+                        <?php echo e($transactions->links()); ?>
+
                     </div>
-
-                    <!-- Right: Personal Information Form -->
-                    <div class="lg:col-span-2">
-                        <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 sm:p-8">
-                            <h3 class="text-lg font-bold text-brand-navy mb-6 border-b border-brand-border pb-4">Informasi Pribadi</h3>
-                            
-                            <form>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Nama Lengkap</label>
-                                        <input type="text" value="Pelari Runner" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Email</label>
-                                        <input type="email" value="runner@example.com" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Nomor WhatsApp</label>
-                                        <input type="tel" value="081234567890" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Jenis Kelamin</label>
-                                        <select class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy appearance-none">
-                                            <option value="l" selected>Laki-laki</option>
-                                            <option value="p">Perempuan</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="mb-8">
-                                    <label class="block text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">Alamat Domisili</label>
-                                    <textarea rows="3" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold text-brand-navy">Jl. Sudirman No. 123, Jakarta Pusat</textarea>
-                                </div>
-
-                                <div class="flex justify-end gap-3">
-                                    <button type="button" class="px-6 py-3 rounded-xl font-bold text-brand-muted hover:bg-brand-light transition-colors">Batal</button>
-                                    <button type="submit" class="bg-brand-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-[#152A50] transition-colors shadow-lg shadow-brand-navy/20">Simpan Perubahan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
@@ -189,3 +187,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\Users\HP\RunSnap\resources\views/runner/transactions.blade.php ENDPATH**/ ?>
