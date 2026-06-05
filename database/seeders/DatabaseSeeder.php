@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123'),
             'role' => 'admin',
+            'email_verified_at' => now(),
         ]);
 
         User::factory()->create([
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'rn@gmail.com',
             'password' => bcrypt('123'),
             'role' => 'runner',
+            'email_verified_at' => now(),
         ]);
 
         User::factory()->create([
@@ -36,6 +38,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'fg@gmail.com',
             'password' => bcrypt('123'),
             'role' => 'fotografer',
+            'email_verified_at' => now(),
         ]);
     }
 }
