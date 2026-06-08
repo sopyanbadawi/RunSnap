@@ -131,6 +131,9 @@ class FotograferController extends Controller
                 // Menyiapkan jalur path untuk foto ber-watermark (nanti di-generate via script AI/Watermark)
                 $watermarkPath = "photos/event-{$eventId}/watermark/" . $filename;
 
+                // Generate watermark secara otomatis
+                \App\Helpers\WatermarkHelper::generate($originalPath, $watermarkPath);
+
                 // PENGUMPULAN DATA: Masukkan baris data baru ke tabel 'photos' sesuai ERD RunSnap
                 Photo::create([
                     'event_id'        => $eventId,
