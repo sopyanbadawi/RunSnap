@@ -53,43 +53,56 @@ class RunnerController extends Controller
     {
         // Ambil data event beserta foto-fotonya
         $event = Event::findOrFail($id);
+        $bibQuery = request('bib');
 
-        $user = auth()->user();
-        $selfie = RunnerSelfie::where('user_id', $user->id)->first();
-
-        // Jika user memiliki selfie dengan face embedding yang valid
-        if ($selfie && is_array($selfie->face_embedding) && count($selfie->face_embedding) > 0) {
-            $targetEmbedding = $selfie->face_embedding;
-
-            // Ambil semua data wajah pada foto-foto di event ini
-            $photoFaces = \Illuminate\Support\Facades\DB::table('photo_faces')
-                ->join('photos', 'photo_faces.photo_id', '=', 'photos.id')
-                ->where('photos.event_id', $event->id)
-                ->select('photos.id as photo_id', 'photo_faces.face_embedding')
-                ->get();
-
-            $matchedPhotoIds = [];
-            foreach ($photoFaces as $photoFace) {
-                $embedding = json_decode($photoFace->face_embedding, true);
-                if (is_array($embedding) && count($embedding) > 0) {
-                    $similarity = $this->cosineSimilarity($targetEmbedding, $embedding);
-                    // Threshold kemiripan wajah: 0.45
-                    if ($similarity >= 0.45) {
-                        $matchedPhotoIds[] = $photoFace->photo_id;
-                    }
-                }
-            }
-
-            // Ambil foto yang cocok saja
-            $matchedPhotos = Photo::whereIn('id', array_unique($matchedPhotoIds))
+        if (filled($bibQuery)) {
+            // Jika ada query BIB, cari foto-foto di event ini yang memiliki nomor BIB tersebut
+            $matchedPhotos = Photo::where('event_id', $event->id)
+                ->whereHas('bibs', function ($query) use ($bibQuery) {
+                    $query->where('bib_number', $bibQuery);
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            // Tempelkan relasi foto ke objek event secara manual agar view blade tetap kompatibel
             $event->setRelation('photos', $matchedPhotos);
         } else {
-            // Jika belum punya embedding / belum diproses, tampilkan kosong
-            $event->setRelation('photos', collect());
+            $user = auth()->user();
+            $selfie = RunnerSelfie::where('user_id', $user->id)->first();
+
+            // Jika user memiliki selfie dengan face embedding yang valid
+            if ($selfie && is_array($selfie->face_embedding) && count($selfie->face_embedding) > 0) {
+                $targetEmbedding = $selfie->face_embedding;
+
+                // Ambil semua data wajah pada foto-foto di event ini
+                $photoFaces = \Illuminate\Support\Facades\DB::table('photo_faces')
+                    ->join('photos', 'photo_faces.photo_id', '=', 'photos.id')
+                    ->where('photos.event_id', $event->id)
+                    ->select('photos.id as photo_id', 'photo_faces.face_embedding')
+                    ->get();
+
+                $matchedPhotoIds = [];
+                foreach ($photoFaces as $photoFace) {
+                    $embedding = json_decode($photoFace->face_embedding, true);
+                    if (is_array($embedding) && count($embedding) > 0) {
+                        $similarity = $this->cosineSimilarity($targetEmbedding, $embedding);
+                        // Threshold kemiripan wajah: 0.45
+                        if ($similarity >= 0.45) {
+                            $matchedPhotoIds[] = $photoFace->photo_id;
+                        }
+                    }
+                }
+
+                // Ambil foto yang cocok saja
+                $matchedPhotos = Photo::whereIn('id', array_unique($matchedPhotoIds))
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+                // Tempelkan relasi foto ke objek event secara manual agar view blade tetap kompatibel
+                $event->setRelation('photos', $matchedPhotos);
+            } else {
+                // Jika belum punya embedding / belum diproses, tampilkan kosong
+                $event->setRelation('photos', collect());
+            }
         }
 
         return view('runner.event_detail', compact('event'));

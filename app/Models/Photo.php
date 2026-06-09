@@ -34,4 +34,10 @@ class Photo extends Model
     {
         return $this->hasMany(PhotoFace::class);
     }
+
+    // Relasi ke nomor BIB yang terdeteksi di foto
+    public function bibs()
+    {
+        return $this->hasMany(PhotoBib::class);
+    }
 }

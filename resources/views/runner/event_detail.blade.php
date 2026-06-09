@@ -168,62 +168,37 @@
                     </div>
                 </div>
 
-                <!-- 1. Kotak Pencarian Cerdas (AI & BIB) khusus untuk event ini -->
+                <!-- 1. Kotak Pencarian BIB khusus untuk event ini -->
                 <div class="mb-12">
-                    <div x-data="{ tab: 'ai' }" class="bg-white rounded-3xl shadow-sm border border-brand-border p-5 md:p-8 hover:shadow-md transition-shadow duration-300 relative overflow-hidden">
+                    <div class="bg-white rounded-3xl shadow-sm border border-brand-border p-5 md:p-8 hover:shadow-md transition-shadow duration-300 relative overflow-hidden">
                         <!-- Decorative background -->
                         <div class="absolute top-0 right-0 w-64 h-64 bg-brand-teal/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
                         <div class="text-center md:text-left mb-6 relative z-10">
-                            <h2 class="text-2xl font-black text-brand-navy tracking-tight">Cari Fotomu di Acara Ini</h2>
-                            <p class="text-brand-muted text-sm mt-1">Gunakan selfie atau nomor BIB untuk menemukan foto dengan cepat.</p>
+                            <h2 class="text-2xl font-black text-brand-navy tracking-tight">Cari Berdasarkan Nomor BIB</h2>
+                            <p class="text-brand-muted text-sm mt-1">Masukkan nomor BIB (nomor dada) Anda untuk mencari foto spesifik pada acara ini.</p>
                         </div>
 
-                        <!-- Tabs -->
-                        <div class="flex p-1.5 bg-brand-light rounded-2xl mb-8 relative z-10 max-w-md mx-auto md:mx-0">
-                            <button @click="tab = 'ai'" :class="tab === 'ai' ? 'bg-white shadow-md text-brand-teal scale-[1.02]' : 'text-brand-muted hover:text-brand-navy'" class="flex-1 py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                Pencarian AI (Selfie)
-                            </button>
-                            <button @click="tab = 'bib'" :class="tab === 'bib' ? 'bg-white shadow-md text-brand-navy scale-[1.02]' : 'text-brand-muted hover:text-brand-navy'" class="flex-1 py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path></svg>
-                                Nomor BIB
-                            </button>
-                        </div>
-
-                        <!-- AI Search Content -->
-                        <div x-show="tab === 'ai'" x-transition.opacity class="flex flex-col md:flex-row gap-6 items-center relative z-10">
-                            <div class="flex-1 w-full relative">
-                                <label class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-brand-teal/50 rounded-2xl cursor-pointer bg-brand-teal/5 hover:bg-brand-teal/10 hover:border-brand-teal transition-all duration-300 group shadow-sm hover:shadow-inner">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 group-hover:bg-brand-teal group-hover:text-white transition-all duration-300 text-brand-teal">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
-                                        </div>
-                                        <p class="text-sm font-bold text-brand-navy">Upload Selfie Anda</p>
-                                        <p class="text-xs text-brand-muted mt-1">Sistem AI akan mencari wajah Anda di acara ini</p>
-                                    </div>
-                                    <input type="file" class="hidden" accept="image/*" />
-                                </label>
-                            </div>
-                            <button class="w-full md:w-auto h-36 px-10 bg-brand-teal text-white rounded-2xl font-black text-lg hover:bg-brand-tealHover shadow-lg shadow-brand-teal/30 transition-all duration-300 flex flex-col items-center justify-center gap-2 hover:-translate-y-1">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                Scan
-                            </button>
-                        </div>
-
-                        <!-- BIB Search Content -->
-                        <div x-show="tab === 'bib'" x-transition.opacity class="flex flex-col md:flex-row gap-6 items-center relative z-10" style="display: none;">
+                        <!-- BIB Search Form -->
+                        <form method="GET" action="{{ route('runner.events.show', $event->id) }}" class="flex flex-col md:flex-row gap-6 items-center relative z-10">
                             <div class="flex-1 w-full relative group">
                                 <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none transition-colors duration-300 group-focus-within:text-brand-navy">
-                                    <svg class="w-6 h-6 text-brand-muted group-focus-within:text-brand-teal transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    <svg class="w-6 h-6 text-brand-muted group-focus-within:text-brand-teal transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path></svg>
                                 </div>
-                                <input type="text" class="block w-full h-20 pl-14 pr-4 bg-brand-light border border-brand-border rounded-2xl text-brand-navy font-bold text-xl focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:bg-white focus:outline-none transition-all duration-300 placeholder-brand-muted/70 shadow-sm" placeholder="Ketik Nomor BIB Anda (Contoh: 12044)">
+                                <input type="text" name="bib" value="{{ request('bib') }}" class="block w-full h-20 pl-14 pr-4 bg-brand-light border border-brand-border rounded-2xl text-brand-navy font-bold text-xl focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:bg-white focus:outline-none transition-all duration-300 placeholder-brand-muted/70 shadow-sm" placeholder="Ketik Nomor BIB Anda (Contoh: 12044)">
                             </div>
-                            <button class="w-full md:w-auto h-20 px-12 bg-brand-navy text-white rounded-2xl font-black text-lg hover:bg-[#152A50] shadow-lg shadow-brand-navy/20 transition-all duration-300 hover:-translate-y-1 flex items-center gap-2">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                Cari Foto
-                            </button>
-                        </div>
+                            <div class="flex w-full md:w-auto gap-3">
+                                <button type="submit" class="flex-1 md:flex-none h-20 px-12 bg-brand-navy text-white rounded-2xl font-black text-lg hover:bg-[#152A50] shadow-lg shadow-brand-navy/20 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    Cari Foto
+                                </button>
+                                @if(request()->filled('bib'))
+                                <a href="{{ route('runner.events.show', $event->id) }}" class="h-20 px-6 bg-gray-200 text-brand-navy rounded-2xl font-bold text-sm hover:bg-gray-300 transition-all duration-300 flex items-center justify-center shadow-md hover:-translate-y-1">
+                                    Kembali
+                                </a>
+                                @endif
+                            </div>
+                        </form>
                     </div>
                 </div>
 
