@@ -58,4 +58,20 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Photo::class, 'fotografer_id');
     }
+
+    /**
+     * Get the selfie record for this user (if role is runner).
+     */
+    public function selfie()
+    {
+        return $this->hasOne(RunnerSelfie::class);
+    }
+
+    /**
+     * Helper to check if user has a selfie.
+     */
+    public function hasSelfie()
+    {
+        return $this->selfie()->exists();
+    }
 }

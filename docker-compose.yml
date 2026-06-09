@@ -23,6 +23,25 @@ services:
       - db
     restart: unless-stopped
 
+  queue-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      QUEUE_CONNECTION: database
+    command: ["php", "artisan", "queue:work", "--tries=3"]
+    depends_on:
+      - db
+    restart: unless-stopped
+
   db:
     image: mysql:8.0
     restart: always

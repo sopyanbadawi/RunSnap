@@ -24,6 +24,11 @@ class AuthController extends Controller
 
         $user->sendEmailVerificationNotification();
 
+        if ($user->role === 'runner') {
+            return redirect()->route('runner.selfie')
+                ->with('success', 'Akun berhasil dibuat! Silakan daftarkan foto wajah kamu terlebih dahulu.');
+        }
+
         return redirect()->route('verification.notice')
             ->with('success', 'Akun berhasil dibuat! Silakan cek email kamu untuk verifikasi.');
     }

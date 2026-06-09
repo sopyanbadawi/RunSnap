@@ -77,6 +77,9 @@ class FotograferController extends Controller
      */
     public function storeUpload(Request $request)
     {
+        // Set execution time limit to 10 minutes for bulk upload and watermark processing
+        set_time_limit(600);
+
         // 1. Validasi Input Form (Event + Foto)
         $request->validate([
             'name' => 'required|string|max:255',
@@ -131,11 +134,8 @@ class FotograferController extends Controller
                 // Menyiapkan jalur path untuk foto ber-watermark (nanti di-generate via script AI/Watermark)
                 $watermarkPath = "photos/event-{$eventId}/watermark/" . $filename;
 
-                // Generate watermark secara otomatis
-                \App\Helpers\WatermarkHelper::generate($originalPath, $watermarkPath);
-
                 // PENGUMPULAN DATA: Masukkan baris data baru ke tabel 'photos' sesuai ERD RunSnap
-                Photo::create([
+                $photo = Photo::create([
                     'event_id'        => $eventId,
                     'fotografer_id'   => $user->id,
                     'original_path'   => $originalPath,
@@ -143,6 +143,9 @@ class FotograferController extends Controller
                     'is_processed_ai' => false, // Di-set false terlebih dahulu sebelum diproses Python AI
                     'price'           => $request->price,
                 ]);
+
+                // Kirim tugas ke antrean latar belakang
+                \App\Jobs\ProcessPhoto::dispatch($photo);
             }
 
             // Kembalikan ke halaman dashboard dengan pesan sukses

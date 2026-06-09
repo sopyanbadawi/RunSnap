@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'photographer.verified' => \App\Http\Middleware\EnsurePhotographerVerified::class,
+            'runner.has_selfie' => \App\Http\Middleware\EnsureRunnerHasSelfie::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

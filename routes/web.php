@@ -50,14 +50,21 @@ Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,
 ])->group(function () {
     Route::middleware(['auth'])->prefix('runner')->name('runner.')->group(function() {
-        Route::get('/dashboard', [RunnerController::class, 'dashboard'])->name('dashboard');
-        Route::get('/events', [RunnerController::class, 'events'])->name('events');
-        Route::get('/events/{id}', [RunnerController::class, 'show'])->name('events.show');
-        Route::get('/gallery', [RunnerController::class, 'gallery'])->name('gallery');
-        Route::get('/transactions', [RunnerController::class, 'transactions'])->name('transactions');
-        Route::get('/profile', [RunnerController::class, 'profile'])->name('profile');
-        Route::get('/settings', [RunnerController::class, 'settings'])->name('settings');
-        Route::get('/cart', [RunnerController::class, 'cart'])->name('cart');
+        // Rute selfie (harus bisa diakses oleh runner yang belum ambil foto wajah)
+        Route::get('/selfie', [RunnerController::class, 'showSelfie'])->name('selfie');
+        Route::post('/selfie', [RunnerController::class, 'storeSelfie'])->name('selfie.store');
+
+        // Semua rute utama runner dilindungi oleh middleware runner.has_selfie
+        Route::middleware(['runner.has_selfie'])->group(function() {
+            Route::get('/dashboard', [RunnerController::class, 'dashboard'])->name('dashboard');
+            Route::get('/events', [RunnerController::class, 'events'])->name('events');
+            Route::get('/events/{id}', [RunnerController::class, 'show'])->name('events.show');
+            Route::get('/gallery', [RunnerController::class, 'gallery'])->name('gallery');
+            Route::get('/transactions', [RunnerController::class, 'transactions'])->name('transactions');
+            Route::get('/profile', [RunnerController::class, 'profile'])->name('profile');
+            Route::get('/settings', [RunnerController::class, 'settings'])->name('settings');
+            Route::get('/cart', [RunnerController::class, 'cart'])->name('cart');
+        });
     });
     
     Route::middleware(['auth'])->prefix('fotografer')->name('fotografer.')->group(function () {

@@ -28,4 +28,10 @@ class Photo extends Model
     {
         return $this->belongsTo(User::class, 'fotografer_id');
     }
+
+    // Relasi ke wajah yang terdeteksi di foto
+    public function faces()
+    {
+        return $this->hasMany(PhotoFace::class);
+    }
 }
