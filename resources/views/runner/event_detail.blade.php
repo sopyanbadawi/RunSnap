@@ -204,6 +204,24 @@
 
                 <!-- 2. Katalog Foto Event -->
                 <div>
+                    @if(isset($unprocessedCount) && $unprocessedCount > 0)
+                    <!-- Unprocessed Photos AI Notice Banner -->
+                    <div class="mb-8 bg-brand-teal/10 border border-brand-teal/20 text-brand-navy p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-teal text-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+                                <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold">🤖 AI Sedang Memindai Foto Lainnya...</p>
+                                <p class="text-xs text-brand-muted mt-0.5">Ada {{ $unprocessedCount }} foto di acara ini yang sedang diproses di latar belakang. Foto baru akan muncul otomatis secara bertahap.</p>
+                            </div>
+                        </div>
+                        <button onclick="window.location.reload();" class="w-full sm:w-auto text-xs bg-brand-navy hover:bg-[#152A50] text-white font-bold px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm shrink-0">
+                            Muat Ulang Halaman
+                        </button>
+                    </div>
+                    @endif
+
                     <div class="flex justify-between items-end mb-6">
                         <div>
                             <h3 class="text-2xl font-black text-brand-navy tracking-tight">Katalog Foto</h3>

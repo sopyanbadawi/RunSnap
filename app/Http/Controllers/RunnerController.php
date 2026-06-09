@@ -105,7 +105,11 @@ class RunnerController extends Controller
             }
         }
 
-        return view('runner.event_detail', compact('event'));
+        $unprocessedCount = Photo::where('event_id', $event->id)
+            ->where('is_processed_ai', false)
+            ->count();
+
+        return view('runner.event_detail', compact('event', 'unprocessedCount'));
     }
 
     /**
