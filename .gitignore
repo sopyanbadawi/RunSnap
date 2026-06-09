@@ -23,3 +23,8 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /storage/framework/views/*.php
+/storage/app/public/photos/
+/storage/app/public/events/
+/storage/app/public/selfies/
+/storage/insightface/
+test_final_matches.php
