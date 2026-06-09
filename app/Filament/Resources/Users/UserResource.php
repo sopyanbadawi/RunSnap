@@ -28,6 +28,16 @@ protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-users
     // 3. Mengubah teks pada tombol tambah (misal: "New Pengguna" menjadi "Tambah Pengguna")
     protected static ?string $modelLabel = 'Pengguna';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('role', 'fotografer')->where('verification_status', 'pending')->count() ?: null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::where('role', 'fotografer')->where('verification_status', 'pending')->exists() ? 'warning' : 'gray';
+    }
+
 
     public static function form(Schema $schema): Schema
     {
