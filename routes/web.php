@@ -64,6 +64,7 @@ Route::middleware([
             Route::get('/profile', [RunnerController::class, 'profile'])->name('profile');
             Route::get('/settings', [RunnerController::class, 'settings'])->name('settings');
             Route::get('/cart', [RunnerController::class, 'cart'])->name('cart');
+            Route::get('/photos/{id}/download-wm', [RunnerController::class, 'downloadWatermark'])->name('photos.download-wm');
         });
     });
     

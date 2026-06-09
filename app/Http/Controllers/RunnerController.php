@@ -265,4 +265,19 @@ class RunnerController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Download foto dengan watermark
+     */
+    public function downloadWatermark($id)
+    {
+        $photo = Photo::findOrFail($id);
+        $path = Storage::disk('public')->path($photo->watermark_path);
+        
+        if (!Storage::disk('public')->exists($photo->watermark_path)) {
+            abort(404, 'File foto watermark tidak ditemukan.');
+        }
+
+        return response()->download($path, basename($photo->watermark_path));
+    }
 }
