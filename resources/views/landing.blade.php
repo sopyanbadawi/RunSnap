@@ -162,7 +162,7 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-navy to-brand-teal">dalam Hitungan Detik!</span>
                     </h1>
                     <p class="text-lg text-brand-muted mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-                        RunSnap adalah platform distribusi dan monetisasi foto event lari berbasis <span class="font-bold text-brand-teal">AI Pengenalan Wajah</span>. Hubungkan fotografer dan pelari secara instan tanpa perlu scrolling manual ribuan foto.
+                        RunSnap adalah platform distribusi dan monetisasi foto event lari berbasis <span class="font-bold text-brand-teal">AI Pengenalan Wajah</span>. Hubungkan fotografer dan pelari secara instan tanpa perlu <i>scrolling</i> manual ribuan foto.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <a href="/runsnap/login" class="bg-brand-teal text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-brand-teal/30 hover:bg-brand-tealHover hover:shadow-brand-teal/40 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 group">
@@ -197,7 +197,7 @@
                     <ul class="space-y-4">
                         <li class="flex gap-3 text-brand-muted">
                             <span class="text-red-400">✖</span>
-                            Scrolling manual ribuan foto di Google Drive
+                            <i>Scrolling</i> manual ribuan foto di Google Drive
                         </li>
                         <li class="flex gap-3 text-brand-muted">
                             <span class="text-red-400">✖</span>
