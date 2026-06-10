@@ -45,7 +45,7 @@ class ProcessPhoto implements ShouldQueue
         $originalFullPath = Storage::disk('public')->path($this->photo->original_path);
         $scriptPath = base_path('app/Scripts/extract_faces.py');
 
-        $result = Process::run([
+        $result = Process::timeout(300)->run([
             'python3',
             $scriptPath,
             $originalFullPath

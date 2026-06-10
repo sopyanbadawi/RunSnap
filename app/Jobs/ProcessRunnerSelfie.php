@@ -36,7 +36,7 @@ class ProcessRunnerSelfie implements ShouldQueue
         $imageFullPath = Storage::disk('public')->path($this->selfie->image_path);
         $scriptPath = base_path('app/Scripts/extract_faces.py');
 
-        $result = Process::run([
+        $result = Process::timeout(300)->run([
             'python3',
             $scriptPath,
             $imageFullPath
