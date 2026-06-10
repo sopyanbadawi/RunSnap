@@ -175,7 +175,7 @@
             <div class="p-6 sm:p-10 w-full max-w-4xl mx-auto flex-1">
                 <div class="mb-10">
                     <h1 class="text-3xl font-black text-brand-navy tracking-tight">Pengaturan Akun</h1>
-                    <p class="text-brand-muted font-medium mt-1">Kelola keamanan password dan preferensi akun Anda.</p>
+                    <p class="text-brand-muted font-medium mt-1">Kelola keamanan kata sandi dan preferensi akun Anda.</p>
                 </div>
 
                 <div class="bg-white border border-brand-border rounded-2xl shadow-sm p-6 sm:p-8 mb-8">
@@ -191,16 +191,16 @@
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-sm font-bold text-brand-navy mb-2">Kata Sandi Saat Ini</label>
-                                <input type="password" name="current_password" placeholder="Masukkan password saat ini" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
+                                <input type="password" name="current_password" placeholder="Masukkan kata sandi saat ini" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
                                     <label class="block text-sm font-bold text-brand-navy mb-2">Kata Sandi Baru</label>
-                                    <input type="password" name="new_password" placeholder="Password baru minimal 8 karakter" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
+                                    <input type="password" name="new_password" placeholder="Kata sandi baru minimal 8 karakter" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-brand-navy mb-2">Konfirmasi Kata Sandi Baru</label>
-                                    <input type="password" name="new_password_confirmation" placeholder="Ulangi password baru" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
+                                    <input type="password" name="new_password_confirmation" placeholder="Ulangi kata sandi baru" class="w-full bg-brand-light border border-brand-border rounded-xl px-4 py-3 text-brand-navy focus:ring-2 focus:ring-brand-teal focus:border-brand-teal focus:outline-none transition-all font-semibold" required>
                                 </div>
                             </div>
                         </div>

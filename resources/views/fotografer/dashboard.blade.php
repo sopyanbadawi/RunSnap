@@ -184,14 +184,10 @@
             <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Overview</h1>
+                        <h1 class="text-3xl font-black text-brand-navy tracking-tight italic">Overview</h1>
                         <p class="text-brand-muted font-medium mt-1">Pantau performa dan pendapatan foto Anda hari ini.</p>
                     </div>
                     <div class="flex gap-3 w-full md:w-auto">
-                        <button class="flex-1 md:flex-none bg-white border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            Cari Acara
-                        </button>
                         <a href="{{ route('fotografer.upload') }}" class="flex-1 md:flex-none bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2 decoration-none">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
@@ -311,7 +307,7 @@
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                 </div>
                                 <h3 class="text-sm font-bold text-brand-navy">Belum ada penjualan</h3>
-                                <p class="text-xs text-brand-muted mt-1">Unggah foto Anda ke acara untuk mulai mendapatkan penghasilan.</p>
+                                <p class="text-xs text-brand-muted mt-1">Unggah foto Anda untuk mulai mendapatkan penghasilan.</p>
                             </div>
                         </div>
                     </div>

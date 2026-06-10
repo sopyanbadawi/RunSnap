@@ -222,16 +222,16 @@
                         }">
                         @csrf
                         
-                        <!-- Bagian 1: Detail Event Baru -->
+                        <!-- Bagian 1: Detail Acara Baru -->
                         <div class="mb-8 border-b border-brand-border pb-6">
                             <h3 class="text-lg font-bold text-brand-navy mb-4 flex items-center gap-2">
                                 <span class="w-7 h-7 bg-brand-teal/10 text-brand-teal rounded-lg flex items-center justify-center text-sm">1</span>
-                                Detail Event Baru
+                                Detail Acara Baru
                             </h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label class="block text-sm font-bold text-brand-navy mb-2">Nama Event <span class="text-brand-orange">*</span></label>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Nama Acara <span class="text-brand-orange">*</span></label>
                                     <input type="text" name="name" placeholder="Contoh: Jakarta Marathon 2026" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-medium" required>
                                 </div>
                                 <div>
@@ -242,11 +242,11 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-bold text-brand-navy mb-2">Lokasi Event</label>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Lokasi Acara</label>
                                     <input type="text" name="lokasi" placeholder="Contoh: GBK, Jakarta Pusat" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-medium">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-bold text-brand-navy mb-2">Gambar Banner Event <span class="text-brand-orange">*</span></label>
+                                    <label class="block text-sm font-bold text-brand-navy mb-2">Gambar Banner Acara <span class="text-brand-orange">*</span></label>
                                     <label for="banner-image-file" class="flex flex-col items-center justify-center w-full h-[50px] border border-brand-border rounded-xl cursor-pointer hover:bg-brand-light bg-brand-light/50 transition-colors relative overflow-hidden px-4">
                                         <!-- Preview Background -->
                                         <template x-if="bannerPreview">
@@ -309,7 +309,7 @@
                                                 </div>
                                             </template>
 
-                                            <p class="text-xs text-brand-orange font-bold mt-3 bg-brand-orange/10 px-3 py-1 rounded-full">Sistem akan memproses AI & Watermark otomatis setelah admin menyetujui!</p>
+                                            <p class="text-xs text-brand-orange font-bold mt-3 bg-brand-orange/10 px-3 py-1 rounded-full">Sistem akan memproses AI & <i>Watermark</i> otomatis setelah admin menyetujui!</p>
                                         </div>
                                         
                                         <input id="dropzone-file" 
