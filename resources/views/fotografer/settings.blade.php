@@ -42,8 +42,9 @@
         
         <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-20 bg-gray-900 bg-opacity-50 lg:hidden" @click="sidebarOpen = false"></div>
 
-        <aside class="fixed inset-y-0 left-0 z-30 w-64 bg-brand-navy lg:relative flex flex-col justify-between">
+        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-brand-navy transition duration-300 transform lg:relative lg:translate-x-0 overflow-y-auto flex flex-col justify-between">
             <div>
+                <!-- Brand -->
                 <div class="flex items-center justify-center h-20 border-b border-[#152A50]">
                     <a href="/" class="text-2xl font-black text-white tracking-tighter flex items-center gap-1 group">
                         <svg class="w-7 h-7 text-brand-teal transform group-hover:-rotate-12 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -56,7 +57,7 @@
                     <a href="{{ route('fotografer.dashboard') }}" 
                         class="flex items-center px-4 py-3 rounded-xl transition-all font-semibold {{ request()->routeIs('fotografer.dashboard') ? 'bg-brand-teal text-white shadow-lg shadow-brand-teal/20' : 'text-brand-muted hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Halaman
+                        Halaman Fotografer
                     </a>
 
                     <a href="{{ route('fotografer.upload') }}" 
@@ -79,11 +80,12 @@
                 </nav>
             </div>
             
+            <!-- Bottom Sidebar (Help / Settings) -->
             <div class="px-4 pb-6 mt-10">
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
                     <h4 class="text-white text-sm font-bold mb-1">Tips Fotografer!</h4>
-                    <p class="text-brand-muted text-xs mb-3">Upload foto max 1 jam setelah acara untuk penjualan maksimal.</p>
+                    <p class="text-brand-muted text-xs mb-3">Unggah foto maks 1 jam setelah acara untuk penjualan maksimal.</p>
                     <a href="#" class="text-brand-teal text-xs font-bold hover:underline relative z-10 flex items-center">
                         Baca Panduan <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>

@@ -83,6 +83,7 @@
                         Pendapatan
                     </a>
                 </nav>
+            </div>
             
             <!-- Bottom Sidebar (Help / Settings) -->
             <div class="px-4 pb-6 mt-10">
