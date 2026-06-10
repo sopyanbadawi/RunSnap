@@ -61,10 +61,12 @@
         </a>
 
         <!-- Graphic / Icon -->
-        <div class="w-28 h-28 mx-auto mb-6 relative animate-float">
+        <div class="w-28 h-28 mx-auto mb-6 relative animate-float flex items-center justify-center">
             <div class="absolute inset-0 bg-brand-teal/20 rounded-full blur-xl transform scale-75"></div>
-            <!-- Glow email gif/image -->
-            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2709_fe0f/512.gif" alt="Email Icon" class="w-full h-full object-contain relative z-10">
+            <!-- Glow email svg -->
+            <svg class="w-20 h-20 text-brand-teal relative z-10 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
         </div>
 
         <h1 class="text-2xl font-black text-brand-navy tracking-tight mb-3">Verifikasi Email Kamu</h1>

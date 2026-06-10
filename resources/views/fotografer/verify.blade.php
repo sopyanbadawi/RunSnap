@@ -61,12 +61,17 @@
         </div>
 
         <!-- Graphic / Icon -->
-        <div class="w-24 h-24 mx-auto mb-6 relative animate-float">
+        <div class="w-24 h-24 mx-auto mb-6 relative animate-float flex items-center justify-center">
             <div class="absolute inset-0 bg-brand-teal/20 rounded-full blur-xl transform scale-75"></div>
             @if($user->verification_status === 'pending')
-                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f552/512.gif" alt="Pending Icon" class="w-full h-full object-contain relative z-10">
+                <svg class="w-16 h-16 text-amber-500 relative z-10 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
             @else
-                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4b3/512.gif" alt="KTP Icon" class="w-full h-full object-contain relative z-10">
+                <svg class="w-16 h-16 text-brand-teal relative z-10 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 14H5.236a2 2 0 01-1.789-1.106l-2.5-5A2 2 0 012.736 5H21.26a2 2 0 011.789 2.894l-2.5 5A2 2 0 0118.764 14H14m-4 0v5m4-5v5m-4 0h4m-8 0h12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 9a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
             @endif
         </div>
 
