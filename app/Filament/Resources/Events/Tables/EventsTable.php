@@ -47,15 +47,52 @@ class EventsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('is_published')
-                    ->label('Diterbitkan')
-                    ->badge(),
+                    ->label('Status Verifikasi')
+                    ->badge()
+                    ->formatStateUsing(function (string $state, Event $record): string {
+                        if ($state === 'true') return 'Approved';
+                        return $record->rejection_reason ? 'Rejected' : 'Pending';
+                    })
+                    ->color(function (string $state, Event $record): string {
+                        if ($state === 'true') return 'success';
+                        return $record->rejection_reason ? 'danger' : 'warning';
+                    }),
             ])
             ->filters([
                 \Filament\Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),
+                \Filament\Actions\Action::make('approve')
+                    ->label('Approve')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->action(function (Event $record) {
+                        $record->update(['is_published' => 'true', 'rejection_reason' => null]);
+                        \Filament\Notifications\Notification::make()->title('Event disetujui!')->success()->send();
+                    })
+                    ->visible(fn (Event $record): bool => $record->is_published === 'false'),
+                
+                \Filament\Actions\Action::make('reject')
+                    ->label('Reject')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->form([
+                        \Filament\Forms\Components\Textarea::make('rejection_reason')
+                            ->label('Alasan Penolakan')
+                            ->required(),
+                    ])
+                    ->action(function (Event $record, array $data) {
+                        $record->update([
+                            'is_published' => 'false',
+                            'rejection_reason' => $data['rejection_reason'],
+                        ]);
+                        \Filament\Notifications\Notification::make()->title('Event ditolak!')->danger()->send();
+                    })
+                    ->visible(fn (Event $record): bool => $record->is_published === 'true' || empty($record->rejection_reason)),
+                
+                \Filament\Actions\ViewAction::make(),
+                \Filament\Actions\EditAction::make(),
                 \Filament\Actions\DeleteAction::make(),
                 \Filament\Actions\RestoreAction::make(),
                 \Filament\Actions\ForceDeleteAction::make(),

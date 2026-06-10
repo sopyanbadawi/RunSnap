@@ -30,6 +30,10 @@ class EventInfolist
                                     ->placeholder('-'),
                                 TextEntry::make('eo.name')
                                     ->label('Dibuat Oleh/EO'),
+                                TextEntry::make('rejection_reason')
+                                    ->label('Alasan Penolakan')
+                                    ->color('danger')
+                                    ->visible(fn ($record) => $record->is_published === 'false' && !empty($record->rejection_reason)),
                             
                     ]),      
             
