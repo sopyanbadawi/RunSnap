@@ -29,11 +29,18 @@ Route::prefix('register')->group(function () {
         return view('register.verify-email');
     })->middleware('auth')->name('verification.notice');
 
-    // Link verifikasi (dikirim via email)
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
 
-        // Setelah verifikasi sukses, arahkan ke halaman login
+        if ($request->user()->role === 'runner') {
+            return redirect()->route('runner.selfie')
+                ->with('success', 'Email terverifikasi! Silakan daftarkan foto wajah kamu.');
+        } else if ($request->user()->role === 'fotografer') {
+            return redirect()->route('fotografer.verify')
+                ->with('success', 'Email terverifikasi! Silakan lengkapi data fotografer.');
+        }
+
+        // Default redirect jika tidak ada role yang cocok
         return redirect()->route('login')
             ->with('success', 'Selamat datang! Email kamu sudah terverifikasi.');
     })->middleware(['auth', 'signed'])->name('verification.verify');
@@ -49,7 +56,7 @@ Route::prefix('register')->group(function () {
 Route::middleware([
     \Filament\Http\Middleware\Authenticate::class,
 ])->group(function () {
-    Route::middleware(['auth'])->prefix('runner')->name('runner.')->group(function() {
+    Route::middleware(['auth', 'verified'])->prefix('runner')->name('runner.')->group(function() {
         // Rute selfie (harus bisa diakses oleh runner yang belum ambil foto wajah)
         Route::get('/selfie', [RunnerController::class, 'showSelfie'])->name('selfie');
         Route::post('/selfie', [RunnerController::class, 'storeSelfie'])->name('selfie.store');
