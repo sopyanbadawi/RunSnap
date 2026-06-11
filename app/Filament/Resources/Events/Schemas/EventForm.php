@@ -31,10 +31,15 @@ class EventForm
                     ->required()
                     ->label('Gambar Banner'),
                 Select::make('is_published')
-                    ->label('Diterbitkan')
-                    ->options(['true' => 'Benar', 'false' => 'Salah'])
+                    ->label('Status Persetujuan')
+                    ->options(['true' => 'Disetujui', 'false' => 'Belum Disetujui / Ditolak'])
                     ->default('false')
                     ->required(),
+                \Filament\Forms\Components\Textarea::make('rejection_reason')
+                    ->label('Alasan Penolakan')
+                    ->helperText('Isi alasan penolakan jika event ditolak, agar fotografer dapat memperbaikinya.')
+                    ->nullable()
+                    ->columnSpanFull(),
             ]);
     }
 }

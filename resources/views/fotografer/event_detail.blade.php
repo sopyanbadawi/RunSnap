@@ -90,7 +90,7 @@
                 <div class="bg-gradient-to-tr from-brand-teal/20 to-transparent p-4 rounded-xl border border-brand-teal/10 relative overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-teal/30 rounded-full blur-xl"></div>
                     <h4 class="text-white text-sm font-bold mb-1">Tips Fotografer!</h4>
-                    <p class="text-brand-muted text-xs mb-3">Upload foto max 1 jam setelah acara untuk penjualan maksimal.</p>
+                    <p class="text-brand-muted text-xs mb-3">Unggah foto maks 1 jam setelah acara untuk penjualan maksimal.</p>
                     <a href="#" class="text-brand-teal text-xs font-bold hover:underline relative z-10 flex items-center">
                         Baca Panduan <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
@@ -181,93 +181,134 @@
                 </div>
             </header>
 
-            <!-- Dashboard Content -> Earnings -->
-            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto">
+            <!-- Dashboard Content -> Portfolio -->
+            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto" x-data="{ previewPhoto: null }">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Riwayat Pendapatan</h1>
-                        <p class="text-brand-muted font-medium mt-1">Lacak setiap transaksi penjualan foto Anda secara langsung.</p>
+                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
+                        <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan acara.</p>
                     </div>
-                    <div class="bg-white px-5 py-3 rounded-2xl border border-brand-border shadow-sm flex items-center gap-4">
-                        <div class="w-10 h-10 bg-brand-teal/10 text-brand-teal rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs text-brand-muted font-bold uppercase tracking-wider">Total Pendapatan</p>
-                            <p class="text-xl font-black text-brand-navy">Rp {{ number_format($totalEarnings ?? 0, 0, ',', '.') }}</p>
-                        </div>
-                        <button class="ml-4 bg-brand-navy text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-brand-teal transition-colors">Tarik Dana</button>
-                    </div>
+                    <a href="{{ route('fotografer.upload') }}" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Unggah Foto Baru
+                    </a>
+                </div>
+                <div class="mb-4">
+                    <a href="{{ route('fotografer.portfolio') }}" class="text-brand-muted hover:text-brand-teal font-bold text-sm flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Kembali ke Portofolio
+                    </a>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-brand-border overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-brand-light/50 border-b border-brand-border">
-                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Foto Terjual</th>
-                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Acara</th>
-                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Pembeli</th>
-                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider">Tanggal</th>
-                                    <th class="py-4 px-6 font-bold text-sm text-brand-navy uppercase tracking-wider text-right">Harga</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-brand-border">
-                                @forelse($purchases as $purchase)
-                                <tr class="hover:bg-brand-light/30 transition-colors">
-                                    <td class="py-4 px-6">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                                                <img src="{{ asset('storage/' . ($purchase->photo->watermark_path ?? '')) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=100'" class="w-full h-full object-cover">
-                                            </div>
-                                            <div>
-                                                <p class="font-bold text-brand-navy text-sm">#{{ $purchase->photo_id ?? '---' }}</p>
-                                                <p class="text-xs text-brand-teal font-semibold mt-0.5">Sukses</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="font-semibold text-brand-body text-sm">{{ $purchase->photo->event->name ?? 'Unknown Event' }}</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center text-[10px] font-bold">
-                                                {{ substr($purchase->user->name ?? 'P', 0, 1) }}
-                                            </div>
-                                            <p class="font-semibold text-brand-body text-sm">{{ $purchase->user->name ?? 'Pelari' }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="font-semibold text-brand-body text-sm">{{ \Carbon\Carbon::parse($purchase->created_at)->format('d M Y, H:i') }}</p>
-                                    </td>
-                                    <td class="py-4 px-6 text-right">
-                                        <p class="font-black text-brand-navy text-base">+ Rp {{ number_format($purchase->photo->price ?? 25000, 0, ',', '.') }}</p>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="py-12 px-6 text-center">
-                                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 text-brand-muted">
-                                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                        </div>
-                                        <h3 class="text-lg font-bold text-brand-navy">Belum Ada Transaksi</h3>
-                                        <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Foto Anda belum ada yang terjual. Terus unggah foto berkualitas di setiap acara lari!</p>
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                <div class="bg-white rounded-2xl shadow-sm border border-brand-border mb-8 overflow-hidden">
+                    <div class="p-6 border-b border-brand-border bg-brand-light/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl bg-gray-200 overflow-hidden flex-shrink-0">
+                                <img src="{{ asset('storage/' . $event->banner_image) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=200'" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <h2 class="text-xl font-black text-brand-navy">{{ $event->name }}</h2>
+                                    @if($event->is_published === 'true')
+                                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Disetujui</span>
+                                    @elseif($event->rejection_reason)
+                                        <span class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Ditolak</span>
+                                    @else
+                                        <span class="text-[10px] bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Menunggu Verifikasi</span>
+                                    @endif
+                                </div>
+                                <p class="text-sm font-medium text-brand-muted mt-0.5 flex items-center flex-wrap gap-2">
+                                    <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> {{ \Carbon\Carbon::parse($event->tanggal)->translatedFormat('d F Y') }}</span>
+                                    <span class="text-brand-border">|</span>
+                                    <span class="text-brand-teal font-bold">{{ $photos->count() }} Foto Diunggah</span>
+                                </p>
+
+                                @if($event->is_published === 'false' && $event->rejection_reason)
+                                <div class="mt-3 bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl flex items-start gap-2 shadow-sm max-w-xl">
+                                    <svg class="w-5 h-5 shrink-0 mt-0.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div>
+                                        <p class="font-black mb-0.5">Event Ditolak Admin</p>
+                                        <p class="text-red-600 leading-relaxed">{{ $event->rejection_reason }}</p>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    
-                    @if($purchases->hasPages())
-                    <div class="p-4 border-t border-brand-border">
-                        {{ $purchases->links() }}
+
+                    <div class="p-6">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                            @forelse($photos as $photo)
+                            <div class="aspect-square bg-gray-100 rounded-xl overflow-hidden relative group">
+                                <img src="{{ asset('storage/' . $photo->original_path) }}" 
+                                    onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" 
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                                    <button @click="previewPhoto = '{{ asset('storage/' . $photo->original_path) }}'" class="w-8 h-8 bg-white text-brand-navy rounded-full flex items-center justify-center hover:bg-brand-teal hover:text-white transition-colors" title="Lihat Foto">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    </button>
+                                    <form method="POST" action="{{ route('fotografer.photos.delete', $photo->id) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors" title="Hapus Foto">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                                @if($photo->is_processed_ai)
+                                <div class="absolute top-2 right-2 bg-brand-teal text-white text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    AI Siap
+                                </div>
+                                @endif
+                            </div>
+                            @empty
+                            <div class="col-span-full py-10 text-center text-brand-muted">
+                                Tidak ada foto pada event ini.
+                            </div>
+                            @endforelse
+                        </div>
+
+                        <!-- Modal Preview -->
+                        <div x-show="previewPhoto" style="display: none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4" x-transition.opacity>
+                            <div @click.away="previewPhoto = null" class="relative max-w-5xl w-full">
+                                <button @click="previewPhoto = null" class="absolute -top-12 right-0 text-white hover:text-brand-teal transition-colors">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                </button>
+                                <img :src="previewPhoto" class="w-full h-auto max-h-[85vh] object-contain rounded-xl shadow-2xl">
+                            </div>
+                        </div>
+
                     </div>
-                    @endif
-                </div>
             </div>
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        @if(session('success'))
+                                        <script>    
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Berhasil',
+                                                text: '{{ session('success') }}',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        </script>
+                                        @endif
+
+                                        @if(session('error'))
+                                        <script>
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Gagal',
+                                                text: '{{ session('error') }}',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        </script>
+                                        @endif
 
 </body>
 </html>

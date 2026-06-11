@@ -188,6 +188,19 @@ class FotograferController extends Controller
         return view('fotografer.portfolio', compact('photosByEvent'));
     }
 
+    public function showEvent($id)
+    {
+        $user = Auth::user();
+        $event = Event::findOrFail($id);
+        
+        $photos = Photo::where('event_id', $id)
+            ->where('fotografer_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        return view('fotografer.event_detail', compact('event', 'photos'));
+    }
+
     public function earnings()
     {
         $user = Auth::user();

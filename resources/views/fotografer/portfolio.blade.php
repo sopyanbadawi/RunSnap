@@ -101,8 +101,8 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col overflow-y-auto">
             <!-- Header -->
-            <header class="h-20 bg-white/80 backdrop-blur-md border-b border-brand-border flex items-center justify-between px-6 sticky top-0 z-10">
-                <div class="flex items-center">
+            <header class="h-20 shrink-0 bg-white/80 backdrop-blur-md border-b border-brand-border flex items-center justify-between px-6 sticky top-0 z-10">
+                <div class="flex items-center flex-1">
                     <button @click="sidebarOpen = true" class="text-brand-navy hover:text-brand-teal lg:hidden mr-4 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -182,7 +182,7 @@
             </header>
 
             <!-- Dashboard Content -> Portfolio -->
-            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto">
+            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto" x-data="{ previewPhoto: null }">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <div>
                         <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
@@ -201,28 +201,49 @@
                             <div class="w-16 h-16 rounded-xl bg-gray-200 overflow-hidden flex-shrink-0">
                                 <img src="{{ asset('storage/' . ($photos->first()->event->banner_image ?? '')) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=200'" class="w-full h-full object-cover">
                             </div>
-                            <div>
-                                <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Event Tidak Diketahui' }}</h2>
-                                <p class="text-sm font-medium text-brand-muted mt-0.5 flex items-center gap-2">
+                            <div class="flex-1">
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Event Tidak Diketahui' }}</h2>
+                                    @php $event = $photos->first()->event; @endphp
+                                    @if($event)
+                                        @if($event->is_published === 'true')
+                                            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Disetujui</span>
+                                        @elseif($event->rejection_reason)
+                                            <span class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Ditolak</span>
+                                        @else
+                                            <span class="text-[10px] bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Menunggu Verifikasi</span>
+                                        @endif
+                                    @endif
+                                </div>
+                                <p class="text-sm font-medium text-brand-muted mt-0.5 flex items-center flex-wrap gap-2">
                                     <span><svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> {{ \Carbon\Carbon::parse($photos->first()->event->tanggal ?? now())->translatedFormat('d F Y') }}</span>
                                     <span class="text-brand-border">|</span>
                                     <span class="text-brand-teal font-bold">{{ $photos->count() }} Foto Diunggah</span>
                                 </p>
+
+                                @if($event && $event->is_published === 'false' && $event->rejection_reason)
+                                <div class="mt-3 bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl flex items-start gap-2 shadow-sm max-w-xl">
+                                    <svg class="w-5 h-5 shrink-0 mt-0.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div>
+                                        <p class="font-black mb-0.5">Event Ditolak Admin</p>
+                                        <p class="text-red-600 leading-relaxed">{{ $event->rejection_reason }}</p>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
-                        <button class="px-4 py-2 text-sm font-bold text-brand-navy bg-white border border-brand-border rounded-lg hover:border-brand-teal transition-colors">Lihat Detail acara</button>
+                        <a href="{{ route('fotografer.events.show', $photos->first()->event_id) }}" class="px-4 py-2 text-sm font-bold text-brand-navy bg-white border border-brand-border rounded-lg hover:border-brand-teal transition-colors">Lihat Detail Acara</a>
                     </div>
 
                     <div class="p-6">
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                             @foreach($photos->take(10) as $photo)
                             <div class="aspect-square bg-gray-100 rounded-xl overflow-hidden relative group">
-                                <!--<img src="{{ asset('storage/' . $photo->watermark_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">-->
-                                <img src="{{ asset('storage/' . ($photo->is_processed_ai ? $photo->watermark_path : $photo->original_path)) }}" 
+                                <img src="{{ asset('storage/' . $photo->original_path) }}" 
                                     onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=400'" 
                                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                                    <button class="w-8 h-8 bg-white text-brand-navy rounded-full flex items-center justify-center hover:bg-brand-teal hover:text-white transition-colors">
+                                    <button @click="previewPhoto = '{{ asset('storage/' . $photo->original_path) }}'" class="w-8 h-8 bg-white text-brand-navy rounded-full flex items-center justify-center hover:bg-brand-teal hover:text-white transition-colors" title="Lihat Foto">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                     </button>
                                     <form method="POST" action="{{ route('fotografer.photos.delete', $photo->id) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
@@ -233,7 +254,6 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
                                         </button>
-                                        
                                     </form>
                                 </div>
                                 @if($photo->is_processed_ai)
@@ -246,10 +266,10 @@
                             @endforeach
 
                             @if($photos->count() > 10)
-                            <div class="aspect-square bg-brand-light rounded-xl flex flex-col items-center justify-center border-2 border-brand-border border-dashed hover:border-brand-teal hover:bg-brand-teal/5 transition-colors cursor-pointer group">
+                            <a href="{{ route('fotografer.events.show', $photos->first()->event_id) }}" class="aspect-square bg-brand-light rounded-xl flex flex-col items-center justify-center border-2 border-brand-border border-dashed hover:border-brand-teal hover:bg-brand-teal/5 transition-colors cursor-pointer group">
                                 <span class="text-xl font-black text-brand-navy group-hover:text-brand-teal transition-colors">+{{ $photos->count() - 10 }}</span>
                                 <span class="text-xs font-bold text-brand-muted mt-1 group-hover:text-brand-teal transition-colors">Lihat Semua</span>
-                            </div>
+                            </a>
                             @endif
                         </div>
                     </div>
@@ -266,6 +286,17 @@
                     </a>
                 </div>
                 @endforelse
+
+                <!-- Modal Preview -->
+                <div x-show="previewPhoto" style="display: none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4" x-transition.opacity>
+                    <div @click.away="previewPhoto = null" class="relative max-w-5xl w-full">
+                        <button @click="previewPhoto = null" class="absolute -top-12 right-0 text-white hover:text-brand-teal transition-colors">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                        <img :src="previewPhoto" class="w-full h-auto max-h-[85vh] object-contain rounded-xl shadow-2xl">
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>
