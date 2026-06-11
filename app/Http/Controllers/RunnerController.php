@@ -171,6 +171,29 @@ class RunnerController extends Controller
     public function gallery()
     {
         $user = auth()->user();
+
+        // Auto-sync status dari Midtrans untuk mengatasi jika Webhook gagal masuk (karena localhost)
+        \Midtrans\Config::$serverKey = config('services.midtrans.server_key') ?? env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = config('services.midtrans.is_production') ?? env('MIDTRANS_IS_PRODUCTION', false);
+
+        $pendingTransactions = Transaction::where('user_id', $user->id)->where('status', 'pending')->get();
+        foreach ($pendingTransactions as $trx) {
+            try {
+                $statusResp = \Midtrans\Transaction::status($trx->external_id);
+                $transactionStatus = $statusResp->transaction_status ?? null;
+                
+                if ($transactionStatus == 'capture' || $transactionStatus == 'settlement') {
+                    $trx->update(['status' => 'completed']);
+                } elseif ($transactionStatus == 'deny' || $transactionStatus == 'cancel') {
+                    $trx->update(['status' => 'failed']);
+                } elseif ($transactionStatus == 'expire') {
+                    $trx->update(['status' => 'expired']);
+                }
+            } catch (\Exception $e) {
+                // Abaikan jika transaksi belum tercatat di Midtrans
+            }
+        }
+
         $purchasedPhotos = PurchasedPhoto::with(['photo', 'photo.event'])
             ->whereHas('transaction', function($q) {
                 $q->where('status', 'completed');
@@ -185,11 +208,50 @@ class RunnerController extends Controller
     public function transactions()
     {
         $user = auth()->user();
+
+        // Auto-sync status dari Midtrans
+        \Midtrans\Config::$serverKey = config('services.midtrans.server_key') ?? env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = config('services.midtrans.is_production') ?? env('MIDTRANS_IS_PRODUCTION', false);
+
+        $pendingTransactions = Transaction::where('user_id', $user->id)->where('status', 'pending')->get();
+        foreach ($pendingTransactions as $trx) {
+            try {
+                $statusResp = \Midtrans\Transaction::status($trx->external_id);
+                $transactionStatus = $statusResp->transaction_status ?? null;
+                
+                if ($transactionStatus == 'capture' || $transactionStatus == 'settlement') {
+                    $trx->update(['status' => 'completed']);
+                } elseif ($transactionStatus == 'deny' || $transactionStatus == 'cancel') {
+                    $trx->update(['status' => 'failed']);
+                } elseif ($transactionStatus == 'expire') {
+                    $trx->update(['status' => 'expired']);
+                }
+            } catch (\Exception $e) {
+                // Abaikan
+            }
+        }
+
         $transactions = Transaction::where('user_id', $user->id)
             ->latest()
             ->paginate(10);
 
         return view('runner.transactions', compact('transactions'));
+    }
+
+    public function pay($id)
+    {
+        $transaction = Transaction::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        
+        if ($transaction->status !== 'pending') {
+            return redirect()->route('runner.transactions')->with('error', 'Transaksi tidak dapat dibayar.');
+        }
+
+        $snapToken = $transaction->snap_token;
+        if (!$snapToken) {
+            return redirect()->route('runner.transactions')->with('error', 'Token pembayaran tidak ditemukan.');
+        }
+
+        return view('runner.payment', compact('snapToken', 'transaction'));
     }
 
     public function cart()
@@ -251,21 +313,22 @@ class RunnerController extends Controller
 
         $user = auth()->user();
         $photos = Photo::whereIn('id', array_keys($cart))->get();
-        
+
         $subtotal = $photos->sum('price');
         $serviceFee = count($cart) * 2500;
         $total = $subtotal + $serviceFee;
 
-        // Simulasi Pembayaran Berhasil (Tanpa Payment Gateway)
+        $orderId = 'TX-' . strtoupper(Str::random(10));
+
+        // Buat Transaksi dengan status PENDING
         $transaction = Transaction::create([
             'user_id' => $user->id,
-            'external_id' => 'TX-' . strtoupper(Str::random(10)),
+            'external_id' => $orderId,
             'total_price' => $total,
-            'status' => 'completed', // Langsung dianggap berhasil
+            'status' => 'pending', 
         ]);
 
         foreach ($photos as $photo) {
-            // Cegah duplikasi jika user melakukan checkout ganda (race condition)
             PurchasedPhoto::firstOrCreate([
                 'user_id' => $user->id,
                 'photo_id' => $photo->id,
@@ -274,10 +337,41 @@ class RunnerController extends Controller
             ]);
         }
 
-        // Kosongkan keranjang
+        // Kosongkan keranjang agar tidak double checkout
         session()->forget('cart');
 
-        return redirect()->route('runner.gallery')->with('success', 'Pembayaran berhasil! Foto telah masuk ke galeri Anda.');
+        // Konfigurasi Midtrans
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $orderId,
+                'gross_amount' => $total,
+            ],
+            'customer_details' => [
+                'first_name' => $user->name,
+                'email' => $user->email,
+            ],
+            'callbacks' => [
+                'finish' => route('runner.gallery')
+            ],
+        ];
+
+        try {
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            
+            // Simpan snap token ke database
+            $transaction->update(['snap_token' => $snapToken]);
+
+            // Tampilkan halaman pembayaran khusus
+            return view('runner.payment', compact('snapToken', 'transaction'));
+
+        } catch (\Exception $e) {
+            return redirect()->route('runner.cart')->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
+        }
     }
 
     public function profile()

@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'photographer.verified' => \App\Http\Middleware\EnsurePhotographerVerified::class,
             'runner.has_selfie' => \App\Http\Middleware\EnsureRunnerHasSelfie::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'midtrans/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

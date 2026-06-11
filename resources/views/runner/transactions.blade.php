@@ -161,7 +161,7 @@
                                         @if($trx->status === 'completed')
                                         <a href="{{ route('runner.gallery') }}" class="text-brand-teal font-bold text-sm hover:underline">Lihat Galeri</a>
                                         @elseif($trx->status === 'pending')
-                                        <button class="bg-brand-navy text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#152A50] transition-colors">Bayar Sekarang</button>
+                                        <a href="{{ route('runner.transactions.pay', $trx->id) }}" class="inline-block bg-brand-navy text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#152A50] transition-colors text-center shadow-sm">Bayar Sekarang</a>
                                         @else
                                         <button class="text-brand-muted font-bold text-sm hover:text-brand-navy transition-colors">Hapus</button>
                                         @endif

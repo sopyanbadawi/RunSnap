@@ -12,6 +12,8 @@ Route::get('/login', function () {
     return redirect('/runsnap/login');
 })->name('login');
 
+Route::post('/midtrans/callback', [App\Http\Controllers\PaymentCallbackController::class, 'handle']);
+
 Route::get('/', function () {
     return view('landing');
 });
@@ -74,6 +76,7 @@ Route::middleware([
             Route::post('/cart/add/{id}', [RunnerController::class, 'addToCart'])->name('cart.add');
             Route::post('/cart/remove/{id}', [RunnerController::class, 'removeFromCart'])->name('cart.remove');
             Route::post('/cart/checkout', [RunnerController::class, 'checkout'])->name('cart.checkout');
+            Route::get('/transactions/{id}/pay', [RunnerController::class, 'pay'])->name('transactions.pay');
             Route::get('/photos/{id}/download-wm', [RunnerController::class, 'downloadWatermark'])->name('photos.download-wm');
         });
     });
