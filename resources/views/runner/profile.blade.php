@@ -131,9 +131,9 @@
                             <h3 class="font-bold text-brand-navy text-lg">Data Wajah Tersimpan</h3>
                             <p class="text-xs text-brand-muted mt-2 mb-6">AI RunSnap menggunakan data ini untuk menemukan foto Anda secara otomatis dari ribuan foto acara.</p>
                             
-                            <button class="w-full bg-brand-light text-brand-teal font-bold py-2.5 rounded-xl hover:bg-brand-teal/20 transition-colors border border-brand-teal/30">
+                            <a href="{{ route('runner.selfie') }}" class="w-full block text-center bg-brand-light text-brand-teal font-bold py-2.5 rounded-xl hover:bg-brand-teal/20 transition-colors border border-brand-teal/30">
                                 Perbarui Foto Selfie
-                            </button>
+                            </a>
                         </div>
                     </div>
 

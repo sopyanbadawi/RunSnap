@@ -195,22 +195,11 @@ class RunnerController extends Controller
         return view('runner.settings');
     }
 
-    /**
-     * Tampilkan halaman ambil foto wajah (selfie)
-     */
     public function showSelfie()
     {
-        // Jika sudah ada selfie, langsung redirect ke dashboard
-        if (auth()->user()->hasSelfie()) {
-            return redirect()->route('runner.dashboard');
-        }
-
         return view('runner.selfie');
     }
 
-    /**
-     * Simpan foto wajah (selfie) dari kamera
-     */
     public function storeSelfie(Request $request)
     {
         $request->validate([
@@ -218,11 +207,6 @@ class RunnerController extends Controller
         ]);
 
         $user = auth()->user();
-
-        // Jika sudah ada selfie, langsung redirect ke dashboard
-        if ($user->hasSelfie()) {
-            return redirect()->route('runner.dashboard');
-        }
 
         try {
             // Olah string base64
@@ -253,12 +237,27 @@ class RunnerController extends Controller
             // Simpan ke storage public
             Storage::disk('public')->put($path, $imgData);
 
-            // Simpan ke database runner_selfies
-            $selfie = RunnerSelfie::create([
-                'user_id' => $user->id,
-                'image_path' => $path,
-                'face_embedding' => [], // Kosongkan dulu untuk diproses Python AI nanti
-            ]);
+            if ($user->hasSelfie()) {
+                $oldSelfie = $user->selfie;
+                // Hapus file fisik selfie lama
+                if (Storage::disk('public')->exists($oldSelfie->image_path)) {
+                    Storage::disk('public')->delete($oldSelfie->image_path);
+                }
+                
+                // Update record yang sudah ada
+                $oldSelfie->update([
+                    'image_path' => $path,
+                    'face_embedding' => [], // Kosongkan dulu untuk diproses ulang oleh Python AI
+                ]);
+                $selfie = $oldSelfie;
+            } else {
+                // Simpan ke database runner_selfies
+                $selfie = RunnerSelfie::create([
+                    'user_id' => $user->id,
+                    'image_path' => $path,
+                    'face_embedding' => [], // Kosongkan dulu untuk diproses Python AI nanti
+                ]);
+            }
 
             // Kirim tugas ekstraksi wajah ke antrean latar belakang
             \App\Jobs\ProcessRunnerSelfie::dispatch($selfie);
