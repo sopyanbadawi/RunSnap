@@ -26,6 +26,17 @@ class EventResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::where('is_published', 'false')->count();
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::where('is_published', 'false')->count() > 0 ? 'warning' : null;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return EventForm::configure($schema);

@@ -26,6 +26,11 @@ class TransactionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getModel()::count();
+    }
+
 
     public static function infolist(Schema $schema): Schema
     {
