@@ -107,6 +107,7 @@ class FotograferController extends Controller
             'user_id' => $user->id,
             'banner_image' => $bannerPath,
             'is_published' => 'false',
+            'enable_bib_detection' => $request->input('enable_bib_detection', '0') === '1',
         ]);
 
         $eventId = $event->id;

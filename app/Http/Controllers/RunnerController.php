@@ -56,13 +56,20 @@ class RunnerController extends Controller
         $bibQuery = request('bib');
 
         if (filled($bibQuery)) {
-            // Jika ada query BIB, cari foto-foto di event ini yang memiliki nomor BIB tersebut
-            $matchedPhotos = Photo::where('event_id', $event->id)
-                ->whereHas('bibs', function ($query) use ($bibQuery) {
-                    $query->where('bib_number', $bibQuery);
-                })
-                ->orderBy('created_at', 'desc')
-                ->get();
+            // Bersihkan input query dari karakter selain angka
+            $cleanBibQuery = preg_replace('/[^0-9]/', '', $bibQuery);
+
+            if (filled($cleanBibQuery)) {
+                // Cari secara persis (exact match) sesuai permintaan user
+                $matchedPhotos = Photo::where('event_id', $event->id)
+                    ->whereHas('bibs', function ($query) use ($cleanBibQuery) {
+                        $query->where('bib_number', $cleanBibQuery);
+                    })
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            } else {
+                $matchedPhotos = collect();
+            }
 
             $event->setRelation('photos', $matchedPhotos);
         } else {

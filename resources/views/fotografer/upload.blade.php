@@ -260,6 +260,26 @@
                                     </label>
                                 </div>
                             </div>
+
+                            <!-- Toggle Deteksi BIB -->
+                            <div class="mt-6 p-4 bg-brand-light rounded-xl border border-brand-border" x-data="{ bibEnabled: false }">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1 mr-4">
+                                        <label class="text-sm font-bold text-brand-navy flex items-center gap-2 cursor-pointer" @click="bibEnabled = !bibEnabled">
+                                            <svg class="w-5 h-5 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path></svg>
+                                            Aktifkan Deteksi Nomor BIB (OCR)
+                                        </label>
+                                        <p class="text-xs text-brand-muted mt-1 leading-relaxed">Aktifkan jika foto mengandung nomor dada pelari. Sistem akan memindai dan menyimpan nomor BIB secara otomatis agar pelari bisa mencari foto berdasarkan nomor mereka.</p>
+                                    </div>
+                                    <button type="button" @click="bibEnabled = !bibEnabled"
+                                        class="relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none"
+                                        :class="bibEnabled ? 'bg-brand-teal' : 'bg-gray-300'">
+                                        <span class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                            :class="bibEnabled ? 'translate-x-5' : 'translate-x-0'"></span>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="enable_bib_detection" :value="bibEnabled ? '1' : '0'">
+                            </div>
                         </div>
 
                         <!-- Bagian 2: Unggah Foto & Harga -->

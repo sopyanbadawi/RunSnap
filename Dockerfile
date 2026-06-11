@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install python packages in system (using break system packages as required by debian pip)
-RUN pip3 install --break-system-packages opencv-python-headless insightface onnxruntime numpy pillow
+RUN pip3 install --break-system-packages opencv-python-headless insightface onnxruntime numpy pillow easyocr && \
+    pip3 install --break-system-packages torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
 # Install ekstensi PHP yang dibutuhkan Laravel & MySQL
 RUN install-php-extensions \

@@ -67,7 +67,35 @@ class ProcessPhoto implements ShouldQueue
             Log::error("Failed to extract faces for Photo ID: {$this->photo->id}. Error: " . $result->errorOutput());
         }
 
-        // 3. Mark as processed by AI
+        // 3. Extract BIBs (hanya jika fitur diaktifkan oleh fotografer)
+        if ($this->photo->event && $this->photo->event->enable_bib_detection) {
+            Log::info("Starting BIB detection (OCR) for Photo ID: {$this->photo->id}");
+
+            $bibScriptPath = base_path('app/Scripts/extract_bibs.py');
+            $bibResult = Process::timeout(300)->run([
+                'python3',
+                $bibScriptPath,
+                $originalFullPath
+            ]);
+
+            if ($bibResult->successful()) {
+                $bibs = json_decode($bibResult->output(), true);
+                if (is_array($bibs)) {
+                    foreach ($bibs as $bibData) {
+                        \App\Models\PhotoBib::create([
+                            'photo_id' => $this->photo->id,
+                            'bounding_box' => $bibData['bounding_box'],
+                            'bib_number' => $bibData['bib_number'],
+                        ]);
+                    }
+                    Log::info("Successfully extracted " . count($bibs) . " BIBs for Photo ID: {$this->photo->id}");
+                }
+            } else {
+                Log::error("Failed to extract BIBs for Photo ID: {$this->photo->id}. Error: " . $bibResult->errorOutput());
+            }
+        }
+
+        // 4. Mark as processed by AI
         $this->photo->update(['is_processed_ai' => true]);
     }
 }
