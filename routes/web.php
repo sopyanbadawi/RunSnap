@@ -88,6 +88,7 @@ Route::middleware([
             Route::post('/upload', [FotograferController::class, 'storeUpload'])->name('storeUpload');
             Route::get('/portfolio', [FotograferController::class, 'portfolio'])->name('portfolio');
             Route::get('/events/{id}', [FotograferController::class, 'showEvent'])->name('events.show');
+            Route::post('/events/{id}/add-photos', [FotograferController::class, 'addPhotos'])->name('events.addPhotos');
             Route::get('/earnings', [FotograferController::class, 'earnings'])->name('earnings');
             Route::get('/profile', [FotograferController::class, 'profile'])->name('profile');
             Route::post('/profile/update', [FotograferController::class, 'updateProfile'])->name('profile.update');

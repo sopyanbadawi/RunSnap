@@ -182,23 +182,31 @@
             </header>
 
             <!-- Dashboard Content -> Portfolio -->
-            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto" x-data="{ previewPhoto: null }">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                    <div>
-                        <h1 class="text-3xl font-black text-brand-navy tracking-tight">Portofolio Foto</h1>
-                        <p class="text-brand-muted font-medium mt-1">Koleksi seluruh foto yang telah Anda unggah, diurutkan berdasarkan acara.</p>
-                    </div>
-                    <a href="{{ route('fotografer.upload') }}" class="bg-brand-teal text-white hover:bg-brand-tealHover px-5 py-2.5 rounded-xl font-bold transition-all text-sm shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Unggah Foto Baru
-                    </a>
-                </div>
-                <div class="mb-4">
+            <div class="p-6 sm:p-10 w-full max-w-7xl mx-auto" x-data="{ previewPhoto: null, showAddPhotoModal: false }">
+                <div class="flex justify-between items-center mb-4">
                     <a href="{{ route('fotografer.portfolio') }}" class="text-brand-muted hover:text-brand-teal font-bold text-sm flex items-center gap-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                         Kembali ke Portofolio
                     </a>
+                    <button @click="showAddPhotoModal = true" class="bg-brand-teal text-white px-4 py-2 rounded-xl text-sm font-bold shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] hover:bg-brand-tealHover transition-all flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Tambah Foto
+                    </button>
                 </div>
+
+                @if(session('success'))
+                    <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl font-bold text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl font-bold text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <div class="bg-white rounded-2xl shadow-sm border border-brand-border mb-8 overflow-hidden">
                     <div class="p-6 border-b border-brand-border bg-brand-light/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -278,6 +286,88 @@
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                 </button>
                                 <img :src="previewPhoto" class="w-full h-auto max-h-[85vh] object-contain rounded-xl shadow-2xl">
+                            </div>
+                        </div>
+
+                        <!-- Modal Tambah Foto -->
+                        <div x-show="showAddPhotoModal" style="display: none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" x-transition.opacity>
+                            <div @click.away="showAddPhotoModal = false" class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden">
+                                <div class="p-6 border-b border-brand-border flex justify-between items-center bg-brand-light/50">
+                                    <h3 class="font-black text-xl text-brand-navy">Tambah Foto ke {{ $event->name }}</h3>
+                                    <button @click="showAddPhotoModal = false" class="text-brand-muted hover:text-brand-teal transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </button>
+                                </div>
+                                
+                                <div class="p-6">
+                                    <form action="{{ route('fotografer.events.addPhotos', $event->id) }}" method="POST" enctype="multipart/form-data" 
+                                        x-data="{ 
+                                            files: [], 
+                                            isDragging: false,
+                                            handleFiles(fileList) {
+                                                this.files = Array.from(fileList);
+                                            }
+                                        }">
+                                        @csrf
+                                        
+                                        <div class="mb-5">
+                                            <label class="block text-sm font-bold text-brand-navy mb-2">Harga Per Foto (Rp) <span class="text-brand-orange">*</span></label>
+                                            <input type="number" name="price" value="{{ $photos->first()->price ?? 25000 }}" class="w-full bg-brand-light border border-brand-border text-brand-navy text-sm rounded-xl focus:ring-brand-teal focus:border-brand-teal block p-3.5 outline-none transition-all font-bold" required min="10000" step="5000">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-bold text-brand-navy mb-2">Pilih Foto Tambahan <span class="text-brand-orange">*</span></label>
+                                            <div class="flex items-center justify-center w-full">
+                                                <label for="add-photo-dropzone" 
+                                                    class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-2xl cursor-pointer transition-colors group relative"
+                                                    :class="isDragging ? 'border-brand-teal bg-brand-teal/5' : 'border-brand-border bg-brand-light/50 hover:bg-brand-light'"
+                                                    @dragover.prevent="isDragging = true"
+                                                    @dragleave.prevent="isDragging = false"
+                                                    @drop.prevent="isDragging = false; handleFiles($event.dataTransfer.files); $refs.fileInput.files = $event.dataTransfer.files">
+                                                    
+                                                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                                                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                                                            <svg class="w-5 h-5 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                                        </div>
+                                                        
+                                                        <template x-if="files.length === 0">
+                                                            <div>
+                                                                <p class="mb-1 text-sm text-brand-navy font-bold"><span class="text-brand-teal">Klik untuk memilih file</span> atau tarik & lepas</p>
+                                                                <p class="text-xs text-brand-muted">PNG, JPG or JPEG (MAKS. 10MB per foto)</p>
+                                                            </div>
+                                                        </template>
+                                                        
+                                                        <template x-if="files.length > 0">
+                                                            <div>
+                                                                <p class="mb-1 text-sm text-brand-navy font-bold text-brand-teal">
+                                                                    <span x-text="files.length"></span> File Terpilih
+                                                                </p>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                    
+                                                    <input id="add-photo-dropzone" 
+                                                        x-ref="fileInput"
+                                                        type="file" 
+                                                        name="photos[]" 
+                                                        multiple 
+                                                        class="hidden" 
+                                                        accept="image/png, image/jpeg, image/jpg" 
+                                                        @change="handleFiles($event.target.files)"
+                                                        required />
+                                                </label>
+                                            </div> 
+                                        </div>
+                                        
+                                        <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-brand-border">
+                                            <button type="button" @click="showAddPhotoModal = false; files = []; $refs.fileInput.value = ''" class="px-5 py-2.5 text-sm font-bold text-brand-muted bg-brand-light rounded-xl hover:bg-gray-200 transition-colors">Batal</button>
+                                            <button type="submit" class="px-6 py-2.5 text-sm font-bold text-white bg-brand-teal rounded-xl hover:bg-brand-tealHover shadow-lg shadow-brand-teal/30 transition-all flex items-center">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                                Mulai Unggah
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 

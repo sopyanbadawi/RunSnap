@@ -156,6 +156,58 @@ class FotograferController extends Controller
         return redirect()->back()->with('error', 'Gagal membaca file foto yang diunggah.');
     }
 
+    public function addPhotos(Request $request, $id)
+    {
+        $request->validate([
+            'photos'   => 'required',
+            'photos.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Batasi max 10MB per foto
+            'price'    => 'required|numeric|min:10000',
+        ]);
+
+        $user = Auth::user();
+        $event = Event::findOrFail($id);
+
+        // Pastikan event ini dimiliki oleh penyelenggara (admin) atau event ini ada (kita biarkan karena fotografer bebas menambah ke event manapun selama dia bisa melihatnya, 
+        // tapi logikanya fotografer hanya menambah foto di halamannya sendiri.
+        
+        $eventId = $event->id;
+
+        // Buat folder jika belum ada
+        if ($request->hasFile('photos')) {
+            if (!Storage::disk('public')->exists("photos/event-{$eventId}/original")) {
+                Storage::disk('public')->makeDirectory("photos/event-{$eventId}/original");
+            }
+            if (!Storage::disk('public')->exists("photos/event-{$eventId}/watermark")) {
+                Storage::disk('public')->makeDirectory("photos/event-{$eventId}/watermark");
+            }
+        }
+
+        if ($request->hasFile('photos')) {
+            $count = 0;
+            foreach ($request->file('photos') as $file) {
+                $filename = Str::random(25) . '.' . $file->getClientOriginalExtension();
+                $originalPath = $file->storeAs("photos/event-{$eventId}/original", $filename, 'public');
+                $watermarkPath = "photos/event-{$eventId}/watermark/" . $filename;
+
+                $photo = Photo::create([
+                    'event_id'        => $eventId,
+                    'fotografer_id'   => $user->id,
+                    'original_path'   => $originalPath,
+                    'watermark_path'  => $watermarkPath,
+                    'is_processed_ai' => false,
+                    'price'           => $request->price,
+                ]);
+
+                \App\Jobs\ProcessPhoto::dispatch($photo);
+                $count++;
+            }
+
+            return redirect()->back()->with('success', "Berhasil menambahkan {$count} foto ke acara {$event->name}. Foto sedang diproses oleh sistem.");
+        }
+
+        return redirect()->back()->with('error', 'Gagal membaca file foto yang diunggah.');
+    }
+
     public function destroyPhoto($id)
     {
         $photo = Photo::findOrFail($id);
