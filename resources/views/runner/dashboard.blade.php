@@ -113,9 +113,9 @@
                     <svg class="w-8 h-8 text-brand-teal mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h4 class="text-white text-sm font-bold mb-1">Pengenalan Wajah!</h4>
                     <p class="text-brand-light/70 text-xs mb-4">Temukan fotomu instan hanya dengan 1 selfie.</p>
-                    <button class="w-full bg-brand-teal text-white text-xs font-bold py-2.5 rounded-lg hover:bg-brand-tealHover transition-colors flex justify-center items-center gap-1 shadow-[0_4px_14px_0_rgba(0,194,184,0.39)]">
+                    <a href="/runner/events" class="w-full bg-brand-teal text-white text-xs font-bold py-2.5 rounded-lg hover:bg-brand-tealHover transition-colors flex justify-center items-center gap-1 shadow-[0_4px_14px_0_rgba(0,194,184,0.39)] text-center">
                         Mulai Cari Foto
-                    </button>
+                    </a>
                 </div>
             </div>
         </aside>
