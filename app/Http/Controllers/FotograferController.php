@@ -21,8 +21,17 @@ class FotograferController extends Controller
         $totalPhotos = $myPhotos->count();
         
         $myPhotoIds = $myPhotos->pluck('id');
-        $totalSales = PurchasedPhoto::whereIn('photo_id', $myPhotoIds)->count();
-        $totalEarnings = $totalSales * 25000; 
+        $purchasedPhotos = PurchasedPhoto::whereIn('photo_id', $myPhotoIds)->with('photo')->get();
+        $totalSales = $purchasedPhotos->count();
+        $totalEarnings = $purchasedPhotos->sum(function($purchase) {
+            return $purchase->photo->price ?? 25000;
+        });
+
+        $recentSales = PurchasedPhoto::whereIn('photo_id', $myPhotoIds)
+                            ->with(['photo.event', 'user'])
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
 
         $recentUploads = Photo::where('fotografer_id', $user->id)
                             ->with('event')
@@ -30,7 +39,7 @@ class FotograferController extends Controller
                             ->take(5)
                             ->get();
 
-        return view('fotografer.dashboard', compact('totalPhotos', 'totalSales', 'totalEarnings', 'recentUploads'));
+        return view('fotografer.dashboard', compact('totalPhotos', 'totalSales', 'totalEarnings', 'recentUploads', 'recentSales'));
     }
 
     public function upload()
@@ -263,7 +272,9 @@ class FotograferController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(15);
                         
-        $totalEarnings = $purchases->count() * 25000; 
+        $totalEarnings = $purchases->sum(function($purchase) {
+            return $purchase->photo->price ?? 25000;
+        });
 
         return view('fotografer.earnings', compact('purchases', 'totalEarnings'));
     }

@@ -258,38 +258,41 @@
                     <div class="lg:col-span-2">
                         <div class="bg-white rounded-2xl border border-brand-border shadow-sm p-6 mb-8">
                             <div class="flex justify-between items-center mb-6">
-                                <h2 class="text-xl font-bold text-brand-navy tracking-tight">Acara Anda Selanjutnya</h2>
-                                <a href="#" class="text-sm font-bold text-brand-teal hover:underline">Kelola Acara</a>
+                                <h2 class="text-xl font-bold text-brand-navy tracking-tight">Aktivitas Foto Terakhir</h2>
+                                <a href="{{ route('fotografer.portfolio') }}" class="text-sm font-bold text-brand-teal hover:underline">Lihat Portofolio</a>
                             </div>
 
-                            <!-- Empty State for Event -->
-                            <div class="text-center py-12 border-2 border-dashed border-brand-border rounded-xl">
-                                <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 text-brand-muted">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-                                </div>
-                                <h3 class="text-lg font-bold text-brand-navy">Belum Ada Acara Aktif</h3>
-                                <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Cari acara maraton/lari terdekat untuk meliput dan memfoto peserta lari.</p>
-                                <button class="mt-6 bg-brand-light border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-6 py-2 rounded-xl font-bold transition-all text-sm">Cari Acara Lari</button>
-                            </div>
-                            
-                            <!-- Future Implementation (Sample Row): 
-                            <div class="border border-brand-border rounded-xl p-4 flex items-center justify-between hover:border-brand-teal transition-colors group cursor-pointer">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-14 h-14 bg-brand-light rounded-lg flex flex-col items-center justify-center border border-brand-border">
-                                        <span class="text-xs text-brand-orange font-bold uppercase">Mei</span>
-                                        <span class="text-lg font-black text-brand-navy">24</span>
+                            @if($recentUploads->isEmpty())
+                                <!-- Empty State for Event -->
+                                <div class="text-center py-12 border-2 border-dashed border-brand-border rounded-xl">
+                                    <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 text-brand-muted">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     </div>
-                                    <div>
-                                        <h4 class="font-bold text-brand-navy group-hover:text-brand-teal transition-colors">Jakarta Marathon 2026</h4>
-                                        <p class="text-xs text-brand-muted mt-1 flex items-center">
-                                            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                            GBK, Jakarta Pusat
-                                        </p>
-                                    </div>
+                                    <h3 class="text-lg font-bold text-brand-navy">Belum Ada Foto</h3>
+                                    <p class="text-brand-muted text-sm mt-2 max-w-sm mx-auto">Anda belum mengunggah foto apa pun. Mulai unggah untuk memperbanyak portofolio.</p>
+                                    <a href="{{ route('fotografer.upload') }}" class="inline-block mt-6 bg-brand-light border border-brand-border text-brand-navy hover:text-brand-teal hover:border-brand-teal px-6 py-2 rounded-xl font-bold transition-all text-sm">Unggah Foto</a>
                                 </div>
-                                <button class="bg-brand-teal/10 text-brand-teal px-4 py-2 rounded-lg font-bold text-sm hover:bg-brand-teal hover:text-white transition-colors">Upload Foto</button>
-                            </div>
-                            -->
+                            @else
+                                <div class="space-y-4">
+                                    @foreach($recentUploads as $upload)
+                                        <div class="border border-brand-border rounded-xl p-4 flex items-center justify-between hover:border-brand-teal transition-colors group cursor-pointer">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden border border-brand-border flex-shrink-0">
+                                                    <img src="{{ asset('storage/' . ($upload->watermark_path ?? $upload->original_path)) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=100'" class="w-full h-full object-cover">
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-bold text-brand-navy group-hover:text-brand-teal transition-colors">Foto #{{ $upload->id }}</h4>
+                                                    <p class="text-xs text-brand-muted mt-1 flex items-center">
+                                                        <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                                        {{ $upload->event->name ?? 'Unknown Event' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <span class="text-xs font-bold text-brand-muted">{{ $upload->created_at->diffForHumans() }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -302,14 +305,34 @@
                                 <h2 class="text-xl font-bold text-brand-navy tracking-tight">Penjualan Terbaru</h2>
                             </div>
 
-                            <!-- Empty State for Sales -->
-                            <div class="text-center py-10 relative z-10">
-                                <div class="inline-block p-4 rounded-full bg-brand-light text-brand-muted mb-3">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            @if($recentSales->isEmpty())
+                                <!-- Empty State for Sales -->
+                                <div class="text-center py-10 relative z-10">
+                                    <div class="inline-block p-4 rounded-full bg-brand-light text-brand-muted mb-3">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                    </div>
+                                    <h3 class="text-sm font-bold text-brand-navy">Belum ada penjualan</h3>
+                                    <p class="text-xs text-brand-muted mt-1">Unggah foto Anda untuk mulai mendapatkan penghasilan.</p>
                                 </div>
-                                <h3 class="text-sm font-bold text-brand-navy">Belum ada penjualan</h3>
-                                <p class="text-xs text-brand-muted mt-1">Unggah foto Anda untuk mulai mendapatkan penghasilan.</p>
-                            </div>
+                            @else
+                                <div class="space-y-4 relative z-10">
+                                    @foreach($recentSales as $sale)
+                                        <div class="flex items-center gap-3 border-b border-brand-border pb-3 last:border-0 last:pb-0">
+                                            <div class="w-10 h-10 rounded-full bg-brand-navy text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
+                                                {{ substr($sale->user->name ?? 'P', 0, 1) }}
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-bold text-brand-navy truncate">{{ $sale->user->name ?? 'Pelari' }}</p>
+                                                <p class="text-xs text-brand-muted truncate">{{ $sale->photo->event->name ?? 'Unknown Event' }} • {{ $sale->created_at->diffForHumans() }}</p>
+                                            </div>
+                                            <div class="text-right flex-shrink-0">
+                                                <p class="text-sm font-black text-brand-teal">+Rp{{ number_format($sale->photo->price ?? 25000, 0, ',', '.') }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <a href="{{ route('fotografer.earnings') }}" class="block text-center mt-4 text-xs font-bold text-brand-teal hover:underline">Lihat Riwayat Pendapatan</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
