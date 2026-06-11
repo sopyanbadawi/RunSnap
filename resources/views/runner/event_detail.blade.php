@@ -74,7 +74,7 @@
                     <!-- Header Search -->
                     <div class="hidden md:flex items-center bg-brand-light border border-brand-border rounded-full px-4 py-2 w-96 focus-within:border-brand-teal focus-within:ring-2 focus-within:ring-brand-teal/20 transition-all">
                         <svg class="w-4 h-4 text-brand-muted mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" class="bg-transparent border-none focus:outline-none w-full text-sm font-medium text-brand-navy" placeholder="Cari nama event lari...">
+                        <input type="text" class="bg-transparent border-none focus:outline-none w-full text-sm font-medium text-brand-navy" placeholder="Cari nama acara lari...">
                     </div>
                 </div>
 

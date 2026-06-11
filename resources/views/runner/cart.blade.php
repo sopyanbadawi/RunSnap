@@ -64,7 +64,7 @@
                     </a>
                     <a href="/runner/events" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        Cari Event
+                        Cari Acara
                     </a>
                     <a href="/runner/gallery" class="flex items-center px-4 py-3 rounded-xl text-brand-muted hover:bg-brand-light hover:text-brand-navy transition-all font-semibold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -149,7 +149,7 @@
                             <div class="flex-1 w-full">
                                 <div class="flex justify-between items-start">
                                     <div>
-                                        <h3 class="font-bold text-brand-navy text-lg leading-tight">{{ $photo->event->name ?? 'Event Lari' }}</h3>
+                                        <h3 class="font-bold text-brand-navy text-lg leading-tight">{{ $photo->event->name ?? 'Acara Lari' }}</h3>
                                         <p class="text-xs font-bold text-brand-teal mt-1 flex items-center">
                                             <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
                                             Fotografer: BudiSnap
@@ -174,7 +174,7 @@
                         @empty
                         <div class="text-center py-10 bg-white border border-brand-border rounded-2xl shadow-sm">
                             <p class="text-brand-muted font-medium">Keranjang belanja Anda masih kosong.</p>
-                            <a href="/runner/events" class="inline-block mt-3 text-brand-teal font-bold hover:underline">Cari Foto Event</a>
+                            <a href="/runner/events" class="inline-block mt-3 text-brand-teal font-bold hover:underline">Cari Foto Acara</a>
                         </div>
                         @endforelse
 

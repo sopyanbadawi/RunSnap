@@ -245,7 +245,7 @@
                                         </div>
                                     </td>
                                     <td class="py-4 px-6">
-                                        <p class="font-semibold text-brand-body text-sm">{{ $purchase->photo->event->name ?? 'Unknown Event' }}</p>
+                                        <p class="font-semibold text-brand-body text-sm">{{ $purchase->photo->event->name ?? 'Acara Tidak Diketahui' }}</p>
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex items-center gap-2">

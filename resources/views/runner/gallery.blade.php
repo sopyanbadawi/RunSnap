@@ -135,7 +135,7 @@
                         <img src="{{ asset('storage/' . $purchase->photo->original_path) }}" onerror="this.src='https://images.unsplash.com/photo-1552674605-15c3705922e6?auto=format&fit=crop&q=80&w=600'" class="w-full h-auto object-cover" alt="My Photo">
                         
                         <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                            <h4 class="text-white font-bold text-sm mb-1">{{ $purchase->photo->event->name ?? 'Event Lari' }}</h4>
+                            <h4 class="text-white font-bold text-sm mb-1">{{ $purchase->photo->event->name ?? 'Acara Lari' }}</h4>
                             <div class="flex gap-2 mt-2">
                                 <a href="{{ asset('storage/' . $purchase->photo->original_path) }}" download class="flex-1 bg-brand-teal text-white text-xs font-bold py-2 rounded-lg hover:bg-brand-tealHover transition-colors flex justify-center items-center gap-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Unduh HD

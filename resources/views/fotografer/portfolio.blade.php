@@ -221,7 +221,7 @@
                             </div>
                             <div class="flex-1">
                                 <div class="flex items-center flex-wrap gap-2">
-                                    <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Event Tidak Diketahui' }}</h2>
+                                    <h2 class="text-xl font-black text-brand-navy">{{ $photos->first()->event->name ?? 'Acara Tidak Diketahui' }}</h2>
                                     @php $event = $photos->first()->event; @endphp
                                     @if($event)
                                         @if($event->is_published === 'true')
@@ -243,7 +243,7 @@
                                 <div class="mt-3 bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl flex items-start gap-2 shadow-sm max-w-xl">
                                     <svg class="w-5 h-5 shrink-0 mt-0.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     <div>
-                                        <p class="font-black mb-0.5">Event Ditolak Admin</p>
+                                        <p class="font-black mb-0.5">Acara Ditolak Admin</p>
                                         <p class="text-red-600 leading-relaxed">{{ $event->rejection_reason }}</p>
                                     </div>
                                 </div>
