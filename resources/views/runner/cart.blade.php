@@ -90,10 +90,13 @@
                 </div>
 
                 <div class="flex items-center space-x-3 sm:space-x-5">
+                    @php $cartCount = count(session('cart', [])); @endphp
                     <!-- Cart/Purchases -->
                     <a href="/runner/cart" class="relative p-2 text-brand-teal bg-brand-teal/10 rounded-xl transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        <span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-brand-orange text-white text-[10px] font-bold rounded-full border-2 border-white shadow-sm">2</span>
+                        @if($cartCount > 0)
+                        <span class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-brand-orange text-white text-[10px] font-bold rounded-full border-2 border-white shadow-sm">{{ $cartCount }}</span>
+                        @endif
                     </a>
 
                     <!-- Profile Dropdown CSS Based -->
