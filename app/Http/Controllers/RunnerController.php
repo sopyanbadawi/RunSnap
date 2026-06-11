@@ -39,14 +39,36 @@ class RunnerController extends Controller
     {
         $query = Event::where('is_published', 'true');
         
-        // Contoh implementasi filter sederhana
+        if ($request->filled('q')) {
+            $query->where('name', 'LIKE', '%' . $request->q . '%');
+        }
+
         if ($request->filled('lokasi') && $request->lokasi !== 'Semua Lokasi') {
             $query->where('lokasi', 'LIKE', '%' . $request->lokasi . '%');
         }
 
-        $events = $query->orderBy('tanggal', 'desc')->paginate(8);
+        if ($request->filled('waktu') && $request->waktu !== 'Kapan Saja') {
+            if ($request->waktu === 'Hari Ini') {
+                $query->whereDate('tanggal', now()->toDateString());
+            } elseif ($request->waktu === 'Minggu Ini') {
+                $query->whereBetween('tanggal', [now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString()]);
+            } elseif ($request->waktu === 'Tahun Ini') {
+                $query->whereYear('tanggal', now()->year);
+            }
+        }
 
-        return view('runner.events', compact('events'));
+        $events = $query->orderBy('tanggal', 'desc')->paginate(8)->withQueryString();
+
+        $availableLocations = Event::where('is_published', 'true')
+            ->whereNotNull('lokasi')
+            ->where('lokasi', '!=', '')
+            ->select('lokasi')
+            ->distinct()
+            ->pluck('lokasi')
+            ->sort()
+            ->values();
+
+        return view('runner.events', compact('events', 'availableLocations'));
     }
 
     public function show($id)

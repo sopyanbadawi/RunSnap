@@ -26,7 +26,7 @@
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-brand-light text-brand-body font-sans antialiased" x-data="{ sidebarOpen: false, profileDropdown: false }">
+<body class="bg-brand-light text-brand-body font-sans antialiased" x-data="{ sidebarOpen: false, profileDropdown: false, q: '{{ request('q') }}', lokasi: '{{ request('lokasi', 'Semua Lokasi') }}', waktu: '{{ request('waktu', 'Kapan Saja') }}', applyFilter() { window.location.href = '/runner/events?q=' + encodeURIComponent(this.q) + '&lokasi=' + encodeURIComponent(this.lokasi) + '&waktu=' + encodeURIComponent(this.waktu); } }">
 
     <div class="flex h-screen overflow-hidden">
         
@@ -74,7 +74,7 @@
                     <!-- Header Search -->
                     <div class="hidden md:flex items-center bg-brand-light border border-brand-border rounded-full px-4 py-2 w-96 focus-within:border-brand-teal focus-within:ring-2 focus-within:ring-brand-teal/20 transition-all">
                         <svg class="w-4 h-4 text-brand-muted mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" class="bg-transparent border-none focus:outline-none w-full text-sm font-medium text-brand-navy" placeholder="Cari nama event lari...">
+                        <input x-model="q" @keydown.enter="applyFilter()" type="text" class="bg-transparent border-none focus:outline-none w-full text-sm font-medium text-brand-navy" placeholder="Cari nama event lari...">
                     </div>
                 </div>
 
@@ -126,16 +126,17 @@
                     </div>
                     
                     <div class="flex flex-wrap gap-3 w-full md:w-auto">
-                        <select class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal">
+                        <select x-model="lokasi" @change="applyFilter()" class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal cursor-pointer">
                             <option>Semua Lokasi</option>
-                            <option>Jakarta</option>
-                            <option>Bali</option>
-                            <option>Jawa Barat</option>
+                            @foreach($availableLocations as $loc)
+                            <option value="{{ $loc }}">{{ $loc }}</option>
+                            @endforeach
                         </select>
-                        <select class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal">
+                        <select x-model="waktu" @change="applyFilter()" class="bg-white border border-brand-border text-sm font-bold text-brand-navy rounded-xl px-4 py-2.5 shadow-sm focus:outline-none focus:border-brand-teal cursor-pointer">
                             <option>Kapan Saja</option>
-                            <option>Bulan Ini</option>
-                            <option>Selesai</option>
+                            <option>Hari Ini</option>
+                            <option>Minggu Ini</option>
+                            <option>Tahun Ini</option>
                         </select>
                     </div>
                 </div>
