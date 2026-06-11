@@ -107,26 +107,33 @@
 
                 <div class="flex items-center space-x-4">
                     <!-- Notification -->
-                    <div class="relative group pb-4 -mb-4 mr-2" x-data="{ hasUnread: true }">
+                    @php
+                        $navMyPhotoIds = \App\Models\Photo::where('fotografer_id', auth()->id())->pluck('id');
+                        $navRecentSales = \App\Models\PurchasedPhoto::whereIn('photo_id', $navMyPhotoIds)
+                            ->whereHas('transaction', function($q) {
+                                $q->where('status', 'completed');
+                            })
+                            ->with('photo.event')
+                            ->orderBy('created_at', 'desc')
+                            ->take(3)
+                            ->get();
+                    @endphp
+                    <div class="relative group pb-4 -mb-4 mr-2" x-data="{ 
+                            readCount: localStorage.getItem('fg_notif_count_{{ auth()->id() }}') || 0,
+                            currentCount: {{ $navRecentSales->count() }},
+                            get hasUnread() { return this.currentCount > 0 && this.currentCount != this.readCount; },
+                            markRead() { this.readCount = this.currentCount; localStorage.setItem('fg_notif_count_{{ auth()->id() }}', this.currentCount); }
+                        }">
                         <button class="relative p-2 text-brand-muted hover:text-brand-teal transition-colors focus:outline-none cursor-pointer">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                            <span x-show="hasUnread" class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white"></span>
+                            <span x-show="hasUnread" style="display: none;" class="absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full border-2 border-white"></span>
                         </button>
                     
                         <div class="absolute right-0 top-full mt-1 w-80 bg-white rounded-xl shadow-lg border border-brand-border z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100 overflow-hidden">
                             <div class="p-4 border-b border-brand-border flex justify-between items-center bg-brand-light">
                                 <h3 class="font-bold text-brand-navy text-sm">Notifikasi</h3>
-                                <button @click="hasUnread = false" class="text-xs text-brand-teal font-bold hover:underline">Tandai dibaca</button>
+                                <button @click="markRead()" class="text-xs text-brand-teal font-bold hover:underline">Tandai dibaca</button>
                             </div>
-                            
-                            @php
-                                $navMyPhotoIds = \App\Models\Photo::where('fotografer_id', auth()->id())->pluck('id');
-                                $navRecentSales = \App\Models\PurchasedPhoto::whereIn('photo_id', $navMyPhotoIds)
-                                    ->with('photo.event')
-                                    ->orderBy('created_at', 'desc')
-                                    ->take(3)
-                                    ->get();
-                            @endphp
                             <div class="max-h-80 overflow-y-auto">
                                 @forelse($navRecentSales as $navSale)
                                 <a href="{{ route('fotografer.earnings') }}" class="block p-4 border-b border-brand-border hover:bg-brand-light transition-colors bg-white">
