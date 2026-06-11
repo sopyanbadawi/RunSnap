@@ -156,7 +156,7 @@
                                     </td>
                                     <td class="p-5 text-right">
                                         @if($trx->status === 'completed')
-                                        <button class="text-brand-teal font-bold text-sm hover:underline">Lihat Keuntungan</button>
+                                        <a href="{{ route('runner.gallery') }}" class="text-brand-teal font-bold text-sm hover:underline">Lihat Galeri</a>
                                         @elseif($trx->status === 'pending')
                                         <button class="bg-brand-navy text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#152A50] transition-colors">Bayar Sekarang</button>
                                         @else

@@ -176,13 +176,86 @@ class RunnerController extends Controller
         // Format: session(['cart' => [photo_id_1 => true, photo_id_2 => true]])
         $cart = session()->get('cart', []);
         
-        $photos = Photo::with('event')->whereIn('id', array_keys($cart))->get();
+        $photos = Photo::with('event', 'fotografer')->whereIn('id', array_keys($cart))->get();
         
         $subtotal = $photos->sum('price');
         $serviceFee = count($cart) > 0 ? 2500 : 0;
         $total = $subtotal + $serviceFee;
 
         return view('runner.cart', compact('photos', 'subtotal', 'serviceFee', 'total'));
+    }
+
+    public function addToCart($id)
+    {
+        $photo = Photo::findOrFail($id);
+        $user = auth()->user();
+
+        // Cek apakah sudah pernah dibeli
+        $alreadyPurchased = PurchasedPhoto::where('user_id', $user->id)
+            ->where('photo_id', $photo->id)
+            ->whereHas('transaction', function($q) {
+                $q->where('status', 'completed');
+            })
+            ->exists();
+
+        if ($alreadyPurchased) {
+            return back()->with('error', 'Anda sudah membeli foto ini.');
+        }
+
+        $cart = session()->get('cart', []);
+        $cart[$photo->id] = true;
+        session()->put('cart', $cart);
+
+        return back()->with('success', 'Foto ditambahkan ke keranjang!');
+    }
+
+    public function removeFromCart($id)
+    {
+        $cart = session()->get('cart', []);
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
+
+        return back()->with('success', 'Foto dihapus dari keranjang.');
+    }
+
+    public function checkout()
+    {
+        $cart = session()->get('cart', []);
+        if (empty($cart)) {
+            return back()->with('error', 'Keranjang Anda kosong.');
+        }
+
+        $user = auth()->user();
+        $photos = Photo::whereIn('id', array_keys($cart))->get();
+        
+        $subtotal = $photos->sum('price');
+        $serviceFee = 2500;
+        $total = $subtotal + $serviceFee;
+
+        // Simulasi Pembayaran Berhasil (Tanpa Payment Gateway)
+        $transaction = Transaction::create([
+            'user_id' => $user->id,
+            'external_id' => 'TX-' . strtoupper(Str::random(10)),
+            'total_price' => $total,
+            'status' => 'completed', // Langsung dianggap berhasil
+        ]);
+
+        foreach ($photos as $photo) {
+            // Cegah duplikasi jika user melakukan checkout ganda (race condition)
+            PurchasedPhoto::firstOrCreate([
+                'user_id' => $user->id,
+                'photo_id' => $photo->id,
+            ], [
+                'transaction_id' => $transaction->id,
+            ]);
+        }
+
+        // Kosongkan keranjang
+        session()->forget('cart');
+
+        return redirect()->route('runner.gallery')->with('success', 'Pembayaran berhasil! Foto telah masuk ke galeri Anda.');
     }
 
     public function profile()

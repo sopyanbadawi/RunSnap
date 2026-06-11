@@ -13,10 +13,15 @@ class OverviewStats extends StatsOverviewWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('TOTAL PENDAPATAN', 'Rp ' . number_format(Transaction::where('status', 'success')->sum('total_price'), 0, ',', '.'))
-                ->description('Total pendapatan sukses')
+            Stat::make('TOTAL PENDAPATAN', 'Rp ' . number_format(Transaction::where('status', 'completed')->sum('total_price'), 0, ',', '.'))
+                ->description('Total uang kotor masuk')
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
+
+            Stat::make('KEUNTUNGAN BERSIH', 'Rp ' . number_format(Transaction::where('status', 'completed')->count() * 2500, 0, ',', '.'))
+                ->description('Dari biaya layanan')
+                ->descriptionIcon('heroicon-m-wallet')
+                ->color('warning'),
 
             Stat::make('TOTAL RUNNERS', User::where('role', 'runner')->count() . ' User')
                 ->description('Pelari terdaftar')

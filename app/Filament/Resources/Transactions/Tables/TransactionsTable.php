@@ -34,11 +34,19 @@ class TransactionsTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->colors(fn (string $state): string => match ($state) {
-                         'Berhasil' => 'success',
-                         'Proses' => 'warning',
+                    ->color(fn (string $state): string => match ($state) {
+                         'completed' => 'success',
+                         'pending' => 'warning',
                          'failed' => 'danger',
+                         'expired' => 'danger',
                         default => 'primary',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                         'completed' => 'Berhasil',
+                         'pending' => 'Proses',
+                         'failed' => 'Gagal',
+                         'expired' => 'Kedaluwarsa',
+                        default => ucfirst($state),
                     }),
                 TextColumn::make('created_at')
                     ->dateTime()

@@ -6,42 +6,36 @@ use Filament\Widgets\ChartWidget;
 use App\Models\Transaction;
 use Carbon\Carbon;
 
-class TransactionChart extends ChartWidget
+class AdminProfitChart extends ChartWidget
 {
-    protected ?string $heading = 'Grafik Penjualan Foto';
+    protected ?string $heading = 'Grafik Keuntungan Bersih (Biaya Layanan)';
+    protected static ?int $sort = 3;
 
     protected function getData(): array
     {
         $activeFilter = $this->filter ?? 'month';
 
-        // Menyiapkan kontainer data kosong
         $labels = [];
         $data = [];
 
         switch ($activeFilter) {
             case 'today':
-                // 📅 MODE PER HARI (Berdasarkan Jam)
                 $labels = ['00:00', '06:00', '12:00', '18:00', '23:59'];
-                
-                // Menarik data transaksi real-time per jam hari ini
                 $data = [
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today(), Carbon::today()->addHours(6)])->sum('total_price'),
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(6), Carbon::today()->addHours(12)])->sum('total_price'),
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(12), Carbon::today()->addHours(18)])->sum('total_price'),
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(18), Carbon::today()->endOfDay()])->sum('total_price'),
+                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today(), Carbon::today()->addHours(6)])->count() * 2500,
+                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(6), Carbon::today()->addHours(12)])->count() * 2500,
+                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(12), Carbon::today()->addHours(18)])->count() * 2500,
+                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(18), Carbon::today()->endOfDay()])->count() * 2500,
                 ];
                 break;
 
             case 'week':
-                // 📅 MODE PER MINGGU (Berdasarkan Nama Hari)
                 $labels = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-                
-                // Melakukan looping untuk mengambil pendapatan 7 hari ke belakang di minggu ini
                 for ($i = 6; $i >= 0; $i--) {
                     $date = Carbon::now()->startOfWeek()->addDays(6 - $i);
                     $data[] = Transaction::where('status', 'completed')
                         ->whereDate('created_at', $date)
-                        ->sum('total_price');
+                        ->count() * 2500;
                 }
                 break;
 
@@ -53,7 +47,7 @@ class TransactionChart extends ChartWidget
                     $data[] = Transaction::where('status', 'completed')
                         ->whereMonth('created_at', $month->month)
                         ->whereYear('created_at', $month->year)
-                        ->sum('total_price');
+                        ->count() * 2500;
                 }
                 break;
         }
@@ -61,12 +55,12 @@ class TransactionChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Tren Penjualan Foto (Rupiah)',
+                    'label' => 'Keuntungan Bersih Admin (Rp)',
                     'data' => $data,
                     'fill' => 'start',
-                    'backgroundColor' => 'rgba(34, 197, 94, 0.2)', // Warna hijau transparan agar senada dengan sukses
-                    'borderColor' => 'rgb(34, 197, 94)', // Warna hijau solid
-                    'tension' => 0.3, // Membuat lengkungan garis grafik menjadi halus/smooth
+                    'backgroundColor' => 'rgba(255, 106, 61, 0.2)', // Warna orange brand
+                    'borderColor' => 'rgb(255, 106, 61)',
+                    'tension' => 0.3,
                 ],
             ],
             'labels' => $labels,

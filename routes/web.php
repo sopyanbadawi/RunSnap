@@ -71,6 +71,9 @@ Route::middleware([
             Route::get('/profile', [RunnerController::class, 'profile'])->name('profile');
             Route::get('/settings', [RunnerController::class, 'settings'])->name('settings');
             Route::get('/cart', [RunnerController::class, 'cart'])->name('cart');
+            Route::post('/cart/add/{id}', [RunnerController::class, 'addToCart'])->name('cart.add');
+            Route::post('/cart/remove/{id}', [RunnerController::class, 'removeFromCart'])->name('cart.remove');
+            Route::post('/cart/checkout', [RunnerController::class, 'checkout'])->name('cart.checkout');
             Route::get('/photos/{id}/download-wm', [RunnerController::class, 'downloadWatermark'])->name('photos.download-wm');
         });
     });
