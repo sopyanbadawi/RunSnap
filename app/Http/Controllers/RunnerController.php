@@ -168,6 +168,42 @@ class RunnerController extends Controller
         return $dotProduct / (sqrt($normA) * sqrt($normB));
     }
 
+    public function downloadGalleryZip()
+    {
+        $user = auth()->user();
+        
+        $purchasedPhotos = PurchasedPhoto::with('photo')
+            ->whereHas('transaction', function($q) {
+                $q->where('status', 'completed');
+            })
+            ->where('user_id', $user->id)
+            ->get();
+
+        if ($purchasedPhotos->isEmpty()) {
+            return back()->with('error', 'Tidak ada foto untuk diunduh.');
+        }
+
+        $zip = new \ZipArchive();
+        $zipFileName = 'RunSnap_Gallery_' . $user->id . '_' . time() . '.zip';
+        $zipPath = storage_path('app/public/' . $zipFileName);
+
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($purchasedPhotos as $purchase) {
+                if ($purchase->photo && $purchase->photo->original_path) {
+                    $filePath = Storage::disk('public')->path($purchase->photo->original_path);
+                    if (file_exists($filePath)) {
+                        $zip->addFile($filePath, basename($filePath));
+                    }
+                }
+            }
+            $zip->close();
+        } else {
+            return back()->with('error', 'Gagal membuat file ZIP.');
+        }
+
+        return response()->download($zipPath)->deleteFileAfterSend(true);
+    }
+
     public function gallery()
     {
         $user = auth()->user();

@@ -69,6 +69,7 @@ Route::middleware([
             Route::get('/events', [RunnerController::class, 'events'])->name('events');
             Route::get('/events/{id}', [RunnerController::class, 'show'])->name('events.show');
             Route::get('/gallery', [RunnerController::class, 'gallery'])->name('gallery');
+            Route::get('/gallery/download-zip', [RunnerController::class, 'downloadGalleryZip'])->name('gallery.download-zip');
             Route::get('/transactions', [RunnerController::class, 'transactions'])->name('transactions');
             Route::get('/profile', [RunnerController::class, 'profile'])->name('profile');
             Route::get('/settings', [RunnerController::class, 'settings'])->name('settings');
