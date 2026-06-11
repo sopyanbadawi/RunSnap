@@ -271,7 +271,7 @@
                     </div>
                     
                     <div class="text-center mt-8">
-                        <button class="text-brand-muted hover:text-brand-teal font-bold text-sm transition-colors border-b-2 border-transparent hover:border-brand-teal pb-1">Tampilkan Lebih Banyak</button>
+                        <a href="{{ route('runner.gallery') }}" class="inline-block text-brand-muted hover:text-brand-teal font-bold text-sm transition-colors border-b-2 border-transparent hover:border-brand-teal pb-1">Tampilkan Lebih Banyak</a>
                     </div>
                 </div>
 

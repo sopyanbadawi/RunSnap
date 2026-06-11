@@ -41,6 +41,8 @@ class EventInfolist
                 ->schema([
                     ImageEntry::make('banner_image')
                         ->label('Banner Acara')
+                        ->height(250)
+                        ->extraImgAttributes(['class' => 'object-contain rounded-xl'])
                         ->state(function ($record) {
                             if (! $record->banner_image) {
                                 return null;
@@ -53,6 +55,7 @@ class EventInfolist
                         ->schema([
                             ImageEntry::make('watermark_path')
                                 ->label('Preview (Watermark)')
+                                ->extraImgAttributes(['style' => 'width: 100%; height: 150px; object-fit: cover; border-radius: 8px;'])
                                 ->state(function ($record) {
                                     if (!$record) return null;
                                     $path = \Illuminate\Support\Facades\Storage::disk('public')->exists($record->watermark_path)
@@ -62,6 +65,7 @@ class EventInfolist
                                 }),
                             ImageEntry::make('original_path')
                                 ->label('Foto Asli')
+                                ->extraImgAttributes(['style' => 'width: 100%; height: 150px; object-fit: cover; border-radius: 8px;'])
                                 ->state(function ($record) {
                                     if (!$record || !$record->original_path) {
                                         return null;
