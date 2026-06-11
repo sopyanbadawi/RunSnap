@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use App\Models\Transaction;
+use App\Models\PurchasedPhoto;
 use Carbon\Carbon;
 
 class AdminProfitChart extends ChartWidget
@@ -22,10 +23,10 @@ class AdminProfitChart extends ChartWidget
             case 'today':
                 $labels = ['00:00', '06:00', '12:00', '18:00', '23:59'];
                 $data = [
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today(), Carbon::today()->addHours(6)])->count() * 2500,
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(6), Carbon::today()->addHours(12)])->count() * 2500,
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(12), Carbon::today()->addHours(18)])->count() * 2500,
-                    Transaction::where('status', 'completed')->whereDate('created_at', Carbon::today())->whereBetween('created_at', [Carbon::today()->addHours(18), Carbon::today()->endOfDay()])->count() * 2500,
+                    PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed')->whereBetween('created_at', [Carbon::today(), Carbon::today()->addHours(6)]))->count() * 2500,
+                    PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed')->whereBetween('created_at', [Carbon::today()->addHours(6), Carbon::today()->addHours(12)]))->count() * 2500,
+                    PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed')->whereBetween('created_at', [Carbon::today()->addHours(12), Carbon::today()->addHours(18)]))->count() * 2500,
+                    PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed')->whereBetween('created_at', [Carbon::today()->addHours(18), Carbon::today()->endOfDay()]))->count() * 2500,
                 ];
                 break;
 
@@ -33,9 +34,7 @@ class AdminProfitChart extends ChartWidget
                 $labels = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
                 for ($i = 6; $i >= 0; $i--) {
                     $date = Carbon::now()->startOfWeek()->addDays(6 - $i);
-                    $data[] = Transaction::where('status', 'completed')
-                        ->whereDate('created_at', $date)
-                        ->count() * 2500;
+                    $data[] = PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed')->whereDate('created_at', $date))->count() * 2500;
                 }
                 break;
 
@@ -44,10 +43,7 @@ class AdminProfitChart extends ChartWidget
                 for ($i = 5; $i >= 0; $i--) {
                     $month = Carbon::now()->startOfMonth()->subMonths($i);
                     $labels[] = $month->translatedFormat('M Y');
-                    $data[] = Transaction::where('status', 'completed')
-                        ->whereMonth('created_at', $month->month)
-                        ->whereYear('created_at', $month->year)
-                        ->count() * 2500;
+                    $data[] = PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed')->whereMonth('created_at', $month->month)->whereYear('created_at', $month->year))->count() * 2500;
                 }
                 break;
         }

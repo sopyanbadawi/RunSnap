@@ -201,7 +201,7 @@ class RunnerController extends Controller
         $photos = Photo::with('event', 'fotografer')->whereIn('id', array_keys($cart))->get();
         
         $subtotal = $photos->sum('price');
-        $serviceFee = count($cart) > 0 ? 2500 : 0;
+        $serviceFee = count($cart) * 2500;
         $total = $subtotal + $serviceFee;
 
         return view('runner.cart', compact('photos', 'subtotal', 'serviceFee', 'total'));
@@ -253,7 +253,7 @@ class RunnerController extends Controller
         $photos = Photo::whereIn('id', array_keys($cart))->get();
         
         $subtotal = $photos->sum('price');
-        $serviceFee = 2500;
+        $serviceFee = count($cart) * 2500;
         $total = $subtotal + $serviceFee;
 
         // Simulasi Pembayaran Berhasil (Tanpa Payment Gateway)

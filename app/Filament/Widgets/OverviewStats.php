@@ -18,7 +18,7 @@ class OverviewStats extends StatsOverviewWidget
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
 
-            Stat::make('KEUNTUNGAN BERSIH', 'Rp ' . number_format(Transaction::where('status', 'completed')->count() * 2500, 0, ',', '.'))
+            Stat::make('KEUNTUNGAN BERSIH', 'Rp ' . number_format(\App\Models\PurchasedPhoto::whereHas('transaction', fn($q) => $q->where('status', 'completed'))->count() * 2500, 0, ',', '.'))
                 ->description('Dari biaya layanan')
                 ->descriptionIcon('heroicon-m-wallet')
                 ->color('warning'),
