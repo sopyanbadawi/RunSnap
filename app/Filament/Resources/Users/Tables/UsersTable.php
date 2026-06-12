@@ -19,14 +19,6 @@ class UsersTable
     {
         return $table
             ->columns([
-                IconColumn::make('is_blocked')
-                    ->label('Status Blokir')
-                    ->boolean()
-                    ->trueIcon('heroicon-o-x-circle')
-                    ->falseIcon('heroicon-o-check-circle')
-                    ->trueColor('danger')
-                    ->falseColor('success'),
-                    
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable(),

@@ -40,12 +40,6 @@ class UserForm
                     'admin' => 'Admin',
                 ])
                 ->required(),
-                
-            // Hapus tanda miring ganda (//) di bawah ini jika Anda jadi menggunakan fitur Blokir:
-            // Toggle::make('is_blocked')
-            //     ->label('Blokir Akun Pengguna')
-            //     ->onColor('danger')
-            //     ->offColor('success'),
         ];
     }
 }
